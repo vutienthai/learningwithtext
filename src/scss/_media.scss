@@ -1,0 +1,5 @@
+.media-logo {
+  @include media-breakpoint-down(md) {
+    transform: scale(0.7);
+  }
+}

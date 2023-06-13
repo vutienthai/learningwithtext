@@ -1,0 +1,33 @@
+@mixin drop-shadow($pixel) {
+  filter: drop-shadow($pixel $pixel 0px $black);
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-strong {
+  font-weight: bold;
+}
+
+.text-stroke-black {
+  -webkit-text-stroke: 1px $black;
+}
+
+.text-stroke-light-yellow {
+  -webkit-text-stroke: 1px $light-yellow;
+}
+
+.get-started-btn {
+  font-family: "Paytone One", sans-serif;
+  @include drop-shadow(4px);
+}
+
+.bi-star-fill,
+.bi-quote {
+  @include drop-shadow(2px);
+}

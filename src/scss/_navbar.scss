@@ -1,0 +1,36 @@
+nav {
+  .navbar-nav {
+    .nav-link {
+      color: $white;
+      &.active {
+        color: $white;
+      }
+    }
+  }
+
+  .btn {
+    filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.15));
+    font-weight: 500;
+    font-family: "Paytone One", sans-serif;
+  }
+
+  .web-name {
+    font-size: 3rem;
+    transform: rotate(-3deg);
+    color: $yellow-1;
+    text-shadow: 3px 3px $red-1;
+
+    &::before {
+      content: ".";
+      // color: $purple-1;
+      text-shadow: 8px 8px $red-1;
+    }
+  }
+
+  #toggle-btn {
+    filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.15));
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

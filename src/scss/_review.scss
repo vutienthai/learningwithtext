@@ -1,0 +1,55 @@
+#review-section {
+  h1 {
+    font-size: 3rem;
+  }
+}
+#reviews-container {
+  background: radial-gradient(
+      7px 7px at 50% 50%,
+      rgba(0, 0, 0, 0.1) 50%,
+      transparent 50%
+    )
+    top / 35px 35px repeat;
+}
+
+#reviews {
+  .title-card {
+    max-width: 500px;
+    @include media-breakpoint-down(md) {
+      max-width: 320px;
+    }
+    filter: drop-shadow(7px 5px 0px rgba(0, 0, 0, 1));
+    @include media-breakpoint-down(md) {
+      transform: scale(0.5);
+    }
+  }
+
+  // .intro-title {
+  //   @include transition(0.5s);
+  //   transform: translate(128px, 18px);
+  // }
+
+  .intro-title {
+    @include transition(0.5s);
+    transform: rotate(-3deg) translate(-0px, 80px) scale(0.8);
+    &.active {
+      transform: rotate(-3deg) translate(-0px, 80px) scale(1);
+    }
+  }
+
+  .data-title {
+    @include transition(0.5s);
+    transform: rotate(3deg) scale(0.8);
+    &.active {
+      transform: rotate(3deg) scale(1);
+    }
+  }
+
+  .web-title {
+    @include transition(0.5s);
+    transform: translate(0px, -80px) rotate(-3deg) scale(0.8);
+    &.active {
+      transform: translate(0px, -80px) rotate(-3deg) scale(1);
+    }
+  }
+}

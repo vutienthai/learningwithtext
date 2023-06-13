@@ -1,0 +1,61 @@
+@mixin drop-shadow($pixel) {
+  filter: drop-shadow($pixel $pixel 0px $black);
+}
+
+#banner {
+  min-height: 50vh;
+  background: radial-gradient(
+      7px 7px at 50% 50%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 50%
+    )
+    top / 35px 35px repeat;
+
+  #get-started {
+    @include drop-shadow(5px);
+    #review-1 {
+      @include drop-shadow(3px);
+      transform: translate(50%, -50%);
+
+      @include media-breakpoint-down(md) {
+        transform: translate(-50%, 190%) scale(0.8);
+      }
+
+      .quote-icon {
+        transform: translate(-50%, -50%);
+      }
+    }
+    #review-2 {
+      @include drop-shadow(3px);
+      transform: translate(-50%, 50%);
+
+      @include media-breakpoint-down(md) {
+        transform: translate(40%, 150%) scale(0.8);
+      }
+
+      .quote-icon {
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  #bezier-icon {
+    transform: translate(-50%, 50%);
+  }
+
+  #bookmark-icon {
+    transform: translate(-50%, 50%);
+
+    @include media-breakpoint-down(md) {
+      transform: translate(-50%, 250%) scale(0.5);
+    }
+  }
+
+  #award-icon {
+    transform: translate(-35%, 35%);
+
+    @include media-breakpoint-down(md) {
+      transform: translate(20%, 35%) scale(0.5);
+    }
+  }
+}

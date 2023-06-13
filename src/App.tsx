@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import { Banner, Login, Media, Navbar, Review } from "./components";
+import { useEffect, useState } from "react";
+import MainApp from "./components/MainApp";
+import { auth } from "./services/firebaseConfig";
+import { Auth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>("TUna");
+  const [userEmail, setUserEmail] = useState<string>("rivertuna@gmail.com");
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (authResult: any) => {
+      console.log("authResult", authResult);
+      authResult && setLoggedIn(authResult.emailVerified);
+      authResult && setUserEmail(authResult.email);
+      authResult && setUserName(authResult.displayName);
+    });
+  });
+
+  const HomePage = () => {
+    return (
+      <>
+        <Navbar />
+        <Banner loggedIn={loggedIn} />
+        <Media />
+        <Review loggedIn={loggedIn} />
+        {/* <div className="fluid-container min-vh-100"></div> */}
+      </>
+    );
+  };
+  const LoginPage = () => {
+    return (
+      <>
+        <Navbar />
+        <Login auth={auth} loggedIn={loggedIn} />
+        <Media />
+
+        {/* <div className="fluid-container min-vh-100"></div> */}
+      </>
+    );
+  };
+  const MainAppPage = () => {
+    return (
+      <>
+        <Navbar />
+        <MainApp
+          userName={userName}
+          userEmail={userEmail}
+          loggedIn={loggedIn}
+        />
+
+        {/* <div className="fluid-container min-vh-100"></div> */}
+      </>
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/app" element={loggedIn ? <MainAppPage /> : <LoginPage />} />
+      {/* <Route path="/berries" element={<OurBerriesPage />} />
+      <Route path="/products" element={<OurProductsPage />} />
+      <Route path="/sites" element={<OurSitesPage />} />
+      <Route path="/work-with-us" element={<WorkWithUsPage />} />
+      <Route path="/new-webapp" element={<Webapp />} />
+      <Route path="/webapp2" element={<Webapp />} />
+      <Route path="*" element={<NotFoundPage />} /> */}
+    </Routes>
+  );
 }
 
-export default App
+export default App;
