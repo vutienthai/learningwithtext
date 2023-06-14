@@ -9,7 +9,7 @@ nav {
   }
 
   .btn {
-    filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.15));
+    // filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.1));
     font-weight: 500;
     font-family: "Paytone One", sans-serif;
   }
@@ -32,5 +32,9 @@ nav {
     &:focus {
       box-shadow: none;
     }
+  }
+
+  a {
+    width: fit-content;
   }
 }

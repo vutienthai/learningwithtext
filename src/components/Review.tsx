@@ -9,7 +9,7 @@ const Review = (props: Props) => {
     <section id="review-section">
       <div className="d-flex flex-column flex-xl-row align-items-center justify-content-center bg-light-yellow rounded-5 mx-3 mb-3 mx-lg-5 p-3 p-lg-5">
         <div className="col-xl-5">
-          <div className="d-flex flex-column">
+          <div className="d-flex flex-column ">
             <h1 className="text-red-1 text-uppercase text-stroke-black">
               Lorem ipsum dolor sit amet consectetur.
             </h1>

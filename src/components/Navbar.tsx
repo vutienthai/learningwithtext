@@ -1,9 +1,24 @@
 import { useState } from "react";
 // import { Link } from "react-router-dom";
-import { CloseMenuIcon, EmailIcon, OpenMenuIcon } from "../utilities/svg";
+import {
+  CloseMenuIcon,
+  EmailIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  LogoutIcon,
+  OpenMenuIcon,
+} from "../utilities/svg";
 import { Link } from "react-router-dom";
+import { Auth } from "firebase/auth";
 
-const Navbar = () => {
+type Props = {
+  auth: Auth;
+  loggedIn: boolean;
+  setLoggedIn: (value: boolean) => void;
+  userName: string;
+};
+
+const Navbar = (props: Props) => {
   const [menuExpanded, setMenuExpanded] = useState(false);
   return (
     <nav className="navbar navbar-expand-sm">
@@ -25,7 +40,7 @@ const Navbar = () => {
           {menuExpanded ? <CloseMenuIcon /> : <OpenMenuIcon />}
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <div className="w-100 d-flex flex-sm-row flex-column justify-content-between">
+          <div className="w-100 d-flex flex-sm-row flex-column align-items-end justify-content-between my-4 my-md-0">
             <ul className="navbar-nav">
               {/* <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="#">
@@ -38,10 +53,26 @@ const Navbar = () => {
                 </Link>
               </li> */}
             </ul>
-            <div>
-              <button className="btn btn-red-1 text-uppercase text-light-yellow rounded-5 border-black my-3 my-md-0 d-flex gap-2 align-items-center">
-                <EmailIcon /> Contact me
-              </button>
+            <div className="d-flex gap-3 justify-content-center align-items-center">
+              {/* <div className="text-center text-light-yellow text-uppercase">
+                Hi, {props.userName}
+              </div> */}
+              <div>
+                {props.loggedIn ? (
+                  <button
+                    className="btn btn-sm btn-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-1 align-items-center"
+                    onClick={() => {
+                      props.auth.signOut();
+                      props.setLoggedIn(false);
+                      console.log("auth.signOut");
+                    }}
+                  >
+                    <LogoutIcon size={16} /> Logout
+                  </button>
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
           </div>
         </div>
