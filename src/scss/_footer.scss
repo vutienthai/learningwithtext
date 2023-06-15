@@ -1,3 +1,8 @@
 #footer {
-  height: 30vh;
+  height: 50vh;
+
+  img {
+    max-width: 250px;
+    filter: drop-shadow(6px 6px 0px $light-yellow);
+  }
 }

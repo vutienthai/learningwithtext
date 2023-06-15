@@ -7,7 +7,7 @@ const Reviews = () => {
   const [webCardActive, setWebCardActive] = useState<boolean>(false);
 
   return (
-    <div id="reviews-container" className="">
+    <div id="reviews-container" className="w-100">
       <div
         id="reviews"
         className="d-flex flex-column align-items-center justify-content-center"

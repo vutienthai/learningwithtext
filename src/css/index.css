@@ -13232,7 +13232,11 @@ nav a {
 }
 
 #footer {
-  height: 30vh;
+  height: 50vh;
+}
+#footer img {
+  max-width: 250px;
+  filter: drop-shadow(6px 6px 0px #f9f4da);
 }
 
 #loader {

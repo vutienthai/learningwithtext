@@ -21,7 +21,7 @@ type Props = {
 const Navbar = (props: Props) => {
   const [menuExpanded, setMenuExpanded] = useState(false);
   return (
-    <nav className="navbar navbar-expand-sm">
+    <nav className="navbar">
       <div className="container">
         <Link className="navbar-brand h1 text-white" to="/">
           <div className="web-name text-yellow-1 d-inline">VB</div>
