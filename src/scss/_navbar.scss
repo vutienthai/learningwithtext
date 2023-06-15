@@ -9,7 +9,7 @@ nav {
   }
 
   .btn {
-    // filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.1));
+    filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15));
     font-weight: 500;
     font-family: "Paytone One", sans-serif;
   }
@@ -17,14 +17,19 @@ nav {
   .web-name {
     font-size: 3rem;
     transform: rotate(-3deg);
-    color: $yellow-1;
     text-shadow: 3px 3px $red-1;
+    font-weight: 700;
 
     &::before {
       content: ".";
       // color: $purple-1;
       text-shadow: 8px 8px $red-1;
     }
+  }
+
+  .user-name {
+    text-shadow: 2px 2px $light-yellow;
+    font-weight: 500;
   }
 
   #toggle-btn {

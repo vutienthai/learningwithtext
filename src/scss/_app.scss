@@ -13,4 +13,11 @@
       transparent 1px,
       transparent 30px
     );
+
+  .btn {
+    filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15));
+    font-weight: 500;
+    font-family: "Paytone One", sans-serif;
+    width: fit-content;
+  }
 }

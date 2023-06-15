@@ -5,7 +5,7 @@ const Footer = () => {
     <footer id="footer">
       <div className="d-flex align-items-center justify-content-center h-100">
         <div className="d-flex flex-column gap-2 align-items-center justify-content-center">
-          <h2 className="text-center text-light-yellow">Get Connected</h2>
+          <h2 className="text-center text-light-yellow">Let's Talk</h2>
           <div className="d-flex gap-2">
             <div>
               <a

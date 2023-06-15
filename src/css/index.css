@@ -13075,18 +13075,23 @@ nav .navbar-nav .nav-link.active {
   color: #fff;
 }
 nav .btn {
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15));
   font-weight: 500;
   font-family: "Paytone One", sans-serif;
 }
 nav .web-name {
   font-size: 3rem;
   transform: rotate(-3deg);
-  color: #fcba28;
   text-shadow: 3px 3px #ed203d;
+  font-weight: 700;
 }
 nav .web-name::before {
   content: ".";
   text-shadow: 8px 8px #ed203d;
+}
+nav .user-name {
+  text-shadow: 2px 2px #f9f4da;
+  font-weight: 500;
 }
 nav #toggle-btn {
   filter: drop-shadow(2px 2px 0px rgba(255, 255, 255, 0.15));
@@ -13217,6 +13222,13 @@ nav a {
 
 #main-app {
   background-image: repeating-linear-gradient(to right, #231f20, #231f20 1px, transparent 1px, transparent 30px), repeating-linear-gradient(to bottom, #231f20, #231f20 1px, transparent 1px, transparent 30px);
+}
+#main-app .btn {
+  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15));
+  font-weight: 500;
+  font-family: "Paytone One", sans-serif;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 #footer {

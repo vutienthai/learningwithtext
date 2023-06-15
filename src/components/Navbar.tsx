@@ -24,7 +24,7 @@ const Navbar = (props: Props) => {
     <nav className="navbar navbar-expand-sm">
       <div className="container">
         <Link className="navbar-brand h1 text-white" to="/">
-          <div className="web-name d-inline">VB</div>
+          <div className="web-name text-yellow-1 d-inline">VB</div>
         </Link>
         <button
           id="toggle-btn"
@@ -54,13 +54,13 @@ const Navbar = (props: Props) => {
               </li> */}
             </ul>
             <div className="d-flex gap-3 justify-content-center align-items-center">
-              {/* <div className="text-center text-light-yellow text-uppercase">
+              {/* <div className="fs-5 user-name text-center text-dark text-uppercase">
                 Hi, {props.userName}
               </div> */}
               <div>
                 {props.loggedIn ? (
                   <button
-                    className="btn btn-sm btn-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-1 align-items-center"
+                    className="btn btn-sm btn-outline-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-2 align-items-center px-3"
                     onClick={() => {
                       props.auth.signOut();
                       props.setLoggedIn(false);
