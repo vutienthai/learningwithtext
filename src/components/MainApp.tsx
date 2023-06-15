@@ -1,63 +1,74 @@
-import { onAuthStateChanged } from "firebase/auth";
-import firebase from "firebase/compat/app";
-import { useEffect, useState } from "react";
-import { GenerateIcon } from "../utilities/svg";
+import { EditIcon, GenerateIcon } from "../utilities/svg";
+import { SavedTexts } from ".";
 
 type Props = {
   userName: string;
   userEmail: string;
   loggedIn: boolean;
+  savedTexts: { title: string; text: string }[];
+  setSavedTexts: (texts: { title: string; text: string }[]) => void;
+  editMode: boolean;
+  setEditMode: (value: boolean) => void;
+  generatedText: string[];
+  setGeneratedText: (text: string[]) => void;
 };
 
 const MainApp = (props: Props) => {
-  console.log("props.loggedIn", props.loggedIn);
-  console.log("props.userName", props.userName);
-  console.log("props.userEmail", props.userEmail);
-
-  const [userInputSplit, setUserInputSplit] = useState<string[]>([]);
-
   const onClickWordHandler = (e: any) => {
     console.log(e.target);
   };
 
-  const generateHandler = (e: any) => {
-    const generatedUserInput = document.getElementById(
-      "generated-user-input"
-    ) as Element;
-    const generatedUserInputContainer = document.getElementById(
-      "generated-user-input-container"
-    ) as Element;
+  const generateHandler = () => {
     const userInput = document.getElementById("user-input") as HTMLInputElement;
-    const userInputContainer = document.getElementById(
-      "user-input-container"
+    const userInputTitle = document.getElementById(
+      "user-input-title"
     ) as HTMLInputElement;
     console.log(userInput.value);
 
     const userInputSplit = userInput.value.split(/\s+/);
-    setUserInputSplit(userInputSplit);
     console.log("userInputSplit", userInputSplit);
 
-    generatedUserInputContainer.classList.remove("d-none");
-    userInputContainer.classList.add("d-none");
+    props.setGeneratedText(userInputSplit);
+    props.setSavedTexts([
+      ...props.savedTexts,
+      { title: userInputTitle.value, text: userInput.value },
+    ]);
+    props.setEditMode(false);
+  };
+
+  const newTextHandler = () => {
+    props.setEditMode(true);
   };
 
   if (props.loggedIn) {
     return (
       <section id="main-app" className="bg-dark min-vh-100">
         <div className="row p-4">
-          <div className="col-12 col-lg-8">
-            <div id="user-input-container" className="d-flex flex-column gap-4">
+          <div className="col-12 col-lg-8 px-2 px-lg-5 my-4 my-lg-2">
+            <div
+              id="user-input-container"
+              className={`d-flex flex-column gap-4 ${
+                props.editMode ? "" : "d-none"
+              }`}
+            >
               <h2 className="text-light-yellow m-0">Please input your text:</h2>
-              <div className="">
+              <div className="d-flex flex-column justify-content-center align-items-center gap-2">
+                <input
+                  id="user-input-title"
+                  type="text"
+                  placeholder="Title"
+                  className="form-control rounded-4 border-0 px-3 px-md-5"
+                />
                 <textarea
                   id="user-input"
-                  className="form-control rounded-5 border-0 p-3 p-md-5"
+                  placeholder="Text"
+                  className="form-control rounded-4 border-0 p-3 p-md-5"
                   rows={15}
-                ></textarea>
+                />
               </div>
               <button
                 id="generate-btn"
-                className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-1"
+                className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
                 onClick={generateHandler}
               >
                 <GenerateIcon size={16} />
@@ -66,17 +77,30 @@ const MainApp = (props: Props) => {
             </div>
             <div
               id="generated-user-input-container"
-              className=" d-flex flex-column gap-4 d-none"
+              className={`d-flex flex-column gap-4 ${
+                props.editMode ? "d-none" : ""
+              }`}
             >
-              <h2 className="text-light-yellow m-0">Your text:</h2>
+              <div className="d-flex justify-content-between align-items-center">
+                <h2 className="text-light-yellow m-0">Your text:</h2>
+                <button
+                  id="new-text-btn"
+                  className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
+                  onClick={newTextHandler}
+                >
+                  <EditIcon size={16} />
+                  New Text
+                </button>
+              </div>
               <div className="">
                 <div
                   id="generated-user-input"
                   className="rounded-5 border-0 p-3 p-md-5 bg-light"
                 >
-                  {userInputSplit.map((word) => (
+                  {props.generatedText.map((word, index) => (
                     <>
                       <span
+                        key={index}
                         className={word}
                         data-word={word}
                         onClick={onClickWordHandler}
@@ -89,7 +113,13 @@ const MainApp = (props: Props) => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-4"></div>
+          <div className="col-12 col-lg-4 px-2 px-lg-5 my-4 my-lg-2">
+            <SavedTexts
+              savedTexts={props.savedTexts}
+              setSavedTexts={props.setSavedTexts}
+              setGeneratedText={props.setGeneratedText}
+            />
+          </div>
         </div>
       </section>
     );

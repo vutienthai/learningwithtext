@@ -1,15 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import { Banner, Login, Media, Navbar, Review } from "./components";
+import { Banner, Login, Media, Navbar, Review, Footer } from "./components";
 import { useEffect, useState } from "react";
 import MainApp from "./components/MainApp";
 import { auth } from "./services/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import Footer from "./components/Footer";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("TUna");
   const [userEmail, setUserEmail] = useState<string>("rivertuna@gmail.com");
+  const [savedTexts, setSavedTexts] = useState<
+    { title: string; text: string }[]
+  >([]);
+  const [generatedText, setGeneratedText] = useState<string[]>([]);
+  const [editMode, setEditMode] = useState<boolean>(true);
 
   useEffect(() => {
     onAuthStateChanged(auth, (authResult: any) => {
@@ -71,6 +75,12 @@ function App() {
           userName={userName}
           userEmail={userEmail}
           loggedIn={loggedIn}
+          savedTexts={savedTexts}
+          setSavedTexts={setSavedTexts}
+          editMode={editMode}
+          setEditMode={setEditMode}
+          generatedText={generatedText}
+          setGeneratedText={setGeneratedText}
         />
         <Footer />
       </>
