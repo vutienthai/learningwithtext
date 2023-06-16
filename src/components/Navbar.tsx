@@ -2,9 +2,8 @@ import { useState } from "react";
 // import { Link } from "react-router-dom";
 import {
   CloseMenuIcon,
-  EmailIcon,
-  GitHubIcon,
-  LinkedInIcon,
+  ChatIcon,
+  ChatWithHeartIcon,
   LogoutIcon,
   OpenMenuIcon,
 } from "../utilities/svg";
@@ -16,6 +15,7 @@ type Props = {
   loggedIn: boolean;
   setLoggedIn: (value: boolean) => void;
   userName: string;
+  lastSignInTime: string;
 };
 
 const Navbar = (props: Props) => {
@@ -28,7 +28,7 @@ const Navbar = (props: Props) => {
         </Link>
         <button
           id="toggle-btn"
-          className="navbar-toggler px-2 py-1 border-0"
+          className="navbar-toggler px-2 py-1 border-0 d-flex flex-row"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavDropdown"
@@ -37,7 +37,14 @@ const Navbar = (props: Props) => {
           aria-label="Toggle navigation"
           onClick={() => setMenuExpanded(!menuExpanded)}
         >
-          {menuExpanded ? <CloseMenuIcon /> : <OpenMenuIcon />}
+          {menuExpanded ? <CloseMenuIcon /> : <OpenMenuIcon />}{" "}
+          <div id="navbar-chat-icon" className="text-yellow-1">
+            {menuExpanded ? (
+              <ChatWithHeartIcon size={20} />
+            ) : (
+              <ChatIcon size={20} />
+            )}{" "}
+          </div>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <div className="w-100 d-flex flex-sm-row flex-column align-items-end justify-content-between my-4 my-md-0">
@@ -53,10 +60,32 @@ const Navbar = (props: Props) => {
                 </Link>
               </li> */}
             </ul>
-            <div className="d-flex gap-3 justify-content-center align-items-center">
+            <div className="d-flex flex-column gap-3 align-items-center justify-content-end">
               {/* <div className="fs-5 user-name text-center text-dark text-uppercase">
                 Hi, {props.userName}
               </div> */}
+
+              {props.loggedIn ? (
+                <div className="d-flex flex-column gap-3 justify-content-end">
+                  <div className="text-light-yellow">
+                    Welcome,{" "}
+                    <span className="text-uppercase text-strong text-green-1">
+                      {props.userName.split(" ")[0]}
+                    </span>
+                  </div>
+                  <div className="text-light-yellow">
+                    Haven't seen you since{" "}
+                    <span className="text-strong text-green-1">
+                      {props.lastSignInTime}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="">
+                  Stop touching me if you have not logged in...
+                </div>
+              )}
+
               <div>
                 {props.loggedIn ? (
                   <button

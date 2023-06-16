@@ -14,6 +14,7 @@ function App() {
   >([]);
   const [generatedText, setGeneratedText] = useState<string[]>([]);
   const [editMode, setEditMode] = useState<boolean>(true);
+  const [lastSignInTime, setLastSignInTime] = useState<string>("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (authResult: any) => {
@@ -23,10 +24,12 @@ function App() {
         setLoggedIn(true);
         setUserEmail(authResult.email);
         setUserName(authResult.displayName);
+        setLastSignInTime(authResult.metadata.lastSignInTime);
       } else {
         setLoggedIn(false);
         setUserEmail("");
         setUserName("");
+        setLastSignInTime("");
       }
     });
   });
@@ -39,6 +42,7 @@ function App() {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           userName={userName}
+          lastSignInTime={lastSignInTime}
         />
         <Banner loggedIn={loggedIn} />
         <Media />
@@ -55,6 +59,7 @@ function App() {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           userName={userName}
+          lastSignInTime={lastSignInTime}
         />
         <Login auth={auth} loggedIn={loggedIn} />
         <Media />
@@ -70,6 +75,7 @@ function App() {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           userName={userName}
+          lastSignInTime={lastSignInTime}
         />
         <MainApp
           userName={userName}

@@ -37,9 +37,17 @@ nav {
     &:focus {
       box-shadow: none;
     }
+
+    &:after {
+      // content: "hello";
+    }
   }
 
   a {
     width: fit-content;
+  }
+
+  #navbar-chat-icon {
+    transform: translate(3px, -15px);
   }
 }

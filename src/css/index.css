@@ -13103,6 +13103,9 @@ nav a {
   width: -moz-fit-content;
   width: fit-content;
 }
+nav #navbar-chat-icon {
+  transform: translate(3px, -15px);
+}
 
 #banner {
   min-height: 50vh;
