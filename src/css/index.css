@@ -13050,6 +13050,14 @@ textarea.form-control-lg {
   font-weight: bold;
 }
 
+.text-fs-11 {
+  font-size: 11px;
+}
+
+.text-fs-13 {
+  font-size: 13px;
+}
+
 .text-stroke-black {
   -webkit-text-stroke: 1px #0f0d0e;
 }

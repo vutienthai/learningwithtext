@@ -1,6 +1,10 @@
 import { EditIcon, GenerateIcon } from "../utilities/svg";
 import { SavedTexts } from ".";
 
+// Firebase
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../services/firebaseConfig";
+
 type Props = {
   userName: string;
   userEmail: string;
@@ -11,6 +15,10 @@ type Props = {
   setEditMode: (value: boolean) => void;
   generatedText: string[];
   setGeneratedText: (text: string[]) => void;
+};
+
+const generateID = () => {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
 };
 
 const MainApp = (props: Props) => {
@@ -34,6 +42,17 @@ const MainApp = (props: Props) => {
       { title: userInputTitle.value, text: userInput.value },
     ]);
     props.setEditMode(false);
+
+    // Send data to Firebase
+    const randomId = generateID();
+    const timestamp = new Date();
+
+    setDoc(doc(db, props.userEmail, randomId), {
+      id: randomId,
+      timestamp: timestamp,
+      title: userInputTitle.value,
+      text: userInput.value,
+    });
   };
 
   const newTextHandler = () => {

@@ -9,6 +9,7 @@ import {
 import * as firebaseui from "firebaseui";
 import firebase from "firebase/compat/app";
 import { Auth } from "firebase/auth";
+import Icons from "./Icons";
 
 type Props = { auth: Auth; loggedIn: boolean };
 
@@ -33,24 +34,7 @@ const Login = (props: Props) => {
         id="banner"
         className="container-fluid d-flex justify-content-center align-items-center position-relative mb-3"
       >
-        <div
-          id="bookmark-icon"
-          className="bg-black p-2 p-md-3 position-absolute top-0 start-0 z-0"
-        >
-          <BookmarkIcon />
-        </div>
-        <div
-          id="award-icon"
-          className="bg-black p-2 p-md-3 position-absolute bottom-0 end-0 z-0"
-        >
-          <AwardIcon />
-        </div>
-        <div
-          id="bezier-icon"
-          className="bg-black p-2 p-md-3 position-absolute top-0 end-0 z-0 d-none d-lg-block"
-        >
-          <BezierIcon />
-        </div>
+        <Icons loggedIn={props.loggedIn} />
         <div className="col-12 col-md-8 col-lg-6">
           <div
             id="get-started"
@@ -105,6 +89,7 @@ const Login = (props: Props) => {
               </div>
             </div>
           </div>
+          I
         </div>
       </div>
     </section>
