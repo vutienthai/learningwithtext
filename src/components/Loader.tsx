@@ -1,33 +1,18 @@
-type Props = { loading: boolean };
+import React from "react";
 
-const Loader = (props: Props) => {
-  const show = props.loading ? "show fullscreen" : "fullscreen";
+const Loader = () => {
   return (
-    <>
-      <div id="loader" className={show}>
-        <svg className="circular" width="48px" height="48px">
-          <circle
-            className="path-bg"
-            cx="24"
-            cy="24"
-            r="22"
-            fill="none"
-            strokeWidth="6"
-            stroke="#eeeeee"
-          />
-          <circle
-            className="path"
-            cx="24"
-            cy="24"
-            r="22"
-            fill="none"
-            strokeWidth="6"
-            strokeMiterlimit="10"
-            stroke="#cf112f"
-          />
-        </svg>
+    <div className="position-loader d-flex flex-column align-items-center justify-content-center min-vh-100 text-light">
+      <div className="web-name text-yellow-1 d-inline h1 mb-3">VB</div>
+      Loading
+      <div className="spinner d-flex flex-row align-items-center justify-content-center">
+        <div className="rect1"></div>
+        <div className="rect2"></div>
+        <div className="rect3"></div>
+        <div className="rect4"></div>
+        <div className="rect5"></div>
       </div>
-    </>
+    </div>
   );
 };
 

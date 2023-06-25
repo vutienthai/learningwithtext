@@ -14,19 +14,6 @@ nav {
     font-family: "Paytone One", sans-serif;
   }
 
-  .web-name {
-    font-size: 3rem;
-    transform: rotate(-3deg);
-    text-shadow: 3px 3px $red-1;
-    font-weight: 700;
-
-    &::before {
-      content: ".";
-      // color: $purple-1;
-      text-shadow: 8px 8px $red-1;
-    }
-  }
-
   .user-name {
     text-shadow: 2px 2px $light-yellow;
     font-weight: 500;

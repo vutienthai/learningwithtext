@@ -1,16 +1,7 @@
 import { Link } from "react-router-dom";
-import {
-  BookmarkIcon,
-  AwardIcon,
-  BezierIcon,
-  QuoteIcon,
-  StarIcon,
-  RightArrowIcon,
-  BalloonIcon,
-  DoorIcon,
-  CupIcon,
-} from "../utilities/svg";
+import { RightArrowIcon } from "../utilities/svg";
 import Icons from "./Icons";
+import { FloatingReview1, FloatingReview2 } from "./shared/FloatingReviews";
 
 type Props = { loggedIn: boolean };
 
@@ -45,40 +36,11 @@ const Banner = (props: Props) => {
                 <RightArrowIcon />
               </Link>
             </button>
-
             <div id="review-1" className="position-absolute top-0 end-0">
-              <div className="bg-purple-1 border border-black rounded-3 p-3 position-relative">
-                <div className="quote-icon position-absolute top-0 start-0">
-                  <QuoteIcon color={"text-light-yellow"} />
-                </div>
-                <div className="text-center text-strong">Awesome!</div>
-                <div className="text-center">-Ha Nguyen</div>
-                <div className="text-center">
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                </div>
-              </div>
+              <FloatingReview1 />
             </div>
             <div id="review-2" className="position-absolute bottom-0 start-0">
-              <div className="bg-pink-1 border border-black rounded-3 p-3 position-relative">
-                <div className="quote-icon position-absolute top-0 start-0">
-                  <QuoteIcon color={"text-light-yellow"} />
-                </div>
-                <div className="text-center text-strong">
-                  Really enjoyed it!
-                </div>
-                <div className="text-center">-Ha Nguyen</div>
-                <div className="text-center">
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                </div>
-              </div>
+              <FloatingReview2 />
             </div>
           </div>
         </div>

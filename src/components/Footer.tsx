@@ -1,5 +1,5 @@
 import { EmailIcon, GitHubIcon, LinkedInIcon } from "../utilities/svg";
-import footerImg from "../assets/the-creation-of-adam.jpg"; // Tell webpack this JS file uses this image
+import footerImg from "../assets/get-connected.jpg"; // Tell webpack this JS file uses this image
 
 const Footer = () => {
   return (

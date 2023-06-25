@@ -9,9 +9,16 @@ $yellow-1: #fcba28;
 $red-1: #ed203d;
 $green-1: #0ba95b;
 $purple-1: #7b5ea7;
+$blue-1: #1a90ff;
 $coal-1: #3f3f3f;
 $charcoal-1: #231f20;
 $pink-1: #f38ba3;
+
+$yellow-2: #ffde97;
+$red-2: #ffa8b3;
+$purple-2: #d7bcff;
+$blue-2: #b6dcff;
+$green-2: #ccffda;
 
 // Import the functions and variables
 @import "../../node_modules/bootstrap/scss/_functions";
@@ -27,9 +34,15 @@ $custom-theme-colors: (
   "red-1": $red-1,
   "green-1": $green-1,
   "purple-1": $purple-1,
+  "blue-1": $blue-1,
   "coal-1": $coal-1,
   "charcoal-1": $charcoal-1,
   "pink-1": $pink-1,
+  "yellow-2": $yellow-2,
+  "red-2": $red-2,
+  "purple-2": $purple-2,
+  "green-2": $green-2,
+  "blue-2": $blue-2,
 );
 
 $theme-colors: map-merge($custom-theme-colors, $theme-colors);
@@ -86,6 +99,14 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  font-family: $font-body;
+  background-color: $black;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 h1,
 .h1,
 h2,
@@ -98,12 +119,6 @@ h5,
 .h5 {
   font-family: $font-heading;
   text-transform: uppercase;
-}
-
-body {
-  font-family: $font-body;
-  background-color: $black;
-  min-height: 100vh;
 }
 
 a {

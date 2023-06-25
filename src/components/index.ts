@@ -5,5 +5,6 @@ import Review from "./Review";
 import Login from "./Login";
 import Footer from "./Footer";
 import SavedTexts from "./SavedTexts";
+import Loader from "./Loader";
 
-export { Navbar, Banner, Media, Review, Login, Footer, SavedTexts };
+export { Navbar, Banner, Media, Review, Login, Footer, SavedTexts, Loader };
