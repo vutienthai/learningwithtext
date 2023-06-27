@@ -16,7 +16,7 @@ const Samples = (props: Props) => {
           {textSamples.map((text, index) => (
             <div
               key={index}
-              className="bg-light-yellow p-2 rounded-3"
+              className=""
               onClick={() => {
                 const generatedText = props.convertPlainTextToWords(text.text);
                 props.setGeneratedText(generatedText);
@@ -28,7 +28,7 @@ const Samples = (props: Props) => {
                 <TextIcon size={16} />
                 {text.title ? text.title : "No title"}
               </div>
-              <div>{text.text.slice(0, 100)}...</div>
+              <div className="text-coal-1">{text.text.slice(0, 100)}...</div>
             </div>
           ))}
         </div>

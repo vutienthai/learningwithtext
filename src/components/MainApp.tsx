@@ -1,6 +1,7 @@
 import { EditIcon, GenerateIcon } from "../utilities/svg";
 import { SavedTexts } from ".";
 import Samples from "./Samples";
+import vocabulary from "../services/1000w.json";
 
 // Firebase
 import { doc, updateDoc } from "firebase/firestore";
@@ -10,20 +11,29 @@ import { useEffect, useState } from "react";
 type Props = {
   userName: string;
   userEmail: string;
+
   savedTexts: { title: string; text: string; id: string; timestamp: Date }[];
   setSavedTexts: (
     texts: { title: string; text: string; id: string; timestamp: Date }[]
   ) => void;
+
   savedWords: { word: string; level: string; note: string }[];
   setSavedWords: (
     texts: { word: string; level: string; note: string }[]
   ) => void;
+
+  savedNotes: { [key: string]: string };
+  savedLevels: { [key: string]: string };
+
   editMode: boolean;
   setEditMode: (value: boolean) => void;
+
   showSamples: boolean;
   setShowSamples: (value: boolean) => void;
+
   generatedText: string[][];
   setGeneratedText: (text: string[][]) => void;
+
   generatedTextTitle: string;
   setGeneratedTextTitle: (text: string) => void;
 };
@@ -37,29 +47,14 @@ const MainApp = (props: Props) => {
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
 
-  const savedWordLevels: any = {};
-  const savedWordNotes: any = {};
-
-  const updateDictionary = (
-    savedWords: { word: string; level: string; note: string }[]
-  ) => {
-    savedWords.forEach((word) => {
-      savedWordLevels[word.word] = word.level;
-      savedWordNotes[word.word] = word.note;
-    });
-    console.log("savedWordLevels", savedWordLevels);
-    console.log("savedWordNotes", savedWordNotes);
-  };
-
-  updateDictionary(props.savedWords);
-
-  useEffect(() => {
-    updateDictionary(props.savedWords);
-  }, [selectedWord, selectedNote, selectedLevel]);
-
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // });
+  const wordDefinitions: any = {};
+  const wordExamples: any = {};
+  vocabulary.forEach(
+    (word: { word: string; definition: string; example: string }) => {
+      wordDefinitions[word.word] = word.definition;
+      wordExamples[word.word] = word.example;
+    }
+  );
 
   const convertPlainTextToWords = (text: string) => {
     const paragraphs = text.split("\n");
@@ -111,49 +106,40 @@ const MainApp = (props: Props) => {
 
   const onClickWordHandler = (e: any) => {
     const selectedWord = e.target.innerText.toLowerCase();
-    const selectedNote = savedWordNotes[selectedWord];
-    const selectedLevel = savedWordLevels[selectedWord];
-    console.log("selectedWord", selectedWord);
-    console.log("selectedNote", selectedNote);
-    console.log("selectedLevel", selectedLevel);
-
-    if (selectedNote) {
-      console.log("selectedNote", selectedNote);
-      setSelectedNote(selectedNote);
-    } else {
-      console.log("no note");
-      setSelectedNote("no note");
-    }
-    if (selectedLevel) {
-      console.log("selectedLevel", selectedLevel);
-      setSelectedLevel(selectedLevel);
-    } else {
-      console.log("no level");
-      setSelectedLevel("no level");
-    }
-    // console.log("selectedNote", selectedNote);
-    // console.log("selectedLevel", selectedLevel);
     setSelectedWord(selectedWord);
 
-    // savedWordNotes[selectedWord]
-    //   ? setSelectedNote(savedWordNotes[selectedWord])
+    const selectedNote = props.savedNotes[selectedWord];
+    const selectedLevel = props.savedLevels[selectedWord];
+    selectedNote ? setSelectedNote(selectedNote) : setSelectedNote("");
+    selectedLevel ? setSelectedLevel(selectedLevel) : setSelectedLevel("");
+
+    // savedNotes[selectedWord]
+    //   ? setSelectedNote(savedNotes[selectedWord])
     //   : setSelectedNote("");
-    // savedWordLevels[selectedWord]
-    //   ? setSelectedLevel(savedWordLevels[selectedWord])
+    // savedLevels[selectedWord]
+    //   ? setSelectedLevel(savedLevels[selectedWord])
     //   : setSelectedLevel("");
     // console.log("selectedLevel", selectedLevel);
     // console.log("selectedNote", selectedNote);
   };
 
+  const onChangeNote = (e: any) => {
+    setSelectedNote(e.target.value);
+  };
+
+  const onChangeOption = (e: any) => {
+    setSelectedLevel(e.target.value);
+  };
+
   const updateSelectedWord = () => {
-    const levelElement = document.querySelector(
-      'input[name="inlineRadioOptions"]:checked'
-    ) as HTMLInputElement;
     const noteElement = document.getElementById(
       "word-note"
     ) as HTMLInputElement;
-    const updatedLevel = levelElement.value;
+    const levelElement = document.querySelector(
+      'input[name="inlineRadioOptions"]:checked'
+    ) as HTMLInputElement;
     const updatedNote = noteElement.value;
+    const updatedLevel = levelElement ? levelElement.value : "";
     console.log("updatedLevel", updatedLevel);
     console.log("updatedNote", updatedNote);
     console.log("savedWords", props.savedWords);
@@ -164,16 +150,15 @@ const MainApp = (props: Props) => {
     console.log("wordIndex", wordIndex);
 
     if (wordIndex !== -1) {
-      tempSavedWords[wordIndex].level = updatedLevel;
       tempSavedWords[wordIndex].note = updatedNote;
+      tempSavedWords[wordIndex].level = updatedLevel;
     } else {
       tempSavedWords.push({
         word: selectedWord,
-        level: updatedLevel,
         note: updatedNote,
+        level: updatedLevel,
       });
     }
-    updateDictionary(tempSavedWords);
     props.setSavedWords(tempSavedWords);
   };
 
@@ -241,8 +226,8 @@ const MainApp = (props: Props) => {
                       <span
                         key={wIndex}
                         className={`${word.toLowerCase()} ${
-                          savedWordLevels[word.toLowerCase()]
-                            ? "level-" + savedWordLevels[word.toLowerCase()]
+                          props.savedLevels[word.toLowerCase()]
+                            ? "level-" + props.savedLevels[word.toLowerCase()]
                             : "level-0"
                         }`}
                         data-bs-toggle="modal"
@@ -264,7 +249,7 @@ const MainApp = (props: Props) => {
         <div className="col-12 col-lg-4 p-3 my-4 my-lg-2 ">
           <div className="d-flex">
             <div
-              className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 ${
+              className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
                 props.showSamples ? "btn-outline-yellow-1" : "btn-yellow-1"
               }`}
               onClick={() => {
@@ -274,7 +259,7 @@ const MainApp = (props: Props) => {
               Your Texts
             </div>
             <div
-              className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 ${
+              className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
                 props.showSamples ? "btn-yellow-1" : "btn-outline-yellow-1"
               }`}
               onClick={() => {
@@ -285,7 +270,7 @@ const MainApp = (props: Props) => {
             </div>
           </div>
 
-          <div className="bg-yellow-1 p-3">
+          <div className="border border-yellow-1 bg-light-yellow p-3">
             {props.showSamples ? (
               <Samples
                 setGeneratedText={props.setGeneratedText}
@@ -331,22 +316,35 @@ const MainApp = (props: Props) => {
             <div className="modal-body">
               <div className="d-flex flex-column gap-3">
                 <div>
-                  <h5 className="text-coal-1">Note</h5>
-                  <div>{selectedNote}</div>
+                  <h5 className="text-coal-1 opacity-25">Definition</h5>
+                  <div className="mb-4">
+                    {wordDefinitions[selectedWord]
+                      ? wordDefinitions[selectedWord]
+                      : "No definition"}
+                  </div>
+
+                  <h5 className="text-coal-1 opacity-25">Example</h5>
+                  <div className="mb-4">
+                    {wordExamples[selectedWord]
+                      ? wordExamples[selectedWord]
+                      : "No example"}
+                  </div>
+
+                  <h5 className="text-coal-1 opacity-25">Note</h5>
                   <div>
                     <div className="mb-3">
                       <textarea
                         className="form-control"
                         id="word-note"
                         rows={3}
-                        defaultValue={selectedNote}
+                        value={selectedNote}
+                        onChange={onChangeNote}
                       />
                     </div>
                   </div>
                 </div>
                 <div>
-                  <h5 className="text-coal-1">Level</h5>
-                  <div>{selectedLevel}</div>
+                  <h5 className="text-coal-1 opacity-25">Level</h5>
                   <div className="d-flex flex-column">
                     <div className="form-check form-check-inline">
                       <input
@@ -355,6 +353,8 @@ const MainApp = (props: Props) => {
                         name="inlineRadioOptions"
                         id="inlineRadioIgnore"
                         defaultValue="ignore"
+                        checked={selectedLevel === "ignore"}
+                        onChange={onChangeOption}
                       />
                       <label
                         className="form-check-label"
@@ -370,6 +370,8 @@ const MainApp = (props: Props) => {
                         name="inlineRadioOptions"
                         id="inlineRadio1"
                         defaultValue="1"
+                        checked={selectedLevel === "1"}
+                        onChange={onChangeOption}
                       />
                       <label
                         className="form-check-label"
@@ -385,6 +387,8 @@ const MainApp = (props: Props) => {
                         name="inlineRadioOptions"
                         id="inlineRadio2"
                         defaultValue="2"
+                        checked={selectedLevel === "2"}
+                        onChange={onChangeOption}
                       />
                       <label
                         className="form-check-label"
@@ -400,6 +404,8 @@ const MainApp = (props: Props) => {
                         name="inlineRadioOptions"
                         id="inlineRadio3"
                         defaultValue="3"
+                        checked={selectedLevel === "3"}
+                        onChange={onChangeOption}
                       />
                       <label
                         className="form-check-label"
@@ -415,6 +421,8 @@ const MainApp = (props: Props) => {
                         name="inlineRadioOptions"
                         id="inlineRadio4"
                         defaultValue="4"
+                        checked={selectedLevel === "4"}
+                        onChange={onChangeOption}
                       />
                       <label
                         className="form-check-label"
@@ -430,6 +438,8 @@ const MainApp = (props: Props) => {
                         name="inlineRadioOptions"
                         id="inlineRadio5"
                         defaultValue="5"
+                        checked={selectedLevel === "5"}
+                        onChange={onChangeOption}
                       />
                       <label
                         className="form-check-label"
@@ -445,6 +455,8 @@ const MainApp = (props: Props) => {
                         name="inlineRadioOptions"
                         id="inlineRadioMaster"
                         defaultValue="master"
+                        checked={selectedLevel === "master"}
+                        onChange={onChangeOption}
                       />
                       <label
                         className="form-check-label"

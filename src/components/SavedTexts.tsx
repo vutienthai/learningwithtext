@@ -17,7 +17,7 @@ const SavedTexts = (props: Props) => {
             {props.savedTexts.map((text, index) => (
               <div
                 key={index}
-                className="bg-light-yellow p-2 rounded-3"
+                className=""
                 onClick={() => {
                   console.log(text.text);
                   const generatedText = props.convertPlainTextToWords(
@@ -32,7 +32,7 @@ const SavedTexts = (props: Props) => {
                   <TextIcon size={16} />
                   {text.title ? text.title : "No title"}
                 </div>
-                <div>{text.text.slice(0, 100)}...</div>
+                <div className="text-coal-1">{text.text.slice(0, 100)}...</div>
               </div>
             ))}
           </div>

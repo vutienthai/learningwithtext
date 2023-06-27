@@ -1,3 +1,7 @@
+@mixin drop-shadow($pixel) {
+  filter: drop-shadow($pixel $pixel 0px $black);
+}
+
 .web-name {
   font-size: 3rem;
   // transform: rotate(-3deg);
@@ -10,8 +14,14 @@
   // }
 }
 
-@mixin drop-shadow($pixel) {
-  filter: drop-shadow($pixel $pixel 0px $black);
+.get-started-btn {
+  font-family: "Paytone One", sans-serif;
+  @include drop-shadow(4px);
+}
+
+.bi-star-fill,
+.bi-quote {
+  @include drop-shadow(2px);
 }
 
 .text-uppercase {
@@ -40,16 +50,6 @@
 
 .text-stroke-light-yellow {
   -webkit-text-stroke: 1px $light-yellow;
-}
-
-.get-started-btn {
-  font-family: "Paytone One", sans-serif;
-  @include drop-shadow(4px);
-}
-
-.bi-star-fill,
-.bi-quote {
-  @include drop-shadow(2px);
 }
 
 .level-ignore {

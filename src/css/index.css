@@ -13608,6 +13608,16 @@ textarea.form-control-lg {
   font-weight: 700;
 }
 
+.get-started-btn {
+  font-family: "Paytone One", sans-serif;
+  filter: drop-shadow(4px 4px 0px #0f0d0e);
+}
+
+.bi-star-fill,
+.bi-quote {
+  filter: drop-shadow(2px 2px 0px #0f0d0e);
+}
+
 .text-uppercase {
   text-transform: uppercase;
 }
@@ -13634,16 +13644,6 @@ textarea.form-control-lg {
 
 .text-stroke-light-yellow {
   -webkit-text-stroke: 1px #f9f4da;
-}
-
-.get-started-btn {
-  font-family: "Paytone One", sans-serif;
-  filter: drop-shadow(4px 4px 0px #0f0d0e);
-}
-
-.bi-star-fill,
-.bi-quote {
-  filter: drop-shadow(2px 2px 0px #0f0d0e);
 }
 
 .level-ignore {

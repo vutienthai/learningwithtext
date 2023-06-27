@@ -26,6 +26,10 @@ function App() {
   const [savedWords, setSavedWords] = useState<
     { word: string; level: string; note: string }[]
   >([]);
+
+  const [savedNotes, setSavedNotes] = useState<{ [key: string]: string }>({});
+  const [savedLevels, setSavedLevels] = useState<{ [key: string]: string }>({});
+
   const [generatedText, setGeneratedText] = useState<string[][]>([]);
   const [editMode, setEditMode] = useState<boolean>(true);
   const [generatedTextTitle, setGeneratedTextTitle] = useState<string>("");
@@ -95,6 +99,21 @@ function App() {
     getSavedTextsData();
   }, [loggedIn, userEmail]);
 
+  useEffect(() => {
+    const tempSavedNotes: any = {};
+    const tempSavedLevels: any = {};
+    savedWords.forEach((savedWord) => {
+      const word = savedWord.word;
+      const note = savedWord.note;
+      const level = savedWord.level;
+      tempSavedNotes[word] = note;
+      tempSavedLevels[word] = level;
+    });
+
+    setSavedNotes(tempSavedNotes);
+    setSavedLevels(tempSavedLevels);
+  }, [savedWords]);
+
   const HomePage = () => {
     return (
       <>
@@ -161,6 +180,8 @@ function App() {
               setSavedTexts={setSavedTexts}
               savedWords={savedWords}
               setSavedWords={setSavedWords}
+              savedNotes={savedNotes}
+              savedLevels={savedLevels}
               editMode={editMode}
               setEditMode={setEditMode}
               showSamples={showSamples}
