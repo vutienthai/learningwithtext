@@ -4,7 +4,7 @@ import Samples from "./Samples";
 import vocabulary from "../services/1000w.json";
 
 // Firebase
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebaseConfig";
 import { useEffect, useState } from "react";
 
@@ -14,12 +14,24 @@ type Props = {
 
   savedTexts: { title: string; text: string; id: string; timestamp: Date }[];
   setSavedTexts: (
-    texts: { title: string; text: string; id: string; timestamp: Date }[]
+    texts: { id: string; title: string; text: string; timestamp: Date }[]
   ) => void;
 
-  savedWords: { word: string; level: string; note: string }[];
+  savedWords: {
+    id: string;
+    word: string;
+    level: string;
+    note: string;
+    timestamp: Date;
+  }[];
   setSavedWords: (
-    texts: { word: string; level: string; note: string }[]
+    words: {
+      id: string;
+      word: string;
+      level: string;
+      note: string;
+      timestamp: Date;
+    }[]
   ) => void;
 
   savedNotes: { [key: string]: string };
@@ -69,35 +81,35 @@ const MainApp = (props: Props) => {
     ) as HTMLInputElement;
     const generatedText = convertPlainTextToWords(userInput.value);
     console.log("generatedText", generatedText);
-    const randomId = generateID();
+    const textID = generateID();
     const timestamp = new Date();
-
+    const newText = {
+      id: textID,
+      title: userInputTitle.value,
+      text: userInput.value,
+      timestamp: timestamp,
+    };
     props.setGeneratedText(generatedText);
     props.setGeneratedTextTitle(userInputTitle.value);
-    props.setSavedTexts([
-      {
-        title: userInputTitle.value,
-        text: userInput.value,
-        id: randomId,
-        timestamp: timestamp,
-      },
-      ...props.savedTexts,
-    ]);
+    props.setSavedTexts([newText, ...props.savedTexts]);
     props.setEditMode(false);
     props.setShowSamples(false);
 
-    // Send data to Firebase
-    updateDoc(doc(db, "users", props.userEmail), {
-      savedTexts: [
-        {
-          id: randomId,
-          timestamp: timestamp,
-          title: userInputTitle.value,
-          text: userInput.value,
-        },
-        ...props.savedTexts,
-      ],
-    });
+    // Add text to Firebase
+    const userCollectionPath = `users/${props.userEmail}/textCollection`;
+    setDoc(doc(db, userCollectionPath, textID), newText);
+
+    // updateDoc(doc(db, "users", props.userEmail), {
+    //   savedTexts: [
+    //     {
+    //       id: textID,
+    //       timestamp: timestamp,
+    //       title: userInputTitle.value,
+    //       text: userInput.value,
+    //     },
+    //     ...props.savedTexts,
+    //   ],
+    // });
   };
 
   const newTextHandler = () => {
@@ -112,15 +124,6 @@ const MainApp = (props: Props) => {
     const selectedLevel = props.savedLevels[selectedWord];
     selectedNote ? setSelectedNote(selectedNote) : setSelectedNote("");
     selectedLevel ? setSelectedLevel(selectedLevel) : setSelectedLevel("");
-
-    // savedNotes[selectedWord]
-    //   ? setSelectedNote(savedNotes[selectedWord])
-    //   : setSelectedNote("");
-    // savedLevels[selectedWord]
-    //   ? setSelectedLevel(savedLevels[selectedWord])
-    //   : setSelectedLevel("");
-    // console.log("selectedLevel", selectedLevel);
-    // console.log("selectedNote", selectedNote);
   };
 
   const onChangeNote = (e: any) => {
@@ -149,17 +152,38 @@ const MainApp = (props: Props) => {
     );
     console.log("wordIndex", wordIndex);
 
-    if (wordIndex !== -1) {
-      tempSavedWords[wordIndex].note = updatedNote;
-      tempSavedWords[wordIndex].level = updatedLevel;
-    } else {
-      tempSavedWords.push({
+    let updatedWord;
+    let wordID;
+    const timestamp = new Date();
+
+    if (wordIndex === -1) {
+      wordID = generateID();
+      updatedWord = {
+        id: wordID,
         word: selectedWord,
         note: updatedNote,
         level: updatedLevel,
-      });
+        timestamp: timestamp,
+      };
+
+      tempSavedWords.push(updatedWord);
+    } else {
+      tempSavedWords[wordIndex].note = updatedNote;
+      tempSavedWords[wordIndex].level = updatedLevel;
+      wordID = tempSavedWords[wordIndex].id;
+      updatedWord = {
+        id: wordID,
+        word: selectedWord,
+        note: updatedNote,
+        level: updatedLevel,
+        timestamp: timestamp,
+      };
     }
+    // Update savedWords state
     props.setSavedWords(tempSavedWords);
+    // Update word in Firebase
+    const userCollectionPath = `users/${props.userEmail}/wordCollection`;
+    setDoc(doc(db, userCollectionPath, wordID), updatedWord);
   };
 
   return (

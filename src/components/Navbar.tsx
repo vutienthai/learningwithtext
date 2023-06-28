@@ -53,13 +53,13 @@ const Navbar = (props: Props) => {
           <div className="w-100 d-flex flex-sm-row flex-column align-items-end justify-content-between my-4 my-md-0">
             <ul className="navbar-nav">
               {/* <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="#">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#">
-                  Features
+                <Link className="nav-link" to="/app">
+                  App
                 </Link>
               </li> */}
             </ul>

@@ -15,16 +15,20 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, getDocs } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 
+const generateID = () => {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+};
+
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
   const [savedTexts, setSavedTexts] = useState<
-    { title: string; text: string; id: string; timestamp: Date }[]
+    { id: string; title: string; text: string; timestamp: Date }[]
   >([]);
   const [savedWords, setSavedWords] = useState<
-    { word: string; level: string; note: string }[]
+    { id: string; word: string; level: string; note: string; timestamp: Date }[]
   >([]);
 
   const [savedNotes, setSavedNotes] = useState<{ [key: string]: string }>({});
@@ -53,50 +57,86 @@ function App() {
         setLastSignInTime("");
       }
     });
-  });
+  }, []);
 
   // Loading firebase log in data
   useEffect(() => {
-    const getSavedTextsData = async () => {
-      console.log("Getting data...");
-      const q = query(collection(db, "users"));
+    const getSavedTexts = async () => {
+      console.log("Getting texts...");
+      const path = `users/${userEmail}/textCollection`;
+      const q = query(collection(db, path));
       const querySnapshot = await getDocs(q);
       const tempSavedTexts: {
+        id: string;
         title: string;
         text: string;
-        id: string;
         timestamp: Date;
       }[] = [];
-      const tempSavedWords: { word: string; level: string; note: string }[] =
-        [];
-      let emailFound = false;
-      querySnapshot.forEach((doc) => {
-        if (doc.id === userEmail) {
-          emailFound = true;
-          console.log("doc.id", doc.id);
+      if (querySnapshot.empty) {
+        console.log("querySnapshot.empty", querySnapshot.empty);
+      } else {
+        querySnapshot.forEach((doc) => {
           const record = doc.data();
           console.log("record", record);
-          tempSavedTexts.push(...record.savedTexts);
-          tempSavedWords.push(...record.savedWords);
-        }
-      });
-
-      if (!emailFound) {
-        console.log("Account not found");
-        if (userEmail) {
-          setDoc(doc(db, "users", userEmail), {
-            savedTexts: [],
-            savedWords: [],
+          tempSavedTexts.push({
+            id: record.id,
+            title: record.title,
+            text: record.text,
+            timestamp: record.timestamp,
           });
-        }
+        });
       }
       console.log("tempSavedTexts", tempSavedTexts);
-      console.log("tempSavedWords", tempSavedWords);
       setSavedTexts(tempSavedTexts.slice(0, 5));
-      setSavedWords(tempSavedWords);
-      setLoading(false);
     };
-    getSavedTextsData();
+
+    const getSavedWords = async () => {
+      console.log("Getting words...");
+      const path = `users/${userEmail}/wordCollection`;
+      const q = query(collection(db, path));
+      const querySnapshot = await getDocs(q);
+      const tempSavedWords: {
+        id: string;
+        word: string;
+        note: string;
+        level: string;
+        timestamp: Date;
+      }[] = [];
+
+      if (querySnapshot.empty) {
+        console.log("querySnapshot.empty", querySnapshot.empty);
+      } else {
+        querySnapshot.forEach((doc) => {
+          const record = doc.data();
+          console.log("record", record);
+          tempSavedWords.push({
+            id: record.id,
+            word: record.word,
+            note: record.note,
+            level: record.level,
+            timestamp: record.timestamp,
+          });
+        });
+      }
+
+      // if (!emailFound) {
+      //   console.log("Account not found");
+      //   if (userEmail) {
+      //     setDoc(doc(db, "users", userEmail), {
+      //       savedTexts: [],
+      //       savedWords: [],
+      //     });
+      //   }
+      // }
+
+      console.log("tempSavedWords", tempSavedWords);
+      setSavedWords(tempSavedWords);
+    };
+    if (loggedIn) {
+      getSavedTexts();
+      getSavedWords();
+    }
+    setLoading(false);
   }, [loggedIn, userEmail]);
 
   useEffect(() => {
