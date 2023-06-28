@@ -27,7 +27,7 @@ const Navbar = (props: Props) => {
     <nav className="navbar">
       <div className="container">
         <Link className="navbar-brand  text-white" to="/">
-          <div className="web-name text-yellow-1 d-inline h1">VB</div>
+          <div className="web-name text-yellow-1 d-inline h1">LWT</div>
         </Link>
         <button
           id="toggle-btn"

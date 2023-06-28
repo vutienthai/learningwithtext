@@ -22,7 +22,9 @@ const Banner = (props: Props) => {
             <h1 className="text-light-yellow text-center text-stroke-black ">
               Vocabulary Builder
             </h1>
-            <p className="text-center fs-5">Learn vocabulary with texts.</p>
+            <p className="text-center fs-5">
+              Learn English vocabulary with text.
+            </p>
             <button
               className={`get-started-btn btn ${
                 props.loggedIn ? "btn-green-1" : "btn-red-1"
