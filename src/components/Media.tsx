@@ -6,7 +6,11 @@ import {
   TheNewYorkTimes,
 } from "../utilities/svg";
 
-const Media = () => {
+type Props = {
+  userCount: string;
+};
+
+const Media = (props: Props) => {
   return (
     <section>
       <div className="d-flex flex-column align-items-center justify-content-center py-5">
@@ -33,8 +37,8 @@ const Media = () => {
           </div>
         </div>
         <div className="h1 text-uppercase text-center px-5 py-3">
-          JOIN <span className="text-underline">10,000+</span> USERS AND START
-          LEARNING TODAY.
+          JOIN <span className="text-underline">{props.userCount}+</span> USERS
+          AND START LEARNING TODAY.
         </div>
       </div>
     </section>

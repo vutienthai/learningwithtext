@@ -243,28 +243,45 @@ const MainApp = (props: Props) => {
                 className="rounded-2 border-0 p-3 p-md-5 bg-light"
               >
                 <h3>{props.generatedTextTitle}</h3>
-                {props.generatedText.map((paragraph, pIndex) =>
-                  paragraph.map((word, wIndex) => (
-                    <>
-                      {pIndex > 0 && wIndex === 0 ? <br /> : <></>}
-                      <span
-                        key={wIndex}
-                        className={`${word.toLowerCase()} ${
-                          props.savedLevels[word.toLowerCase()]
-                            ? "level-" + props.savedLevels[word.toLowerCase()]
-                            : "level-0"
-                        }`}
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        data-bs-content="And here's some amazing content. It's very engaging. Right?"
-                        data-word={word.toLowerCase()}
-                        onClick={onClickWordHandler}
-                      >
-                        {word}
-                      </span>{" "}
-                    </>
-                  ))
-                )}
+                {props.generatedText.map((paragraph, pIndex) => (
+                  <div key={pIndex} className="">
+                    {paragraph.map((word, wIndex) => (
+                      <span key={wIndex}>
+                        <span>{word.split(/[–1-9a-zA-Z+]/).shift()}</span>
+                        <span
+                          className={`${word
+                            .split(/[:–.?;,!“”‘’()%]/)
+                            .join("")
+                            .toLowerCase()} ${
+                            props.savedLevels[
+                              word
+                                .split(/[:–.?;,!“”‘’()%]/)
+                                .join("")
+                                .toLowerCase()
+                            ]
+                              ? "level-" +
+                                props.savedLevels[
+                                  word
+                                    .split(/[:–.?;,!“”‘’()%]/)
+                                    .join("")
+                                    .toLowerCase()
+                                ]
+                              : "level-0"
+                          }`}
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                          data-bs-content="And here's some amazing content. It's very engaging. Right?"
+                          data-word={word.toLowerCase()}
+                          onClick={onClickWordHandler}
+                        >
+                          {word.split(/[:–.?;,!“”‘’()%]/).join("")}
+                        </span>
+                        <span>{word.split(/[–1-9a-zA-Z+]/).pop()}</span>{" "}
+                      </span>
+                    ))}
+                    <br />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

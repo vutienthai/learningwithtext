@@ -21,7 +21,10 @@ const generateID = () => {
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
+  const [loadingSavedTexts, setLoadingSavedTexts] = useState<boolean>(true);
+  const [loadingSavedWords, setLoadingSavedWords] = useState<boolean>(true);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [userCount, setUserCount] = useState<string>("∞");
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
   const [savedTexts, setSavedTexts] = useState<
@@ -55,12 +58,25 @@ function App() {
         setUserEmail("");
         setUserName("");
         setLastSignInTime("");
+        setLoading(false);
       }
     });
   }, []);
 
   // Loading firebase log in data
   useEffect(() => {
+    const getUsers = async () => {
+      let count = 0;
+      const q = query(collection(db, "users/"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const record = doc.data();
+        console.log("recordddd", record);
+        count += 1;
+      });
+      setUserCount(count.toString());
+    };
+
     const getSavedTexts = async () => {
       console.log("Getting texts...");
       const path = `users/${userEmail}/textCollection`;
@@ -74,10 +90,10 @@ function App() {
       }[] = [];
       if (querySnapshot.empty) {
         console.log("querySnapshot.empty", querySnapshot.empty);
+        setDoc(doc(db, "users", userEmail), {});
       } else {
         querySnapshot.forEach((doc) => {
           const record = doc.data();
-          console.log("record", record);
           tempSavedTexts.push({
             id: record.id,
             title: record.title,
@@ -88,6 +104,7 @@ function App() {
       }
       console.log("tempSavedTexts", tempSavedTexts);
       setSavedTexts(tempSavedTexts.slice(0, 5));
+      setLoadingSavedTexts(false);
     };
 
     const getSavedWords = async () => {
@@ -108,7 +125,6 @@ function App() {
       } else {
         querySnapshot.forEach((doc) => {
           const record = doc.data();
-          console.log("record", record);
           tempSavedWords.push({
             id: record.id,
             word: record.word,
@@ -119,25 +135,22 @@ function App() {
         });
       }
 
-      // if (!emailFound) {
-      //   console.log("Account not found");
-      //   if (userEmail) {
-      //     setDoc(doc(db, "users", userEmail), {
-      //       savedTexts: [],
-      //       savedWords: [],
-      //     });
-      //   }
-      // }
-
       console.log("tempSavedWords", tempSavedWords);
       setSavedWords(tempSavedWords);
+      setLoadingSavedWords(false);
     };
     if (loggedIn) {
       getSavedTexts();
       getSavedWords();
+      getUsers();
     }
-    setLoading(false);
   }, [loggedIn, userEmail]);
+
+  useEffect(() => {
+    if (!loadingSavedTexts && !loadingSavedWords) {
+      setLoading(false);
+    }
+  }, [loadingSavedTexts, loadingSavedWords]);
 
   useEffect(() => {
     const tempSavedNotes: any = {};
@@ -169,7 +182,7 @@ function App() {
               lastSignInTime={lastSignInTime}
             />
             <Banner loggedIn={loggedIn} />
-            <Media />
+            <Media userCount={userCount} />
             <Review loggedIn={loggedIn} />
             <Footer />
           </>
@@ -192,7 +205,7 @@ function App() {
               lastSignInTime={lastSignInTime}
             />
             <Login auth={auth} />
-            <Media />
+            <Media userCount={userCount} />
             <Footer />
           </>
         )}
