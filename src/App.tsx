@@ -27,6 +27,7 @@ function App() {
   const [userCount, setUserCount] = useState<string>("∞");
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
+  const [userPhoto, setUserPhoto] = useState<string>("");
   const [savedTexts, setSavedTexts] = useState<
     { id: string; title: string; text: string; timestamp: Date }[]
   >([]);
@@ -52,6 +53,7 @@ function App() {
         setLoggedIn(true);
         setUserEmail(authResult.email);
         setUserName(authResult.displayName);
+        setUserPhoto(authResult.photoURL);
         setLastSignInTime(authResult.metadata.lastSignInTime);
       } else {
         setLoggedIn(false);
@@ -179,6 +181,8 @@ function App() {
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               userName={userName}
+              userEmail={userName}
+              userPhoto={userPhoto}
               lastSignInTime={lastSignInTime}
             />
             <Banner loggedIn={loggedIn} />
@@ -202,6 +206,8 @@ function App() {
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               userName={userName}
+              userEmail={userName}
+              userPhoto={userName}
               lastSignInTime={lastSignInTime}
             />
             <Login auth={auth} />
@@ -224,6 +230,8 @@ function App() {
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               userName={userName}
+              userEmail={userEmail}
+              userPhoto={userPhoto}
               lastSignInTime={lastSignInTime}
             />
             <MainApp
