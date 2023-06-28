@@ -24,8 +24,9 @@ type Props = {
 const Navbar = (props: Props) => {
   const [menuExpanded, setMenuExpanded] = useState(false);
   const menuStyle =
-    "d-flex align-items-center gap-4 p-3 rounded bg-charcoal-1 bg-gradient text-fs-13";
-
+    "d-flex align-items-center gap-4 p-3 rounded bg-charcoal-1 text-fs-13";
+  const navbarButton =
+    "btn btn-sm btn-outline-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-2 align-items-center px-3";
   return (
     <nav className="navbar">
       <div className="container-fluid">
@@ -97,7 +98,7 @@ const Navbar = (props: Props) => {
                         </div>
                         <div>
                           <button
-                            className="btn btn-sm btn-outline-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-2 align-items-center px-3"
+                            className={navbarButton}
                             onClick={() => {
                               props.auth.signOut();
                               props.setLoggedIn(false);
@@ -117,7 +118,7 @@ const Navbar = (props: Props) => {
                         Oops! You have not logged in...
                       </div>
                       <div>
-                        <button className="btn btn-sm btn-outline-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-2 align-items-center px-3">
+                        <button className={navbarButton}>
                           <Link
                             to={"/app"}
                             className=" d-flex gap-2 align-items-center justify-content-center"
