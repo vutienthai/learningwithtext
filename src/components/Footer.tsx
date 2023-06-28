@@ -24,7 +24,7 @@ const Footer = () => {
             <div>
               <a
                 className="btn btn-dark px-3 py-2 text-uppercase text-light-yellow rounded-5 border-black  d-flex gap-1 align-items-center"
-                href="https://github.com/earlybird-dev/vocab-builder"
+                href="https://linkedin.com/in/trungha-nguyen"
                 target="_blank"
               >
                 <LinkedInIcon size={32} />
@@ -33,7 +33,7 @@ const Footer = () => {
             <div>
               <a
                 className="btn btn-dark px-3 py-2 text-uppercase text-light-yellow rounded-5 border-black  d-flex gap-1 align-items-center"
-                href="https://github.com/earlybird-dev/vocab-builder"
+                href="https://github.com/earlybird-dev/learningwithtext"
                 target="_blank"
               >
                 <GitHubIcon size={32} />

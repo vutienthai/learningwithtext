@@ -181,7 +181,7 @@ function App() {
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               userName={userName}
-              userEmail={userName}
+              userEmail={userEmail}
               userPhoto={userPhoto}
               lastSignInTime={lastSignInTime}
             />
