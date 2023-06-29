@@ -7,6 +7,7 @@ import {
   Review,
   Footer,
   Loader,
+  NotFound,
 } from "./components";
 import { useEffect, useState } from "react";
 import MainApp from "./components/MainApp";
@@ -23,6 +24,7 @@ function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingSavedTexts, setLoadingSavedTexts] = useState<boolean>(true);
   const [loadingSavedWords, setLoadingSavedWords] = useState<boolean>(true);
+
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [userCount, setUserCount] = useState<string>("∞");
   const [userName, setUserName] = useState<string>("");
@@ -45,6 +47,17 @@ function App() {
 
   const [lastSignInTime, setLastSignInTime] = useState<string>("");
 
+  const getUserCount = async () => {
+    console.log("Getting user count...");
+    let count = 0;
+    const q = query(collection(db, "users/"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      count += 1;
+    });
+    setUserCount(count.toString());
+  };
+
   useEffect(() => {
     onAuthStateChanged(auth, (authResult: any) => {
       console.log("authResult", authResult);
@@ -60,93 +73,83 @@ function App() {
         setUserEmail("");
         setUserName("");
         setLastSignInTime("");
+        getUserCount();
         setLoading(false);
       }
     });
   }, []);
 
-  // Loading firebase log in data
-  useEffect(() => {
-    const getUsers = async () => {
-      let count = 0;
-      const q = query(collection(db, "users/"));
-      const querySnapshot = await getDocs(q);
+  const getSavedTexts = async () => {
+    console.log("Getting texts...");
+    const path = `users/${userEmail}/textCollection`;
+    const q = query(collection(db, path));
+    const querySnapshot = await getDocs(q);
+    const tempSavedTexts: {
+      id: string;
+      title: string;
+      text: string;
+      timestamp: Date;
+    }[] = [];
+    if (querySnapshot.empty) {
+      console.log("querySnapshot.empty", querySnapshot.empty);
+      setDoc(doc(db, "users", userEmail), {});
+    } else {
       querySnapshot.forEach((doc) => {
         const record = doc.data();
-        console.log("recordddd", record);
-        count += 1;
+        tempSavedTexts.push({
+          id: record.id,
+          title: record.title,
+          text: record.text,
+          timestamp: record.timestamp,
+        });
       });
-      setUserCount(count.toString());
-    };
+    }
+    console.log("tempSavedTexts", tempSavedTexts);
+    setSavedTexts(tempSavedTexts.slice(0, 5));
+    setLoadingSavedTexts(false);
+  };
 
-    const getSavedTexts = async () => {
-      console.log("Getting texts...");
-      const path = `users/${userEmail}/textCollection`;
-      const q = query(collection(db, path));
-      const querySnapshot = await getDocs(q);
-      const tempSavedTexts: {
-        id: string;
-        title: string;
-        text: string;
-        timestamp: Date;
-      }[] = [];
-      if (querySnapshot.empty) {
-        console.log("querySnapshot.empty", querySnapshot.empty);
-        setDoc(doc(db, "users", userEmail), {});
-      } else {
-        querySnapshot.forEach((doc) => {
-          const record = doc.data();
-          tempSavedTexts.push({
-            id: record.id,
-            title: record.title,
-            text: record.text,
-            timestamp: record.timestamp,
-          });
+  const getSavedWords = async () => {
+    console.log("Getting words...");
+    const path = `users/${userEmail}/wordCollection`;
+    const q = query(collection(db, path));
+    const querySnapshot = await getDocs(q);
+    const tempSavedWords: {
+      id: string;
+      word: string;
+      note: string;
+      level: string;
+      timestamp: Date;
+    }[] = [];
+
+    if (querySnapshot.empty) {
+      console.log("querySnapshot.empty", querySnapshot.empty);
+    } else {
+      querySnapshot.forEach((doc) => {
+        const record = doc.data();
+        tempSavedWords.push({
+          id: record.id,
+          word: record.word,
+          note: record.note,
+          level: record.level,
+          timestamp: record.timestamp,
         });
-      }
-      console.log("tempSavedTexts", tempSavedTexts);
-      setSavedTexts(tempSavedTexts.slice(0, 5));
-      setLoadingSavedTexts(false);
-    };
+      });
+    }
 
-    const getSavedWords = async () => {
-      console.log("Getting words...");
-      const path = `users/${userEmail}/wordCollection`;
-      const q = query(collection(db, path));
-      const querySnapshot = await getDocs(q);
-      const tempSavedWords: {
-        id: string;
-        word: string;
-        note: string;
-        level: string;
-        timestamp: Date;
-      }[] = [];
+    console.log("tempSavedWords", tempSavedWords);
+    setSavedWords(tempSavedWords);
+    setLoadingSavedWords(false);
+  };
 
-      if (querySnapshot.empty) {
-        console.log("querySnapshot.empty", querySnapshot.empty);
-      } else {
-        querySnapshot.forEach((doc) => {
-          const record = doc.data();
-          tempSavedWords.push({
-            id: record.id,
-            word: record.word,
-            note: record.note,
-            level: record.level,
-            timestamp: record.timestamp,
-          });
-        });
-      }
-
-      console.log("tempSavedWords", tempSavedWords);
-      setSavedWords(tempSavedWords);
-      setLoadingSavedWords(false);
-    };
+  // Loading firebase log in data
+  useEffect(() => {
     if (loggedIn) {
       getSavedTexts();
       getSavedWords();
-      getUsers();
+      getUserCount();
     }
-  }, [loggedIn, userEmail]);
+  }, [loggedIn]);
 
   useEffect(() => {
     if (!loadingSavedTexts && !loadingSavedWords) {
@@ -155,8 +158,8 @@ function App() {
   }, [loadingSavedTexts, loadingSavedWords]);
 
   useEffect(() => {
-    const tempSavedNotes: any = {};
-    const tempSavedLevels: any = {};
+    const tempSavedNotes: { [key: string]: string } = {};
+    const tempSavedLevels: { [key: string]: string } = {};
     savedWords.forEach((savedWord) => {
       const word = savedWord.word;
       const note = savedWord.note;
@@ -206,8 +209,8 @@ function App() {
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               userName={userName}
-              userEmail={userName}
-              userPhoto={userName}
+              userEmail={userEmail}
+              userPhoto={userPhoto}
               lastSignInTime={lastSignInTime}
             />
             <Login auth={auth} />
@@ -218,6 +221,30 @@ function App() {
       </>
     );
   };
+  const NotFoundPage = () => {
+    return (
+      <>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Navbar
+              auth={auth}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              userName={userName}
+              userEmail={userEmail}
+              userPhoto={userPhoto}
+              lastSignInTime={lastSignInTime}
+            />
+            <NotFound />
+            <Footer />
+          </>
+        )}
+      </>
+    );
+  };
+
   const MainAppPage = () => {
     return (
       <>
@@ -263,7 +290,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/app" element={loggedIn ? <MainAppPage /> : <LoginPage />} />
-      {/* <Route path="*" element={<NotFoundPage />} /> */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

@@ -32,10 +32,10 @@ const Banner = (props: Props) => {
             >
               <Link
                 to={"/app"}
-                className=" d-flex gap-2 align-items-center justify-content-center"
+                className="d-flex gap-2 align-items-center justify-content-center"
               >
                 {props.loggedIn ? "Go to the app" : "Get started"}{" "}
-                <RightArrowIcon />
+                <RightArrowIcon size={16} />
               </Link>
             </button>
             <div id="review-1" className="position-absolute top-0 end-0">

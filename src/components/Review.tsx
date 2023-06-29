@@ -36,7 +36,7 @@ const Review = (props: Props) => {
                 className=" d-flex gap-2 align-items-center justify-content-center"
               >
                 {props.loggedIn ? "Go to the app" : "Get started"}
-                <RightArrowIcon />
+                <RightArrowIcon size={16} />
               </Link>
             </button>
           </div>
@@ -52,7 +52,7 @@ const Review = (props: Props) => {
                 className=" d-flex gap-2 align-items-center justify-content-center"
               >
                 {props.loggedIn ? "Go to the app" : "Get started"}
-                <RightArrowIcon />
+                <RightArrowIcon size={16} />
               </Link>
             </button>
           </div>

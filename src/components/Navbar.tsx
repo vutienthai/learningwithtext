@@ -7,6 +7,9 @@ import {
   LogoutIcon,
   OpenMenuIcon,
   RightArrowIcon,
+  UserIcon,
+  EmailIcon,
+  ClockIcon,
 } from "../utilities/svg";
 import { Link } from "react-router-dom";
 import { Auth } from "firebase/auth";
@@ -77,21 +80,21 @@ const Navbar = (props: Props) => {
                       </div>
                       <div className="d-flex flex-column gap-2">
                         <div className="d-flex flex-column">
-                          <div className="text-light-yellow">
-                            Welcome,{" "}
-                            <span className="text-uppercase text-strong text-green-1">
-                              {props.userName.split(" ")[0]}
+                          <div className="text-light-yellow d-flex align-items-center gap-2">
+                            <UserIcon size={13} />{" "}
+                            <span className="text-green-1">
+                              {props.userName}
                             </span>
                           </div>
-                          <div className="text-light-yellow">
-                            Email:{" "}
-                            <span className=" text-strong text-green-1">
+                          <div className="text-light-yellow d-flex align-items-center gap-2">
+                            <EmailIcon size={13} />{" "}
+                            <span className=" text-green-1">
                               {props.userEmail}
                             </span>
                           </div>
-                          <div className="text-light-yellow">
-                            Last sign in time:{" "}
-                            <span className="text-strong text-green-1">
+                          <div className="text-coal-1 d-flex align-items-center gap-2">
+                            <ClockIcon size={13} /> Last sign in time:{" "}
+                            <span className="">
                               {props.lastSignInTime.slice(0, 16)}
                             </span>
                           </div>
@@ -124,7 +127,7 @@ const Navbar = (props: Props) => {
                             className=" d-flex gap-2 align-items-center justify-content-center"
                           >
                             Login
-                            <RightArrowIcon />
+                            <RightArrowIcon size={14} />
                           </Link>
                         </button>
                       </div>
