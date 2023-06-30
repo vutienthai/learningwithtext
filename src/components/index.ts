@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import SavedTexts from "./SavedTexts";
 import Loader from "./Loader";
 import NotFound from "./NotFound";
+import AppStatistics from "./AppStatistics";
 
 export {
   Navbar,
@@ -18,4 +19,5 @@ export {
   SavedTexts,
   Loader,
   NotFound,
+  AppStatistics,
 };
