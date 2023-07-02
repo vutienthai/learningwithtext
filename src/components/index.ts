@@ -8,6 +8,7 @@ import ReviewSection from "./homepage/ReviewSection";
 import Login from "./app/Login";
 import NotFound from "./NotFound";
 import SavedTexts from "./app/SavedTexts";
+import AppStatistics from "./AppStatistics";
 
 export {
   Navbar,
@@ -19,4 +20,5 @@ export {
   SavedTexts,
   Loader,
   NotFound,
+  AppStatistics,
 };

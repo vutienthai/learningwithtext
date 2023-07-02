@@ -8,6 +8,7 @@ import {
   ReviewSection,
   Footer,
   NotFound,
+  AppStatistics,
 } from "./components";
 import { useEffect, useState } from "react";
 import MainApp from "./components/app/MainApp";
@@ -221,6 +222,29 @@ function App() {
       </>
     );
   };
+  const AppStatisticsPage = () => {
+    return (
+      <>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Navbar
+              auth={auth}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              userName={userName}
+              userEmail={userEmail}
+              userPhoto={userPhoto}
+              lastSignInTime={lastSignInTime}
+            />
+            <AppStatistics />
+            <Footer />
+          </>
+        )}
+      </>
+    );
+  };
   const NotFoundPage = () => {
     return (
       <>
@@ -290,6 +314,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/app" element={loggedIn ? <MainAppPage /> : <LoginPage />} />
+      <Route path="/statistics" element={<AppStatisticsPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

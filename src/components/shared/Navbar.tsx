@@ -31,9 +31,9 @@ const Navbar = (props: Props) => {
   const navbarButton =
     "btn btn-sm btn-outline-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-2 align-items-center px-3";
   return (
-    <nav className="navbar">
+    <nav className="navbar navbar-dark ">
       <div className="container-fluid">
-        <Link className="navbar-brand  text-white" to="/">
+        <Link className="navbar-brand text-white" to="/">
           <div className="web-name text-yellow-1 d-inline h1">LWT</div>
         </Link>
         <button
