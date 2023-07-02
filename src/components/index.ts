@@ -1,18 +1,19 @@
-import Navbar from "./Navbar";
-import Banner from "./Banner";
-import Media from "./Media";
-import Review from "./Review";
-import Login from "./Login";
-import Footer from "./Footer";
-import SavedTexts from "./SavedTexts";
-import Loader from "./Loader";
+import Navbar from "./shared/Navbar";
+import Footer from "./shared/Footer";
+import Loader from "./shared/Loader";
+
+import Banner from "./homepage/Banner";
+import AsFeaturedIn from "./homepage/AsFeaturedIn";
+import ReviewSection from "./homepage/ReviewSection";
+import Login from "./app/Login";
 import NotFound from "./NotFound";
+import SavedTexts from "./app/SavedTexts";
 
 export {
   Navbar,
   Banner,
-  Media,
-  Review,
+  AsFeaturedIn,
+  ReviewSection,
   Login,
   Footer,
   SavedTexts,

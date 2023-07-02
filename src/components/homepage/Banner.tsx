@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { RightArrowIcon } from "../utilities/svg";
-import Icons from "./Icons";
-import { FloatingReview1, FloatingReview2 } from "./shared/FloatingReviews";
+import { RightArrowIcon } from "../../utilities/svg";
+import BannerIcons from "./BannerIcons";
+import { FloatingReview1, FloatingReview2 } from "./FloatingReviews";
 
 type Props = { loggedIn: boolean };
 
@@ -12,7 +12,7 @@ const Banner = (props: Props) => {
         id="banner"
         className="container-fluid d-flex justify-content-center align-items-center position-relative mb-3"
       >
-        <Icons loggedIn={props.loggedIn} />
+        <BannerIcons loggedIn={props.loggedIn} />
 
         <div className="col-12 col-md-8 col-lg-6">
           <div

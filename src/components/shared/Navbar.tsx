@@ -10,7 +10,7 @@ import {
   UserIcon,
   EmailIcon,
   ClockIcon,
-} from "../utilities/svg";
+} from "../../utilities/svg";
 import { Link } from "react-router-dom";
 import { Auth } from "firebase/auth";
 

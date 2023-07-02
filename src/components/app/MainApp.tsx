@@ -1,12 +1,14 @@
-import { EditIcon, GenerateIcon } from "../utilities/svg";
-import { SavedTexts } from ".";
+import { useState } from "react";
+
+import Modal from "./Modal";
+import { EditIcon, GenerateIcon } from "../../utilities/svg";
+import { SavedTexts } from "..";
 import Samples from "./Samples";
-import vocabulary from "../services/1000w.json";
+import vocabulary from "../../services/1000w.json";
 
 // Firebase
-import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { db } from "../services/firebaseConfig";
-import { useEffect, useState } from "react";
+import { db } from "../../services/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 type Props = {
   userName: string;
@@ -59,8 +61,9 @@ const MainApp = (props: Props) => {
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
 
-  const wordDefinitions: any = {};
-  const wordExamples: any = {};
+  const wordDefinitions: { [key: string]: string } = {};
+  const wordExamples: { [key: string]: string } = {};
+
   vocabulary.forEach(
     (word: { word: string; definition: string; example: string }) => {
       wordDefinitions[word.word] = word.definition;
@@ -126,66 +129,6 @@ const MainApp = (props: Props) => {
     selectedLevel ? setSelectedLevel(selectedLevel) : setSelectedLevel("");
   };
 
-  const onChangeNote = (e: any) => {
-    setSelectedNote(e.target.value);
-  };
-
-  const onChangeOption = (e: any) => {
-    setSelectedLevel(e.target.value);
-  };
-
-  const updateSelectedWord = () => {
-    const noteElement = document.getElementById(
-      "word-note"
-    ) as HTMLInputElement;
-    const levelElement = document.querySelector(
-      'input[name="inlineRadioOptions"]:checked'
-    ) as HTMLInputElement;
-    const updatedNote = noteElement.value;
-    const updatedLevel = levelElement ? levelElement.value : "";
-    console.log("updatedLevel", updatedLevel);
-    console.log("updatedNote", updatedNote);
-    console.log("savedWords", props.savedWords);
-    const tempSavedWords = [...props.savedWords];
-    const wordIndex = tempSavedWords.findIndex(
-      (word) => word.word === selectedWord
-    );
-    console.log("wordIndex", wordIndex);
-
-    let updatedWord;
-    let wordID;
-    const timestamp = new Date();
-
-    if (wordIndex === -1) {
-      wordID = generateID();
-      updatedWord = {
-        id: wordID,
-        word: selectedWord,
-        note: updatedNote,
-        level: updatedLevel,
-        timestamp: timestamp,
-      };
-
-      tempSavedWords.push(updatedWord);
-    } else {
-      tempSavedWords[wordIndex].note = updatedNote;
-      tempSavedWords[wordIndex].level = updatedLevel;
-      wordID = tempSavedWords[wordIndex].id;
-      updatedWord = {
-        id: wordID,
-        word: selectedWord,
-        note: updatedNote,
-        level: updatedLevel,
-        timestamp: timestamp,
-      };
-    }
-    // Update savedWords state
-    props.setSavedWords(tempSavedWords);
-    // Update word in Firebase
-    const userCollectionPath = `users/${props.userEmail}/wordCollection`;
-    setDoc(doc(db, userCollectionPath, wordID), updatedWord);
-  };
-
   return (
     <section id="main-app" className="bg-dark min-vh-100">
       <div className="row p-4">
@@ -249,7 +192,7 @@ const MainApp = (props: Props) => {
                       <span key={wIndex}>
                         <span>{word.split(/[–1-9a-zA-Z+]/).shift()}</span>
                         <span
-                          className={`${word
+                          className={`word ${word
                             .split(/[:–.?;,!“”‘’()%]/)
                             .join("")
                             .toLowerCase()} ${
@@ -331,7 +274,21 @@ const MainApp = (props: Props) => {
           </div>
         </div>
       </div>
-      <div
+      <Modal
+        userEmail={props.userEmail}
+        wordDefinitions={wordDefinitions}
+        wordExamples={wordExamples}
+        selectedWord={selectedWord}
+        selectedLevel={selectedLevel}
+        setSelectedLevel={setSelectedLevel}
+        selectedNote={selectedNote}
+        setSelectedNote={setSelectedNote}
+        savedTexts={props.savedTexts}
+        setSavedTexts={props.setSavedTexts}
+        savedWords={props.savedWords}
+        setSavedWords={props.setSavedWords}
+      />
+      {/* <div
         className="modal fade"
         id="exampleModal"
         tabIndex={-1}
@@ -522,7 +479,7 @@ const MainApp = (props: Props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

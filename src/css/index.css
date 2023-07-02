@@ -13646,66 +13646,6 @@ textarea.form-control-lg {
   -webkit-text-stroke: 1px #f9f4da;
 }
 
-.level-ignore {
-  border-bottom: 1px dashed rgba(63, 63, 63, 0.5);
-  color: rgba(63, 63, 63, 0.5);
-}
-
-.level-1 {
-  color: #ed203d;
-}
-.level-1:after {
-  content: "1";
-  font-size: 8px;
-  color: rgba(63, 63, 63, 0.8);
-}
-
-.level-2 {
-  color: #7b5ea7;
-}
-.level-2:after {
-  content: "2";
-  font-size: 8px;
-  color: rgba(63, 63, 63, 0.8);
-  transform: rotate(3deg);
-}
-
-.level-3 {
-  color: #fcba28;
-}
-.level-3:after {
-  content: "3";
-  font-size: 8px;
-  color: rgba(63, 63, 63, 0.8);
-}
-
-.level-4 {
-  color: #1a90ff;
-}
-.level-4:after {
-  content: "4";
-  font-size: 8px;
-  color: rgba(63, 63, 63, 0.8);
-}
-
-.level-5 {
-  color: #0ba95b;
-}
-.level-5:after {
-  content: "5";
-  font-size: 8px;
-  color: rgba(63, 63, 63, 0.8);
-}
-
-.level-master {
-  border-bottom: 1px dashed rgba(63, 63, 63, 0.5);
-}
-.level-master:after {
-  content: "✓";
-  font-size: 8px;
-  color: #0ba95b;
-}
-
 nav .navbar-nav .nav-link {
   color: #fff;
 }
@@ -13860,6 +13800,82 @@ nav #navbar-chat-icon {
   font-family: "Paytone One", sans-serif;
   width: -moz-fit-content;
   width: fit-content;
+}
+#main-app .word {
+  display: inline-block;
+  position: relative;
+}
+#main-app .level-ignore {
+  border-bottom: 1px dashed rgba(63, 63, 63, 0.5);
+  color: rgba(63, 63, 63, 0.5);
+}
+#main-app .level-1 {
+  color: #3f3f3f;
+}
+#main-app .level-1:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #ed203d;
+  bottom: 0;
+  left: 0;
+}
+#main-app .level-2 {
+  color: #3f3f3f;
+}
+#main-app .level-2:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(237, 32, 61, 0.8);
+  bottom: 0;
+  left: 0;
+}
+#main-app .level-3 {
+  color: #3f3f3f;
+}
+#main-app .level-3:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(237, 32, 61, 0.6);
+  bottom: 0;
+  left: 0;
+}
+#main-app .level-4 {
+  color: #3f3f3f;
+}
+#main-app .level-4:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(237, 32, 61, 0.4);
+  bottom: 0;
+  left: 0;
+}
+#main-app .level-5 {
+  color: #3f3f3f;
+}
+#main-app .level-5:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(237, 32, 61, 0.2);
+  bottom: 0;
+  left: 0;
+}
+#main-app .level-master {
+  border-bottom: 1px dashed rgba(63, 63, 63, 0.5);
+}
+#main-app .level-master:after {
+  content: "✓";
+  font-size: 8px;
+  color: #0ba95b;
 }
 
 #footer {

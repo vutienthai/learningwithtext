@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import * as firebaseui from "firebaseui";
 import firebase from "firebase/compat/app";
 import { Auth } from "firebase/auth";
-import Icons from "./Icons";
-import { FloatingReview1, FloatingReview2 } from "./shared/FloatingReviews";
+import Icons from "../homepage/BannerIcons";
+import { FloatingReview1, FloatingReview2 } from "../homepage/FloatingReviews";
 
 type Props = { auth: Auth };
 

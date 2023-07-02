@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AwardIcon,
   BalloonIcon,
@@ -6,11 +5,11 @@ import {
   BookmarkIcon,
   DoorIcon,
   PlaneIcon,
-} from "../utilities/svg";
+} from "../../utilities/svg";
 
 type Props = { loggedIn: boolean };
 
-const Icons = (props: Props) => {
+const BannerIcons = (props: Props) => {
   return (
     <>
       <div
@@ -43,4 +42,4 @@ const Icons = (props: Props) => {
   );
 };
 
-export default Icons;
+export default BannerIcons;

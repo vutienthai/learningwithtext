@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StarIcon } from "../utilities/svg";
+import { StarIcon } from "../../utilities/svg";
 
 const Reviews = () => {
   const [introCardActive, setIntroCardActive] = useState<boolean>(false);

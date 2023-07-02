@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import Reviews from "./Reviews";
-import { RightArrowIcon } from "../utilities/svg";
+import { RightArrowIcon } from "../../utilities/svg";
 
 type Props = { loggedIn: boolean };
 
-const Review = (props: Props) => {
+const ReviewSection = (props: Props) => {
   return (
     <section id="review-section">
       <div className="d-flex flex-column flex-xl-row align-items-center justify-content-center bg-light-yellow rounded-5 mx-3 mb-3 mx-lg-5 p-3 p-lg-5">
@@ -62,4 +62,4 @@ const Review = (props: Props) => {
   );
 };
 
-export default Review;
+export default ReviewSection;

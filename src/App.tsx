@@ -1,16 +1,16 @@
 import { Route, Routes } from "react-router-dom";
 import {
+  Loader,
+  Navbar,
   Banner,
   Login,
-  Media,
-  Navbar,
-  Review,
+  AsFeaturedIn,
+  ReviewSection,
   Footer,
-  Loader,
   NotFound,
 } from "./components";
 import { useEffect, useState } from "react";
-import MainApp from "./components/MainApp";
+import MainApp from "./components/app/MainApp";
 import { auth, db } from "./services/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, getDocs } from "firebase/firestore";
@@ -189,8 +189,8 @@ function App() {
               lastSignInTime={lastSignInTime}
             />
             <Banner loggedIn={loggedIn} />
-            <Media userCount={userCount} />
-            <Review loggedIn={loggedIn} />
+            <AsFeaturedIn userCount={userCount} />
+            <ReviewSection loggedIn={loggedIn} />
             <Footer />
           </>
         )}
@@ -214,7 +214,7 @@ function App() {
               lastSignInTime={lastSignInTime}
             />
             <Login auth={auth} />
-            <Media userCount={userCount} />
+            <AsFeaturedIn userCount={userCount} />
             <Footer />
           </>
         )}

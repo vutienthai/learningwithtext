@@ -1,4 +1,4 @@
-import { TextIcon } from "../utilities/svg";
+import { TextIcon } from "../../utilities/svg";
 
 type Props = {
   savedTexts: { title: string; text: string }[];
@@ -30,7 +30,7 @@ const SavedTexts = (props: Props) => {
               >
                 <div className="text-uppercase text-strong d-flex gap-2 align-items-center">
                   <TextIcon size={16} />
-                  {text.title ? text.title : "No title"}
+                  {text.title ? `${text.title.slice(0, 24)}...` : "No title"}
                 </div>
                 <div className="text-coal-1">{text.text.slice(0, 100)}...</div>
               </div>
