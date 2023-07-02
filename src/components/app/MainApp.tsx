@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import { EditIcon, GenerateIcon } from "../../utilities/svg";
 import { SavedTexts } from "..";
 import Samples from "./Samples";
-import vocabulary from "../../services/1000w.json";
+import vocabulary from "../../services/vocabularydotcom/all_vocab.json";
 
 // Firebase
 import { db } from "../../services/firebaseConfig";
@@ -193,19 +193,19 @@ const MainApp = (props: Props) => {
                         <span>{word.split(/[–1-9a-zA-Z+]/).shift()}</span>
                         <span
                           className={`word ${word
-                            .split(/[:–.?;,!“”‘’()%]/)
+                            .split(/[:–.?;,!"“”‘’()%]/)
                             .join("")
                             .toLowerCase()} ${
                             props.savedLevels[
                               word
-                                .split(/[:–.?;,!“”‘’()%]/)
+                                .split(/[:–.?;,!"“”‘’()%]/)
                                 .join("")
                                 .toLowerCase()
                             ]
                               ? "level-" +
                                 props.savedLevels[
                                   word
-                                    .split(/[:–.?;,!“”‘’()%]/)
+                                    .split(/[:–.?;,!"“”‘’()%]/)
                                     .join("")
                                     .toLowerCase()
                                 ]
@@ -217,7 +217,7 @@ const MainApp = (props: Props) => {
                           data-word={word.toLowerCase()}
                           onClick={onClickWordHandler}
                         >
-                          {word.split(/[:–.?;,!“”‘’()%]/).join("")}
+                          {word.split(/[:–.?;,!"“”‘’()%]/).join("")}
                         </span>
                         <span>{word.split(/[–1-9a-zA-Z+]/).pop()}</span>{" "}
                       </span>
