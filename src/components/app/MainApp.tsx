@@ -4,7 +4,8 @@ import Modal from "./Modal";
 import { EditIcon, GenerateIcon } from "../../utilities/svg";
 import { SavedTexts } from "..";
 import Samples from "./Samples";
-import vocabulary from "../../services/vocabularydotcom/all_vocab.json";
+import vocabulary from "../../services/vocabulary/all_vocab.json";
+import { stopwords } from "../../services/vocabulary/stopwords.ts";
 
 // Firebase
 import { db } from "../../services/firebaseConfig";
@@ -57,6 +58,8 @@ const generateID = () => {
 };
 
 const MainApp = (props: Props) => {
+  console.log("stopwords", stopwords);
+
   const [selectedWord, setSelectedWord] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
@@ -209,6 +212,13 @@ const MainApp = (props: Props) => {
                                     .join("")
                                     .toLowerCase()
                                 ]
+                              : stopwords.includes(
+                                  word
+                                    .split(/[:–.?;,!"“”‘’()%]/)
+                                    .join("")
+                                    .toLowerCase()
+                                )
+                              ? "level-ignore"
                               : "level-0"
                           }`}
                           data-bs-toggle="modal"

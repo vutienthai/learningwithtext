@@ -13806,8 +13806,7 @@ nav #navbar-chat-icon {
   position: relative;
 }
 #main-app .level-ignore {
-  border-bottom: 1px dashed rgba(63, 63, 63, 0.5);
-  color: rgba(63, 63, 63, 0.5);
+  color: rgba(63, 63, 63, 0.7);
 }
 #main-app .level-1 {
   color: #3f3f3f;
@@ -13871,9 +13870,10 @@ nav #navbar-chat-icon {
 }
 #main-app .level-master {
   border-bottom: 1px dashed rgba(63, 63, 63, 0.5);
+  color: #0ba95b;
 }
 #main-app .level-master:after {
-  content: "✓";
+  content: "";
   font-size: 8px;
   color: #0ba95b;
 }
