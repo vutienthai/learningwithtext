@@ -97,8 +97,9 @@
   }
 
   .level-master {
-    border-bottom: 1px dashed rgba($coal-1, 0.5);
-    color: $green-1;
+    // border-bottom: 1px dashed rgba($green-1, 0.5);
+    background-color: rgba($green-1, 0.2);
+    color: $coal-1;
     &:after {
       // content: "✓";
       content: "";

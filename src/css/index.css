@@ -13870,8 +13870,8 @@ nav #navbar-chat-icon {
   left: 0;
 }
 #main-app .level-master {
-  border-bottom: 1px dashed rgba(63, 63, 63, 0.5);
-  color: #0ba95b;
+  background-color: rgba(11, 169, 91, 0.2);
+  color: #3f3f3f;
 }
 #main-app .level-master:after {
   content: "";

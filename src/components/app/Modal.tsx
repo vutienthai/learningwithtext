@@ -6,11 +6,6 @@ type Props = {
   wordDefinitions: { [key: string]: string };
   wordExamples: { [key: string]: string };
 
-  savedTexts: { title: string; text: string; id: string; timestamp: Date }[];
-  setSavedTexts: (
-    texts: { id: string; title: string; text: string; timestamp: Date }[]
-  ) => void;
-
   savedWords: {
     id: string;
     word: string;
@@ -80,7 +75,7 @@ const Modal = (props: Props) => {
         timestamp: timestamp,
       };
 
-      tempSavedWords.push(updatedWord);
+      tempSavedWords.unshift(updatedWord);
     } else {
       tempSavedWords[wordIndex].note = updatedNote;
       tempSavedWords[wordIndex].level = updatedLevel;

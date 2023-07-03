@@ -105,6 +105,9 @@ function App() {
         });
       });
     }
+
+    tempSavedTexts.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
+
     console.log("tempSavedTexts", tempSavedTexts);
     setSavedTexts(tempSavedTexts.slice(0, 5));
     setLoadingSavedTexts(false);
@@ -137,6 +140,8 @@ function App() {
         });
       });
     }
+
+    tempSavedWords.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
 
     console.log("tempSavedWords", tempSavedWords);
     setSavedWords(tempSavedWords);
