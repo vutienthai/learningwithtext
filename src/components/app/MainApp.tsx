@@ -188,7 +188,7 @@ const MainApp = (props: Props) => {
             }`}
           >
             <div className="d-flex justify-content-between align-items-center">
-              <h2 className="text-light-yellow m-0">Your text:</h2>
+              <h2 className="text-light m-0">Your text:</h2>
               <button
                 id="new-text-btn"
                 className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
@@ -204,80 +204,134 @@ const MainApp = (props: Props) => {
                 className="rounded-2 border-0 p-3 p-md-5 bg-light"
               >
                 <h3 className="mb-4">{props.generatedTextTitle}</h3>
-                {props.generatedText.map((paragraph, pIndex) => (
-                  <div key={pIndex} className="">
-                    {paragraph.map((word, wIndex) => (
-                      <span key={wIndex}>
-                        <span>{word.split(/[–1-9a-zA-Z+]/).shift()}</span>
-                        <span
-                          className={`word ${transformWord(word)} ${
-                            props.savedLevels[transformWord(word)]
-                              ? "level-" +
-                                props.savedLevels[transformWord(word)]
-                              : stopwords.includes(transformWord(word))
-                              ? "level-ignore"
-                              : "level-0"
-                          }`}
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          data-bs-content="And here's some amazing content. It's very engaging. Right?"
-                          data-word={word.toLowerCase()}
-                          onClick={onClickWordHandler}
-                        >
-                          {word.split(/[:–.?;,!"“”‘’()%]/).join("")}
-                        </span>
-                        <span>{word.split(/[–1-9a-zA-Z+]/).pop()}</span>{" "}
-                      </span>
-                    ))}
-                    <br />
-                  </div>
-                ))}
+                {props.generatedText.map((paragraph, pIndex) => {
+                  return (
+                    <div key={pIndex} className="">
+                      {paragraph.map((word, wIndex) => {
+                        const transformedWord = word
+                          .split(/[:–.?;,!"“”‘’()%]/)
+                          .join("");
+
+                        const transformedWordLowerCase =
+                          transformedWord.toLowerCase();
+
+                        const specialCharBefore = word
+                          .split(/[–1-9a-zA-Z+]/)
+                          .shift();
+                        const specialCharAfter = word
+                          .split(/[–1-9a-zA-Z+]/)
+                          .pop();
+
+                        return (
+                          <span key={wIndex}>
+                            <span>{specialCharBefore}</span>
+                            <span
+                              className={`word ${transformedWordLowerCase} ${
+                                props.savedLevels[transformedWordLowerCase]
+                                  ? "level-" +
+                                    props.savedLevels[transformedWordLowerCase]
+                                  : stopwords.includes(transformedWordLowerCase)
+                                  ? "level-ignore"
+                                  : "level-0"
+                              }`}
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              data-bs-content="???"
+                              data-word={transformedWordLowerCase}
+                              onClick={onClickWordHandler}
+                            >
+                              {transformedWord}
+                            </span>
+                            <span>{specialCharAfter}</span>{" "}
+                          </span>
+                        );
+                      })}
+                      <br />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
 
         <div className="col-12 col-lg-4 p-3 my-4 my-lg-2 ">
-          <div className="d-flex">
-            <div
-              className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
-                props.showSamples ? "btn-outline-yellow-1" : "btn-yellow-1"
-              }`}
-              onClick={() => {
-                props.setShowSamples(false);
-              }}
-            >
-              Your Texts
+          <div className="d-flex flex-column gap-4">
+            <div className="d-flex flex-column">
+              <h2 className="text-light">Recent words:</h2>
+              <div className="text-light d-flex flex-wrap gap-2">
+                {props.savedWords
+                  .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
+                  .slice(0, 10)
+                  .map((savedWord) => {
+                    const word = savedWord.word;
+                    return (
+                      <span className={`${word} rounded-2 text-bg-coal-1 px-2`}>
+                        {word}
+                      </span>
+                    );
+                  })}
+              </div>
             </div>
-            <div
-              className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
-                props.showSamples ? "btn-yellow-1" : "btn-outline-yellow-1"
-              }`}
-              onClick={() => {
-                props.setShowSamples(true);
-              }}
-            >
-              Samples
+            <div className="d-flex flex-column">
+              <h2 className="text-light">Revision:</h2>
+              <div className="text-light d-flex flex-wrap gap-2">
+                {props.savedWords
+                  .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
+                  .slice(0, 10)
+                  .map((savedWord) => {
+                    const word = savedWord.word;
+                    return (
+                      <span className={`${word} rounded-2 text-bg-coal-1 px-2`}>
+                        {word}
+                      </span>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
+            <div>
+              <div className="">
+                <div
+                  className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
+                    props.showSamples ? "btn-outline-yellow-1" : "btn-yellow-1"
+                  }`}
+                  onClick={() => {
+                    props.setShowSamples(false);
+                  }}
+                >
+                  Your Texts
+                </div>
+                <div
+                  className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
+                    props.showSamples ? "btn-yellow-1" : "btn-outline-yellow-1"
+                  }`}
+                  onClick={() => {
+                    props.setShowSamples(true);
+                  }}
+                >
+                  Samples
+                </div>
+              </div>
 
-          <div className="border border-yellow-1 bg-light-yellow p-3">
-            {props.showSamples ? (
-              <Samples
-                setGeneratedText={props.setGeneratedText}
-                setGeneratedTextTitle={props.setGeneratedTextTitle}
-                setEditMode={props.setEditMode}
-                convertPlainTextToWords={convertPlainTextToWords}
-              />
-            ) : (
-              <SavedTexts
-                savedTexts={props.savedTexts}
-                setGeneratedText={props.setGeneratedText}
-                setGeneratedTextTitle={props.setGeneratedTextTitle}
-                setEditMode={props.setEditMode}
-                convertPlainTextToWords={convertPlainTextToWords}
-              />
-            )}
+              <div className="border border-yellow-1 bg-light-yellow p-3">
+                {props.showSamples ? (
+                  <Samples
+                    setGeneratedText={props.setGeneratedText}
+                    setGeneratedTextTitle={props.setGeneratedTextTitle}
+                    setEditMode={props.setEditMode}
+                    convertPlainTextToWords={convertPlainTextToWords}
+                  />
+                ) : (
+                  <SavedTexts
+                    savedTexts={props.savedTexts}
+                    setGeneratedText={props.setGeneratedText}
+                    setGeneratedTextTitle={props.setGeneratedTextTitle}
+                    setEditMode={props.setEditMode}
+                    convertPlainTextToWords={convertPlainTextToWords}
+                  />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

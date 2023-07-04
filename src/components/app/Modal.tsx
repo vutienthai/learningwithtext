@@ -143,13 +143,23 @@ const Modal = (props: Props) => {
                   {props.selectedWord}
                 </div>
                 <div className="text-coal-1 text-fs-13">
-                  {props.savedTimestamps[props.selectedWord]
-                    ? `Last modified: ${Math.round(
+                  {props.savedTimestamps[props.selectedWord] ? (
+                    <span>
+                      <i className="fa fa-clock-o me-1" aria-hidden="true"></i>{" "}
+                      Last modified:{" "}
+                      {Math.round(
                         (props.currentTimestamp.getTime() -
                           new Date(props.selectedTimestamp).getTime()) /
                           (1000 * 60 * 60 * 24)
-                      )} day(s) ago.`
-                    : `New word found! Learn it now.`}
+                      )}{" "}
+                      day(s) ago.
+                    </span>
+                  ) : (
+                    <span>
+                      <i className="fa fa-smile-o me-1" aria-hidden="true"></i>{" "}
+                      New word found. Learn it now!
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
