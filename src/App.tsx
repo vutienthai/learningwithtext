@@ -140,7 +140,7 @@ function App() {
           word: record.word,
           note: record.note,
           level: record.level,
-          timestamp: record.timestamp,
+          timestamp: record.timestamp.toDate(),
         });
       });
     }

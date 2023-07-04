@@ -28,8 +28,12 @@ type Props = {
   setSelectedLevel: (value: string) => void;
   selectedNote: string;
   setSelectedNote: (value: string) => void;
+  selectedTimestamp: Date;
+  setSelectedTimestamp: (value: Date) => void;
 
   stopwords: string[];
+  currentTimestamp: Date;
+  setCurrentTimestamp: (value: Date) => void;
 };
 
 const generateID = () => {
@@ -66,6 +70,9 @@ const Modal = (props: Props) => {
     let updatedWord;
     let wordID;
     const timestamp = new Date();
+    console.log("timestamp", timestamp);
+    props.setSelectedTimestamp(timestamp);
+    props.setCurrentTimestamp(timestamp);
 
     if (wordIndex === -1) {
       wordID = generateID();
@@ -81,6 +88,7 @@ const Modal = (props: Props) => {
     } else {
       tempSavedWords[wordIndex].note = updatedNote;
       tempSavedWords[wordIndex].level = updatedLevel;
+      tempSavedWords[wordIndex].timestamp = timestamp;
       wordID = tempSavedWords[wordIndex].id;
       updatedWord = {
         id: wordID,
@@ -113,7 +121,7 @@ const Modal = (props: Props) => {
               id="exampleModalLabel"
             >
               <div className="">
-                <div className="d-flex gap-2 align-items-center justify-content-center">
+                <div className="d-flex gap-2 align-items-center ">
                   {props.wordDefinitions[props.selectedWord] ? (
                     <span className="badge bg-green-1 text-fs-13">
                       <i className="fa fa-key me-2" aria-hidden="true"></i>
@@ -131,6 +139,13 @@ const Modal = (props: Props) => {
                     ""
                   )}
                   {props.selectedWord}
+                </div>
+                <div className="text-coal-1 text-fs-13">
+                  {`Last modified time: ${Math.round(
+                    (props.currentTimestamp.getTime() -
+                      new Date(props.selectedTimestamp).getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  )} day(s)`}
                 </div>
               </div>
             </div>

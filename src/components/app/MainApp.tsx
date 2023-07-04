@@ -72,7 +72,8 @@ const MainApp = (props: Props) => {
   const [selectedWord, setSelectedWord] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
-  const [selectedTimestamp, setSelectedTimestamp] = useState("");
+  const [selectedTimestamp, setSelectedTimestamp] = useState(new Date());
+  const [currentTimestamp, setCurrentTimestamp] = useState(new Date());
 
   const wordDefinitions: { [key: string]: string } = {};
   const wordExamples: { [key: string]: string } = {};
@@ -138,8 +139,12 @@ const MainApp = (props: Props) => {
 
     const selectedNote = props.savedNotes[selectedWord];
     const selectedLevel = props.savedLevels[selectedWord];
+    const selectedTimestamp = props.savedTimestamps[selectedWord];
     selectedNote ? setSelectedNote(selectedNote) : setSelectedNote("");
     selectedLevel ? setSelectedLevel(selectedLevel) : setSelectedLevel("");
+    selectedTimestamp
+      ? setSelectedTimestamp(selectedTimestamp)
+      : setSelectedTimestamp(new Date());
   };
 
   return (
@@ -283,11 +288,15 @@ const MainApp = (props: Props) => {
         selectedWord={selectedWord}
         selectedLevel={selectedLevel}
         setSelectedLevel={setSelectedLevel}
+        selectedTimestamp={selectedTimestamp}
+        setSelectedTimestamp={setSelectedTimestamp}
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         savedWords={props.savedWords}
         setSavedWords={props.setSavedWords}
         stopwords={stopwords}
+        currentTimestamp={currentTimestamp}
+        setCurrentTimestamp={setCurrentTimestamp}
       />
     </section>
   );
