@@ -110,7 +110,19 @@ const Modal = (props: Props) => {
               className="fs-3 modal-title text-charcoal-1"
               id="exampleModalLabel"
             >
-              {props.selectedWord}
+              <div className="">
+                {props.wordDefinitions[props.selectedWord] ? (
+                  <div className="d-flex gap-2 align-items-center justify-content-center">
+                    {props.selectedWord}
+                    <span className="badge bg-green-1 text-fs-13">
+                      <i className="fa fa-key me-2" aria-hidden="true"></i>
+                      Must Learn
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
             <button
               type="button"
@@ -122,18 +134,27 @@ const Modal = (props: Props) => {
           <div className="modal-body">
             <div className="d-flex flex-column gap-3">
               <div>
-                <h5 className="text-coal-1 opacity-25">Definition</h5>
-                <div className="mb-4">
-                  {props.wordDefinitions[props.selectedWord]
-                    ? props.wordDefinitions[props.selectedWord]
-                    : "No definition"}
-                </div>
-                <h5 className="text-coal-1 opacity-25">Example</h5>
-                <div className="mb-4">
-                  {props.wordExamples[props.selectedWord]
-                    ? props.wordExamples[props.selectedWord]
-                    : "No example"}
-                </div>
+                {props.wordDefinitions[props.selectedWord] ? (
+                  <>
+                    <h5 className="text-coal-1 opacity-25">Definition</h5>
+                    <div className="mb-4">
+                      {props.wordDefinitions[props.selectedWord]}
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
+                {props.wordExamples[props.selectedWord] ? (
+                  <>
+                    {" "}
+                    <h5 className="text-coal-1 opacity-25">Example</h5>
+                    <div className="mb-4">
+                      {props.wordExamples[props.selectedWord]}
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
 
                 <h5 className="text-coal-1 opacity-25">Note</h5>
                 <div>
@@ -150,7 +171,7 @@ const Modal = (props: Props) => {
               </div>
               <div>
                 <h5 className="text-coal-1 opacity-25">Level</h5>
-                <div className="d-flex">
+                <div className="d-flex flex-wrap">
                   <div className="form-check form-check-inline">
                     <input
                       className="form-check-input"
