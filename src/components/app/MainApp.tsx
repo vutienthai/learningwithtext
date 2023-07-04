@@ -203,7 +203,7 @@ const MainApp = (props: Props) => {
                 id="generated-user-input"
                 className="rounded-2 border-0 p-3 p-md-5 bg-light"
               >
-                <h3>{props.generatedTextTitle}</h3>
+                <h3 className="mb-4">{props.generatedTextTitle}</h3>
                 {props.generatedText.map((paragraph, pIndex) => (
                   <div key={pIndex} className="">
                     {paragraph.map((word, wIndex) => (
