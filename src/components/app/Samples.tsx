@@ -16,7 +16,7 @@ const Samples = (props: Props) => {
           {textSamples.map((text, index) => (
             <div
               key={index}
-              className=""
+              className="border-0 border-bottom border-gray-1 pb-3 mb-2"
               onClick={() => {
                 const generatedText = props.convertPlainTextToWords(text.text);
                 props.setGeneratedText(generatedText);

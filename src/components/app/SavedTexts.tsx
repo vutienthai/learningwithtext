@@ -17,7 +17,7 @@ const SavedTexts = (props: Props) => {
             {props.savedTexts.map((text, index) => (
               <div
                 key={index}
-                className=""
+                className="border-0 border-bottom border-gray-1 pb-3 mb-2"
                 onClick={() => {
                   console.log(text.text);
                   const generatedText = props.convertPlainTextToWords(

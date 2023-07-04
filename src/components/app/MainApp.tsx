@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Modal from "./Modal";
 import { EditIcon, GenerateIcon } from "../../utilities/svg";
