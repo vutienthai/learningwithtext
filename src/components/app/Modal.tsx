@@ -23,6 +23,8 @@ type Props = {
     }[]
   ) => void;
 
+  savedTimestamps: { [key: string]: Date };
+
   selectedWord: string;
   selectedLevel: string;
   setSelectedLevel: (value: string) => void;
@@ -141,11 +143,13 @@ const Modal = (props: Props) => {
                   {props.selectedWord}
                 </div>
                 <div className="text-coal-1 text-fs-13">
-                  {`Last modified time: ${Math.round(
-                    (props.currentTimestamp.getTime() -
-                      new Date(props.selectedTimestamp).getTime()) /
-                      (1000 * 60 * 60 * 24)
-                  )} day(s)`}
+                  {props.savedTimestamps[props.selectedWord]
+                    ? `Last modified: ${Math.round(
+                        (props.currentTimestamp.getTime() -
+                          new Date(props.selectedTimestamp).getTime()) /
+                          (1000 * 60 * 60 * 24)
+                      )} day(s) ago.`
+                    : `New word found! Learn it now.`}
                 </div>
               </div>
             </div>

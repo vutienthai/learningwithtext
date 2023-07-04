@@ -297,6 +297,7 @@ const MainApp = (props: Props) => {
         stopwords={stopwords}
         currentTimestamp={currentTimestamp}
         setCurrentTimestamp={setCurrentTimestamp}
+        savedTimestamps={props.savedTimestamps}
       />
     </section>
   );

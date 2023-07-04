@@ -30,9 +30,18 @@ const SavedTexts = (props: Props) => {
               >
                 <div className="text-uppercase text-strong d-flex gap-2 align-items-center">
                   <TextIcon size={16} />
-                  {text.title ? `${text.title.slice(0, 24)}...` : "No title"}
+                  {!text.title
+                    ? "No title"
+                    : text.title.length < 25
+                    ? text.title
+                    : `${text.title.slice(0, 25)}...`}
                 </div>
-                <div className="text-coal-1">{text.text.slice(0, 100)}...</div>
+                <div className="text-coal-1">
+                  {text.text.split(".")[0].length < 150
+                    ? text.text.split(".")[0]
+                    : text.text.slice(0, 150)}
+                  ...
+                </div>
               </div>
             ))}
           </div>
