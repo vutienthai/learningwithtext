@@ -150,14 +150,14 @@ const MainApp = (props: Props) => {
   return (
     <section id="main-app" className="bg-dark min-vh-100">
       <div className="row p-4">
-        <div className="col-12 col-lg-8 p-3 my-4 my-lg-2">
+        <div className="col-12 col-lg-6 p-3 my-4 my-lg-2">
           <div
             id="user-input-container"
-            className={`d-flex flex-column gap-4 ${
+            className={`d-flex flex-column gap-3 ${
               props.editMode ? "" : "d-none"
             }`}
           >
-            <h2 className="text-light-yellow m-0">Please input your text:</h2>
+            <h2 className="text-light m-0">Please input your text:</h2>
             <div className="d-flex flex-column justify-content-center align-items-center gap-2">
               <input
                 id="user-input-title"
@@ -183,7 +183,7 @@ const MainApp = (props: Props) => {
           </div>
           <div
             id="generated-user-input-container"
-            className={`d-flex flex-column gap-4 ${
+            className={`d-flex flex-column gap-3 ${
               props.editMode ? "d-none" : ""
             }`}
           >
@@ -255,40 +255,47 @@ const MainApp = (props: Props) => {
           </div>
         </div>
 
-        <div className="col-12 col-lg-4 p-3 my-4 my-lg-2 ">
-          <div className="d-flex flex-column gap-4">
-            <div className="d-flex flex-column">
-              <h2 className="text-light">Recent words:</h2>
-              <div className="text-light d-flex flex-wrap gap-2">
-                {props.savedWords
-                  .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
-                  .slice(0, 10)
-                  .map((savedWord) => {
-                    const word = savedWord.word;
-                    return (
-                      <span className={`${word} rounded-2 text-bg-coal-1 px-2`}>
-                        {word}
-                      </span>
-                    );
-                  })}
+        <div className="col-12 col-lg-6 p-3 my-4 my-lg-2 ">
+          <div className="d-flex flex-column flex-lg-row gap-4">
+            <div className="d-flex flex-column gap-3">
+              <div className="d-flex flex-column gap-3">
+                <h2 className="text-light mb-0">Recent words:</h2>
+                <div className="text-light d-flex flex-wrap gap-2">
+                  {props.savedWords
+                    .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
+                    .slice(0, 10)
+                    .map((savedWord) => {
+                      const word = savedWord.word;
+                      return (
+                        <span
+                          className={`${word} rounded-2 text-bg-coal-1 px-2`}
+                        >
+                          {word}
+                        </span>
+                      );
+                    })}
+                </div>
+              </div>
+              <div className="d-flex flex-column gap-3">
+                <h2 className="text-light mb-0">Revision:</h2>
+                <div className="text-light d-flex flex-wrap gap-2">
+                  {props.savedWords
+                    .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
+                    .slice(0, 10)
+                    .map((savedWord) => {
+                      const word = savedWord.word;
+                      return (
+                        <span
+                          className={`${word} rounded-2 text-bg-coal-1 px-2`}
+                        >
+                          {word}
+                        </span>
+                      );
+                    })}
+                </div>
               </div>
             </div>
-            <div className="d-flex flex-column">
-              <h2 className="text-light">Revision:</h2>
-              <div className="text-light d-flex flex-wrap gap-2">
-                {props.savedWords
-                  .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-                  .slice(0, 10)
-                  .map((savedWord) => {
-                    const word = savedWord.word;
-                    return (
-                      <span className={`${word} rounded-2 text-bg-coal-1 px-2`}>
-                        {word}
-                      </span>
-                    );
-                  })}
-              </div>
-            </div>
+
             <div>
               <div className="">
                 <div
