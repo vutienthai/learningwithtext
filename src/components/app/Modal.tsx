@@ -28,6 +28,8 @@ type Props = {
   setSelectedLevel: (value: string) => void;
   selectedNote: string;
   setSelectedNote: (value: string) => void;
+
+  stopwords: string[];
 };
 
 const generateID = () => {
@@ -111,17 +113,25 @@ const Modal = (props: Props) => {
               id="exampleModalLabel"
             >
               <div className="">
-                {props.wordDefinitions[props.selectedWord] ? (
-                  <div className="d-flex gap-2 align-items-center justify-content-center">
-                    {props.selectedWord}
+                <div className="d-flex gap-2 align-items-center justify-content-center">
+                  {props.wordDefinitions[props.selectedWord] ? (
                     <span className="badge bg-green-1 text-fs-13">
                       <i className="fa fa-key me-2" aria-hidden="true"></i>
                       Must Learn
                     </span>
-                  </div>
-                ) : (
-                  ""
-                )}
+                  ) : props.stopwords.includes(props.selectedWord) ? (
+                    <span className="badge bg-coal-1 text-fs-13">
+                      <i
+                        className="fa fa-hand-paper-o me-2"
+                        aria-hidden="true"
+                      ></i>
+                      Stop Word
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  {props.selectedWord}
+                </div>
               </div>
             </div>
             <button
@@ -273,7 +283,7 @@ const Modal = (props: Props) => {
                       className="form-check-label"
                       htmlFor="inlineRadioMaster"
                     >
-                      <span className="level-master">Master</span>
+                      <span className="">Master</span>
                     </label>
                   </div>
                 </div>

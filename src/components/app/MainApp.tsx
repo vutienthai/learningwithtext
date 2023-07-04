@@ -11,6 +11,13 @@ import { stopwords } from "../../services/vocabulary/stopwords.ts";
 import { db } from "../../services/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
+const transformWord = (word: string) => {
+  return word
+    .split(/[:–.?;,!"“”‘’()%]/)
+    .join("")
+    .toLowerCase();
+};
+
 type Props = {
   userName: string;
   userEmail: string;
@@ -40,6 +47,7 @@ type Props = {
 
   savedNotes: { [key: string]: string };
   savedLevels: { [key: string]: string };
+  savedTimestamps: { [key: string]: Date };
 
   editMode: boolean;
   setEditMode: (value: boolean) => void;
@@ -64,6 +72,7 @@ const MainApp = (props: Props) => {
   const [selectedWord, setSelectedWord] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
+  const [selectedTimestamp, setSelectedTimestamp] = useState("");
 
   const wordDefinitions: { [key: string]: string } = {};
   const wordExamples: { [key: string]: string } = {};
@@ -196,29 +205,11 @@ const MainApp = (props: Props) => {
                       <span key={wIndex}>
                         <span>{word.split(/[–1-9a-zA-Z+]/).shift()}</span>
                         <span
-                          className={`word ${word
-                            .split(/[:–.?;,!"“”‘’()%]/)
-                            .join("")
-                            .toLowerCase()} ${
-                            props.savedLevels[
-                              word
-                                .split(/[:–.?;,!"“”‘’()%]/)
-                                .join("")
-                                .toLowerCase()
-                            ]
+                          className={`word ${transformWord(word)} ${
+                            props.savedLevels[transformWord(word)]
                               ? "level-" +
-                                props.savedLevels[
-                                  word
-                                    .split(/[:–.?;,!"“”‘’()%]/)
-                                    .join("")
-                                    .toLowerCase()
-                                ]
-                              : stopwords.includes(
-                                  word
-                                    .split(/[:–.?;,!"“”‘’()%]/)
-                                    .join("")
-                                    .toLowerCase()
-                                )
+                                props.savedLevels[transformWord(word)]
+                              : stopwords.includes(transformWord(word))
                               ? "level-ignore"
                               : "level-0"
                           }`}
@@ -296,6 +287,7 @@ const MainApp = (props: Props) => {
         setSelectedNote={setSelectedNote}
         savedWords={props.savedWords}
         setSavedWords={props.setSavedWords}
+        stopwords={stopwords}
       />
     </section>
   );

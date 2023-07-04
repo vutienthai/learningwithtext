@@ -40,6 +40,9 @@ function App() {
 
   const [savedNotes, setSavedNotes] = useState<{ [key: string]: string }>({});
   const [savedLevels, setSavedLevels] = useState<{ [key: string]: string }>({});
+  const [savedTimestamps, setSavedTimestamps] = useState<{
+    [key: string]: Date;
+  }>({});
 
   const [generatedText, setGeneratedText] = useState<string[][]>([]);
   const [editMode, setEditMode] = useState<boolean>(true);
@@ -128,6 +131,7 @@ function App() {
 
     if (querySnapshot.empty) {
       console.log("querySnapshot.empty", querySnapshot.empty);
+      setDoc(doc(db, "users", userEmail), {});
     } else {
       querySnapshot.forEach((doc) => {
         const record = doc.data();
@@ -166,16 +170,20 @@ function App() {
   useEffect(() => {
     const tempSavedNotes: { [key: string]: string } = {};
     const tempSavedLevels: { [key: string]: string } = {};
+    const tempSavedTimestamps: { [key: string]: Date } = {};
     savedWords.forEach((savedWord) => {
       const word = savedWord.word;
       const note = savedWord.note;
       const level = savedWord.level;
+      const timestamp = savedWord.timestamp;
       tempSavedNotes[word] = note;
       tempSavedLevels[word] = level;
+      tempSavedTimestamps[word] = timestamp;
     });
 
     setSavedNotes(tempSavedNotes);
     setSavedLevels(tempSavedLevels);
+    setSavedTimestamps(tempSavedTimestamps);
   }, [savedWords]);
 
   const HomePage = () => {
@@ -299,6 +307,7 @@ function App() {
               setSavedWords={setSavedWords}
               savedNotes={savedNotes}
               savedLevels={savedLevels}
+              savedTimestamps={savedTimestamps}
               editMode={editMode}
               setEditMode={setEditMode}
               showSamples={showSamples}
