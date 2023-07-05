@@ -233,124 +233,144 @@ const Modal = (props: Props) => {
               </div>
               <div>
                 <h5 className="text-coal-1 opacity-25">Level</h5>
-                <div className="d-flex flex-wrap">
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadioIgnore"
-                      defaultValue="ignore"
-                      checked={props.selectedLevel === "ignore"}
-                      onChange={onChangeOption}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="inlineRadioIgnore"
-                    >
-                      <span className="px-1 level-ignore position-relative">
-                        Ignore
-                      </span>
-                    </label>
+                <div className="d-flex flex-column gap-2">
+                  <div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio1"
+                        defaultValue="1"
+                        checked={props.selectedLevel === "1"}
+                        onChange={onChangeOption}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio1"
+                      >
+                        <span className="px-1 level-1 position-relative">
+                          {1}
+                        </span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio2"
+                        defaultValue="2"
+                        checked={props.selectedLevel === "2"}
+                        onChange={onChangeOption}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio2"
+                      >
+                        <span className="px-1 level-2 position-relative">
+                          {2}
+                        </span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio3"
+                        defaultValue="3"
+                        checked={props.selectedLevel === "3"}
+                        onChange={onChangeOption}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio3"
+                      >
+                        <span className="px-1 level-3 position-relative">
+                          {3}
+                        </span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio4"
+                        defaultValue="4"
+                        checked={props.selectedLevel === "4"}
+                        onChange={onChangeOption}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio4"
+                      >
+                        <span className="px-1 level-4 position-relative">
+                          {4}
+                        </span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadio5"
+                        defaultValue="5"
+                        checked={props.selectedLevel === "5"}
+                        onChange={onChangeOption}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadio5"
+                      >
+                        <span className="px-1 level-5 position-relative">
+                          {5}
+                        </span>
+                      </label>
+                    </div>
                   </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio1"
-                      defaultValue="1"
-                      checked={props.selectedLevel === "1"}
-                      onChange={onChangeOption}
-                    />
-                    <label className="form-check-label" htmlFor="inlineRadio1">
-                      <span className="px-1 level-1 position-relative">
-                        {1}
-                      </span>
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio2"
-                      defaultValue="2"
-                      checked={props.selectedLevel === "2"}
-                      onChange={onChangeOption}
-                    />
-                    <label className="form-check-label" htmlFor="inlineRadio2">
-                      <span className="px-1 level-2 position-relative">
-                        {2}
-                      </span>
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio3"
-                      defaultValue="3"
-                      checked={props.selectedLevel === "3"}
-                      onChange={onChangeOption}
-                    />
-                    <label className="form-check-label" htmlFor="inlineRadio3">
-                      <span className="px-1 level-3 position-relative">
-                        {3}
-                      </span>
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio4"
-                      defaultValue="4"
-                      checked={props.selectedLevel === "4"}
-                      onChange={onChangeOption}
-                    />
-                    <label className="form-check-label" htmlFor="inlineRadio4">
-                      <span className="px-1 level-4 position-relative">
-                        {4}
-                      </span>
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio5"
-                      defaultValue="5"
-                      checked={props.selectedLevel === "5"}
-                      onChange={onChangeOption}
-                    />
-                    <label className="form-check-label" htmlFor="inlineRadio5">
-                      <span className="px-1 level-5 position-relative">
-                        {5}
-                      </span>
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadioMaster"
-                      defaultValue="master"
-                      checked={props.selectedLevel === "master"}
-                      onChange={onChangeOption}
-                    />
-                    <label
-                      className="form-check-label"
-                      htmlFor="inlineRadioMaster"
-                    >
-                      <span className="px-1 level-master position-relative">
-                        Master
-                      </span>
-                    </label>
+
+                  <div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadioMaster"
+                        defaultValue="master"
+                        checked={props.selectedLevel === "master"}
+                        onChange={onChangeOption}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadioMaster"
+                      >
+                        <span className="px-1 level-master position-relative">
+                          Master
+                        </span>
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="inlineRadioOptions"
+                        id="inlineRadioIgnore"
+                        defaultValue="ignore"
+                        checked={props.selectedLevel === "ignore"}
+                        onChange={onChangeOption}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="inlineRadioIgnore"
+                      >
+                        <span className="px-1 level-ignore position-relative">
+                          Ignore
+                        </span>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
