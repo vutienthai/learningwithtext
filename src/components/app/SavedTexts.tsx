@@ -18,6 +18,7 @@ type Props = {
 const SavedTexts = (props: Props) => {
   const deleteSavedText = (e: any) => {
     const textID = e.target.parentNode.getAttribute("data-text-id");
+
     console.log("textID", textID);
     const userCollectionPath = `users/${props.userEmail}/textCollection`;
     deleteDoc(doc(db, userCollectionPath, textID));
@@ -85,7 +86,7 @@ const SavedTexts = (props: Props) => {
   } else {
     return (
       <>
-        <div>No Texts</div>
+        <div>No texts saved. Try a sample instead.</div>
       </>
     );
   }

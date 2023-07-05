@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Modal from "./Modal";
-import { EditIcon, GenerateIcon } from "../../utilities/svg";
+import { EditIcon, GenerateIcon, NewsIcon } from "../../utilities/svg";
 import { SavedTexts } from "..";
 import Samples from "./Samples";
 import vocabulary from "../../services/vocabulary/all_vocab.json";
@@ -190,7 +190,6 @@ const MainApp = (props: Props) => {
             <div className="d-flex justify-content-between align-items-center">
               <h2 className="text-light m-0">Your text:</h2>
               <button
-                id="new-text-btn"
                 className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
                 onClick={newTextHandler}
               >
@@ -201,7 +200,7 @@ const MainApp = (props: Props) => {
             <div className="">
               <div
                 id="generated-user-input"
-                className="rounded-2 border-0 p-3 p-md-5 bg-light"
+                className="rounded-3 border-0 p-3 p-md-5 bg-light"
               >
                 <h3 className="mb-4">{props.generatedTextTitle}</h3>
                 {props.generatedText.map((paragraph, pIndex) => {
@@ -334,7 +333,7 @@ const MainApp = (props: Props) => {
                 </div>
               </div>
 
-              <div className="border border-yellow-1 bg-light-yellow p-3">
+              <div className="border border-yellow-1 rounded-bottom-3 bg-light-yellow p-3">
                 {props.showSamples ? (
                   <Samples
                     setGeneratedText={props.setGeneratedText}

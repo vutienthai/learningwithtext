@@ -1,6 +1,9 @@
 import { db } from "../../services/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
+import CambridgeDictionaryLogo from "../../assets/cambridge-dictionary-logo.png";
+import MWDictionaryLogo from "../../assets/merriam-webster-logo.png";
+
 type Props = {
   userEmail: string;
   wordDefinitions: { [key: string]: string };
@@ -172,6 +175,26 @@ const Modal = (props: Props) => {
           </div>
           <div className="modal-body">
             <div className="d-flex flex-column gap-3">
+              <div className="d-flex gap-3 mb-2">
+                <a
+                  href={`https://dictionary.cambridge.org/dictionary/english/${props.selectedWord}`}
+                  target="__blank"
+                >
+                  <img
+                    src={CambridgeDictionaryLogo}
+                    alt="cambridge-dictionary-logo"
+                  />
+                </a>
+                <a
+                  href={`https://www.merriam-webster.com/dictionary/${props.selectedWord}`}
+                  target="__blank"
+                >
+                  <img
+                    src={MWDictionaryLogo}
+                    alt="merriam-webster-dictionary-logo"
+                  />
+                </a>
+              </div>
               <div>
                 {props.wordDefinitions[props.selectedWord] ? (
                   <>

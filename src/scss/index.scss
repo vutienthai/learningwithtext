@@ -63,6 +63,7 @@ $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 @import "footer";
 @import "loader";
 @import "notfound";
+@import "modal";
 
 // Import Google fonts
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Paytone+One&display=swap");
