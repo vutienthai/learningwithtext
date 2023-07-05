@@ -344,7 +344,9 @@ const MainApp = (props: Props) => {
                   />
                 ) : (
                   <SavedTexts
+                    userEmail={props.userEmail}
                     savedTexts={props.savedTexts}
+                    setSavedTexts={props.setSavedTexts}
                     setGeneratedText={props.setGeneratedText}
                     setGeneratedTextTitle={props.setGeneratedTextTitle}
                     setEditMode={props.setEditMode}
