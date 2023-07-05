@@ -254,59 +254,63 @@ const MainApp = (props: Props) => {
           </div>
         </div>
 
-        <div className="col-12 col-lg-6 p-3 my-4 my-lg-2 ">
-          <div className="d-flex flex-column flex-lg-row gap-4">
-            <div className="d-flex flex-column gap-3">
+        <div className="col-12 col-lg-6 p-3 my-4 my-lg-2">
+          <div className="d-flex flex-column flex-lg-row gap-4 w-100">
+            <div className="d-flex flex-column gap-3 col-12 col-lg-6">
               <div className="d-flex flex-column gap-3">
                 <h2 className="text-light mb-0">Recent words:</h2>
                 <div className="text-light d-flex flex-wrap gap-2">
-                  {props.savedWords
-                    .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
-                    .slice(0, 10)
-                    .map((savedWord) => {
-                      const word = savedWord.word;
-                      const level = savedWord.level;
-                      return (
-                        <span
-                          className={`${word} level-${level} rounded-2 px-2 position-relative`}
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          data-bs-content="???"
-                          onClick={onClickWordHandler}
-                        >
-                          {word}
-                        </span>
-                      );
-                    })}
+                  {props.savedWords.length > 0
+                    ? props.savedWords
+                        .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
+                        .slice(0, 10)
+                        .map((savedWord) => {
+                          const word = savedWord.word;
+                          const level = savedWord.level;
+                          return (
+                            <span
+                              className={`${word} level-${level} rounded-2 px-2 position-relative`}
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              data-bs-content="???"
+                              onClick={onClickWordHandler}
+                            >
+                              {word}
+                            </span>
+                          );
+                        })
+                    : "No words"}
                 </div>
               </div>
               <div className="d-flex flex-column gap-3">
                 <h2 className="text-light mb-0">Revision:</h2>
                 <div className="text-light d-flex flex-wrap gap-2">
-                  {props.savedWords
-                    .filter((word) => word.level !== "ignore")
-                    .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-                    .slice(0, 10)
-                    .map((savedWord) => {
-                      const word = savedWord.word;
-                      const level = savedWord.level;
-                      return (
-                        <span
-                          className={`${word} level-${level} rounded-2 px-2 position-relative`}
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          data-bs-content="???"
-                          onClick={onClickWordHandler}
-                        >
-                          {word}
-                        </span>
-                      );
-                    })}
+                  {props.savedWords.length > 0
+                    ? props.savedWords
+                        .filter((word) => word.level !== "ignore")
+                        .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
+                        .slice(0, 10)
+                        .map((savedWord) => {
+                          const word = savedWord.word;
+                          const level = savedWord.level;
+                          return (
+                            <span
+                              className={`${word} level-${level} rounded-2 px-2 position-relative`}
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                              data-bs-content="???"
+                              onClick={onClickWordHandler}
+                            >
+                              {word}
+                            </span>
+                          );
+                        })
+                    : "No words"}
                 </div>
               </div>
             </div>
 
-            <div>
+            <div className="col-12 col-lg-6">
               <div className="">
                 <div
                   className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
