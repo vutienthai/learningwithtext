@@ -237,7 +237,6 @@ const MainApp = (props: Props) => {
                               data-bs-toggle="modal"
                               data-bs-target="#exampleModal"
                               data-bs-content="???"
-                              data-word={transformedWordLowerCase}
                               onClick={onClickWordHandler}
                             >
                               {transformedWord}
@@ -266,9 +265,14 @@ const MainApp = (props: Props) => {
                     .slice(0, 10)
                     .map((savedWord) => {
                       const word = savedWord.word;
+                      const level = savedWord.level;
                       return (
                         <span
-                          className={`${word} rounded-2 text-bg-coal-1 px-2`}
+                          className={`${word} level-${level} rounded-2 px-2 position-relative`}
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                          data-bs-content="???"
+                          onClick={onClickWordHandler}
                         >
                           {word}
                         </span>
@@ -280,13 +284,19 @@ const MainApp = (props: Props) => {
                 <h2 className="text-light mb-0">Revision:</h2>
                 <div className="text-light d-flex flex-wrap gap-2">
                   {props.savedWords
+                    .filter((word) => word.level !== "ignore")
                     .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
                     .slice(0, 10)
                     .map((savedWord) => {
                       const word = savedWord.word;
+                      const level = savedWord.level;
                       return (
                         <span
-                          className={`${word} rounded-2 text-bg-coal-1 px-2`}
+                          className={`${word} level-${level} rounded-2 px-2 position-relative`}
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
+                          data-bs-content="???"
+                          onClick={onClickWordHandler}
                         >
                           {word}
                         </span>

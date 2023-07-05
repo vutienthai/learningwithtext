@@ -225,7 +225,9 @@ const Modal = (props: Props) => {
                       className="form-check-label"
                       htmlFor="inlineRadioIgnore"
                     >
-                      <span className="level-ignore">Ignore</span>
+                      <span className="px-1 level-ignore position-relative">
+                        Ignore
+                      </span>
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
@@ -239,7 +241,9 @@ const Modal = (props: Props) => {
                       onChange={onChangeOption}
                     />
                     <label className="form-check-label" htmlFor="inlineRadio1">
-                      <span className="">{1}</span>
+                      <span className="px-1 level-1 position-relative">
+                        {1}
+                      </span>
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
@@ -253,7 +257,9 @@ const Modal = (props: Props) => {
                       onChange={onChangeOption}
                     />
                     <label className="form-check-label" htmlFor="inlineRadio2">
-                      <span className="">{2}</span>
+                      <span className="px-1 level-2 position-relative">
+                        {2}
+                      </span>
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
@@ -267,7 +273,9 @@ const Modal = (props: Props) => {
                       onChange={onChangeOption}
                     />
                     <label className="form-check-label" htmlFor="inlineRadio3">
-                      <span className="">{3}</span>
+                      <span className="px-1 level-3 position-relative">
+                        {3}
+                      </span>
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
@@ -281,7 +289,9 @@ const Modal = (props: Props) => {
                       onChange={onChangeOption}
                     />
                     <label className="form-check-label" htmlFor="inlineRadio4">
-                      <span className="">{4}</span>
+                      <span className="px-1 level-4 position-relative">
+                        {4}
+                      </span>
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
@@ -295,7 +305,9 @@ const Modal = (props: Props) => {
                       onChange={onChangeOption}
                     />
                     <label className="form-check-label" htmlFor="inlineRadio5">
-                      <span className="">{5}</span>
+                      <span className="px-1 level-5 position-relative">
+                        {5}
+                      </span>
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
@@ -312,7 +324,9 @@ const Modal = (props: Props) => {
                       className="form-check-label"
                       htmlFor="inlineRadioMaster"
                     >
-                      <span className="">Master</span>
+                      <span className="px-1 level-master position-relative">
+                        Master
+                      </span>
                     </label>
                   </div>
                 </div>
