@@ -30,8 +30,9 @@ const Samples = (props: Props) => {
                 </div>
                 <div className=""></div>
               </div>
-              <div
+              <a
                 className="text-coal-1"
+                href="#generated-user-input"
                 onClick={() => {
                   console.log(text.text);
                   const generatedText = props.convertPlainTextToWords(
@@ -47,7 +48,7 @@ const Samples = (props: Props) => {
                   : text.text.split(".")[0].length < 150
                   ? `${text.text.split(".")[0]}...`
                   : `${text.text.slice(0, 150)}...`}
-              </div>
+              </a>
             </div>
           ))}
         </div>

@@ -159,7 +159,7 @@ const MainApp = (props: Props) => {
                   ? props.savedWords
                       .filter((word) => word.level !== "ignore")
                       .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
-                      .slice(0, 20)
+                      .slice(0, 15)
                       .map((savedWord) => {
                         const word = savedWord.word;
                         const level = savedWord.level;
@@ -185,7 +185,7 @@ const MainApp = (props: Props) => {
                   ? props.savedWords
                       .filter((word) => word.level !== "ignore")
                       .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-                      .slice(0, 20)
+                      .slice(0, 10)
                       .map((savedWord) => {
                         const word = savedWord.word;
                         const level = savedWord.level;
