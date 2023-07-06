@@ -112,7 +112,13 @@
       position: absolute;
       width: 100%;
       height: 2px;
-      background-color: rgba($coal-1, 0.2);
+      background: linear-gradient(
+        90deg,
+        #ea4335 30%,
+        #4285f4 30% 70%,
+        #34a853 70% 80%,
+        #fbbc04 80%
+      );
       bottom: 0; //to place it in bottom
       left: 0;
     }
