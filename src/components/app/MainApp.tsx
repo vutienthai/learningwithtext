@@ -238,7 +238,7 @@ const MainApp = (props: Props) => {
             </button>
           </div>
           <div
-            id="generated-user-input-container"
+            id="generated-text-container"
             className={`d-flex flex-column gap-3 ${
               props.editMode ? "d-none" : ""
             }`}
@@ -255,7 +255,7 @@ const MainApp = (props: Props) => {
             </div>
             <div className="">
               <div
-                id="generated-user-input"
+                id="generated-text"
                 className="rounded-3 border-0 p-3 p-md-5 bg-light"
               >
                 <h3 className="mb-4">{props.generatedTextTitle}</h3>

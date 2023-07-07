@@ -32,7 +32,7 @@ const Samples = (props: Props) => {
               </div>
               <a
                 className="text-coal-1"
-                href="#generated-user-input"
+                href="#generated-text"
                 onClick={() => {
                   console.log(text.text);
                   const generatedText = props.convertPlainTextToWords(
