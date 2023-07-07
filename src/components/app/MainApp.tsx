@@ -238,7 +238,7 @@ const MainApp = (props: Props) => {
             </button>
           </div>
           <div
-            id="generated-text-container"
+            id="generated-text"
             className={`d-flex flex-column gap-3 ${
               props.editMode ? "d-none" : ""
             }`}
@@ -254,10 +254,7 @@ const MainApp = (props: Props) => {
               </button>
             </div>
             <div className="">
-              <div
-                id="generated-text"
-                className="rounded-3 border-0 p-3 p-md-5 bg-light"
-              >
+              <div className="rounded-3 border-0 p-3 p-md-5 bg-light">
                 <h3 className="mb-4">{props.generatedTextTitle}</h3>
                 {props.generatedText.map((paragraph, pIndex) => {
                   return (
