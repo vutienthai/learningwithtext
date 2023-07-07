@@ -152,7 +152,7 @@ const MainApp = (props: Props) => {
       <div className="row p-4">
         <div className="col-12 col-lg-3 p-3 my-4 my-lg-2">
           <div className="d-flex flex-column gap-5">
-            <div className="d-flex flex-column gap-3">
+            <div className="d-flex flex-column gap-3 rounded-3 bg-coal-1 p-3">
               <h2 className="text-light mb-0">Recent words:</h2>
               <div className="text-light d-flex flex-wrap gap-2">
                 {props.savedWords.length > 0
@@ -178,7 +178,7 @@ const MainApp = (props: Props) => {
                   : "No words"}
               </div>
             </div>
-            <div className="d-flex flex-column gap-3">
+            <div className="d-flex flex-column gap-3 rounded-3 bg-coal-1 p-3">
               <h2 className="text-light mb-0">Revision:</h2>
               <div className="text-light d-flex flex-wrap gap-2">
                 {props.savedWords.length > 0
