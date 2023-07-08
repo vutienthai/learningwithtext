@@ -17,10 +17,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, getDocs } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 
-const generateID = () => {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2);
-};
-
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingSavedTexts, setLoadingSavedTexts] = useState<boolean>(true);
@@ -236,6 +232,7 @@ function App() {
       </>
     );
   };
+
   const AppStatisticsPage = () => {
     return (
       <>
@@ -259,6 +256,7 @@ function App() {
       </>
     );
   };
+
   const NotFoundPage = () => {
     return (
       <>
@@ -266,7 +264,7 @@ function App() {
           <Loader />
         ) : (
           <>
-            <Navbar
+            {/* <Navbar
               auth={auth}
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
@@ -274,9 +272,9 @@ function App() {
               userEmail={userEmail}
               userPhoto={userPhoto}
               lastSignInTime={lastSignInTime}
-            />
+            /> */}
             <NotFound />
-            <Footer />
+            {/* <Footer /> */}
           </>
         )}
       </>
@@ -328,7 +326,10 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/app" element={loggedIn ? <MainAppPage /> : <LoginPage />} />
+      <Route
+        path="/learn"
+        element={loggedIn ? <MainAppPage /> : <LoginPage />}
+      />
       <Route path="/statistics" element={<AppStatisticsPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

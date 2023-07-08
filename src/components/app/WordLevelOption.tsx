@@ -6,19 +6,19 @@ type Props = {
   onChangeOption: (e: any) => void;
 };
 
-const ModalWordLevel = (props: Props) => {
+const WordLevelOption = (props: Props) => {
   return (
     <div className="form-check form-check-inline">
       <input
         className="form-check-input"
         type="radio"
-        name="inlineRadioOptions"
-        id={`inlineRadio${props.level}`}
+        name="levelOptions"
+        id={`level${props.level}`}
         defaultValue={props.level}
         checked={props.selectedLevel === props.level}
         onChange={props.onChangeOption}
       />
-      <label className="form-check-label" htmlFor={`inlineRadio${props.level}`}>
+      <label className="form-check-label" htmlFor={`level${props.level}`}>
         <span className={`px-1 position-relative level-${props.level}`}>
           {props.level}
         </span>
@@ -27,4 +27,4 @@ const ModalWordLevel = (props: Props) => {
   );
 };
 
-export default ModalWordLevel;
+export default WordLevelOption;

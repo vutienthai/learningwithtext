@@ -6,9 +6,11 @@ import Banner from "./homepage/Banner";
 import AsFeaturedIn from "./homepage/AsFeaturedIn";
 import ReviewSection from "./homepage/ReviewSection";
 import Login from "./app/Login";
-import NotFound from "./NotFound";
 import SavedTexts from "./app/SavedTexts";
+import AllWords from "./app/AllWords";
+import RecentWords from "./app/RecentWords";
 import AppStatistics from "./AppStatistics";
+import NotFound from "./NotFound";
 
 export {
   Navbar,
@@ -18,6 +20,8 @@ export {
   Login,
   Footer,
   SavedTexts,
+  AllWords,
+  RecentWords,
   Loader,
   NotFound,
   AppStatistics,

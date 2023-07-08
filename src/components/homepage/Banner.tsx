@@ -31,7 +31,7 @@ const Banner = (props: Props) => {
               } text-uppercase text-light-yellow rounded-5 border border-black`}
             >
               <Link
-                to={"/app"}
+                to={"/learn"}
                 className="d-flex gap-2 align-items-center justify-content-center"
               >
                 {props.loggedIn ? "Go to the app" : "Get started"}{" "}

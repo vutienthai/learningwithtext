@@ -15,6 +15,7 @@ const AsFeaturedIn = (props: Props) => {
     <section>
       <div className="d-flex flex-column align-items-center justify-content-center py-5">
         <div className="fs-3 text-center text-light-yellow">As Featured In</div>
+        <p className="text-light-yellow opacity-25">(j/k)</p>
         <GripIcon />
         <div className="d-flex flex-column flex-md-row flex-wrap align-items-center justify-content-center py-3">
           <div className="media-logo">

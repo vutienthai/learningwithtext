@@ -4,7 +4,11 @@ const AppStatistics = () => {
   return (
     <section id="app-statistics">
       <div className="min-vh-100 d-flex flex-column justify-content-center align-items-center py-5">
-        <h1 className="mb-3 text-light">App Statistics</h1>
+        <h1 className="mb-3 text-light">
+          <i className="fa fa-area-chart me-2" aria-hidden="true"></i> App
+          Statistics
+        </h1>
+        <p className="text-gray-1">Thanks for being here.</p>
         <div className="d-none d-md-block">
           <iframe
             width={800}

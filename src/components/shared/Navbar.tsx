@@ -1,11 +1,9 @@
 import { useState } from "react";
 // import { Link } from "react-router-dom";
 import {
-  CloseMenuIcon,
   ChatIcon,
   ChatWithHeartIcon,
   LogoutIcon,
-  OpenMenuIcon,
   RightArrowIcon,
   UserIcon,
   EmailIcon,
@@ -47,13 +45,13 @@ const Navbar = (props: Props) => {
           aria-label="Toggle navigation"
           onClick={() => setMenuExpanded(!menuExpanded)}
         >
-          {menuExpanded ? <OpenMenuIcon /> : <OpenMenuIcon />}{" "}
-          <div id="navbar-chat-icon" className="text-yellow-1">
-            {menuExpanded ? (
-              <ChatWithHeartIcon size={20} />
-            ) : (
-              <ChatIcon size={20} />
-            )}{" "}
+          {menuExpanded ? (
+            <ChatWithHeartIcon size={35} />
+          ) : (
+            <ChatIcon size={35} />
+          )}{" "}
+          <div id="navbar-chat-icon" className="badge bg-red-1">
+            1
           </div>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">

@@ -3,7 +3,8 @@ import { doc, setDoc } from "firebase/firestore";
 
 import CambridgeDictionaryLogo from "../../assets/cambridge-dictionary-logo.png";
 import MWDictionaryLogo from "../../assets/merriam-webster-logo.png";
-import ModalWordLevel from "./ModalWordLevel";
+import YouglishLogo from "../../assets/youglish-logo.png";
+import WordLevelOption from "./WordLevelOption";
 import { API_URL } from "../../services/dictionaryAPI";
 import { useState } from "react";
 import InlineLoader from "../shared/InlineLoader";
@@ -65,7 +66,7 @@ const Modal = (props: Props) => {
       "word-note"
     ) as HTMLInputElement;
     const levelElement = document.querySelector(
-      'input[name="inlineRadioOptions"]:checked'
+      'input[name="levelOptions"]:checked'
     ) as HTMLInputElement;
     const updatedNote = noteElement.value;
     const updatedLevel = levelElement ? levelElement.value : "";
@@ -123,19 +124,17 @@ const Modal = (props: Props) => {
       const data = await result.json();
       console.log("data", data);
 
-      const pronunciation = data
-        .map((word: { phonetic: string }) => word.phonetic)
-        .join(" | ");
-
       const definition = data
         .map(
           (word: {
+            phonetic: string;
             meanings: {
               partOfSpeech: string;
               definitions: { definition: string }[];
             }[];
           }) => {
-            return word.meanings
+            const pronunciation = word.phonetic;
+            const meanings = word.meanings
               .map(
                 (meaning: {
                   partOfSpeech: string;
@@ -152,25 +151,14 @@ const Modal = (props: Props) => {
                 }
               )
               .join("\n");
+            return pronunciation
+              ? `${pronunciation}\n---\n${meanings}`
+              : meanings;
           }
         )
-        .join("\n");
+        .join("\n-------------------\n\n");
 
-      // const pronunciation = data["phonetic"]
-      //   ? data[0]["hwi"]["prs"]
-      //       .map((prs: { ipa: string }) => prs.ipa)
-      //       .join(" | ")
-      //   : "";
-      // const definition = data[0]["shortdef"]
-      //   .map((def: string, index: number) => {
-      //     return `${index + 1}. ${def}`;
-      //   })
-      //   .join("\n");
-
-      const newNote = pronunciation
-        ? `${pronunciation}\n---\n${definition}`
-        : definition;
-      props.setSelectedNote(newNote);
+      props.setSelectedNote(definition);
       setLoading(false);
     } catch (error) {
       console.log("error", error);
@@ -182,9 +170,9 @@ const Modal = (props: Props) => {
   return (
     <div
       className="modal fade"
-      id="exampleModal"
+      id="wordModal"
       tabIndex={-1}
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="wordModalLabel"
       aria-hidden="true"
     >
       <div className="modal-dialog modal-dialog-centered">
@@ -192,7 +180,7 @@ const Modal = (props: Props) => {
           <div className="modal-header">
             <div
               className="fs-3 modal-title text-charcoal-1"
-              id="exampleModalLabel"
+              id="wordModalLabel"
             >
               <div className="">
                 <div className="d-flex gap-2 align-items-center ">
@@ -244,8 +232,11 @@ const Modal = (props: Props) => {
           </div>
           <div className="modal-body">
             <div className="d-flex flex-column gap-2">
-              <div className="d-flex flex-wrap gap-2 mb-3">
-                <div className="d-flex gap-2">
+              <div className="d-flex flex-wrap gap-3 mb-3">
+                <h5 className="text-coal-1 opacity-25 m-0">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </h5>
+                <div className="d-flex gap-3">
                   <a
                     href={`https://dictionary.cambridge.org/dictionary/english/${props.selectedWord}`}
                     target="__blank"
@@ -266,30 +257,20 @@ const Modal = (props: Props) => {
                       alt="merriam-webster-dictionary-logo"
                     />
                   </a>
+                  <a
+                    href={`https://youglish.com/pronounce/${props.selectedWord}/english`}
+                    target="__blank"
+                  >
+                    <img
+                      className="dict-logo"
+                      src={YouglishLogo}
+                      alt="youglish-logo"
+                    />
+                  </a>
                 </div>
               </div>
 
               <div className="d-flex flex-column">
-                {/* {props.wordDefinitions[props.selectedWord] ? (
-                  <div>
-                    <h5 className="text-coal-1 opacity-25">Definition</h5>
-                    <div className="mb-4">
-                      {props.wordDefinitions[props.selectedWord]}
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                {props.wordExamples[props.selectedWord] ? (
-                  <div>
-                    <h5 className="text-coal-1 opacity-25">Example</h5>
-                    <div className="mb-4">
-                      {props.wordExamples[props.selectedWord]}
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )} */}
                 <div>
                   <div className="d-flex align-items-center justify-content-between gap-3 mb-2">
                     <h5 className="text-coal-1 opacity-25 m-0">Note</h5>
@@ -336,27 +317,27 @@ const Modal = (props: Props) => {
                 <h5 className="text-coal-1 opacity-25 mb-2">Level</h5>
                 <div className="d-flex flex-column gap-2">
                   <div>
-                    <ModalWordLevel
+                    <WordLevelOption
                       level={"1"}
                       selectedLevel={props.selectedLevel}
                       onChangeOption={onChangeOption}
                     />
-                    <ModalWordLevel
+                    <WordLevelOption
                       level={"2"}
                       selectedLevel={props.selectedLevel}
                       onChangeOption={onChangeOption}
                     />
-                    <ModalWordLevel
+                    <WordLevelOption
                       level={"3"}
                       selectedLevel={props.selectedLevel}
                       onChangeOption={onChangeOption}
                     />
-                    <ModalWordLevel
+                    <WordLevelOption
                       level={"4"}
                       selectedLevel={props.selectedLevel}
                       onChangeOption={onChangeOption}
                     />
-                    <ModalWordLevel
+                    <WordLevelOption
                       level={"5"}
                       selectedLevel={props.selectedLevel}
                       onChangeOption={onChangeOption}
@@ -364,12 +345,12 @@ const Modal = (props: Props) => {
                   </div>
 
                   <div>
-                    <ModalWordLevel
+                    <WordLevelOption
                       level={"master"}
                       selectedLevel={props.selectedLevel}
                       onChangeOption={onChangeOption}
                     />
-                    <ModalWordLevel
+                    <WordLevelOption
                       level={"ignore"}
                       selectedLevel={props.selectedLevel}
                       onChangeOption={onChangeOption}
