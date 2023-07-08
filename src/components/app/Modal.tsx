@@ -6,6 +6,7 @@ import MWDictionaryLogo from "../../assets/merriam-webster-logo.png";
 import ModalWordLevel from "./ModalWordLevel";
 import { API_URL } from "../../services/dictionaryAPT";
 import { useState } from "react";
+import InlineLoader from "../shared/InlineLoader";
 
 type Props = {
   userEmail: string;
@@ -49,6 +50,8 @@ const generateID = () => {
 };
 
 const Modal = (props: Props) => {
+  const [loading, setLoading] = useState(false);
+
   const onChangeNote = (e: any) => {
     props.setSelectedNote(e.target.value);
   };
@@ -114,6 +117,7 @@ const Modal = (props: Props) => {
   };
 
   const lookupWord = async (word: string) => {
+    setLoading(true);
     try {
       const result = await fetch(API_URL(word));
       const data = await result.json();
@@ -134,8 +138,11 @@ const Modal = (props: Props) => {
         ? `${pronunciation}\n---\n${definition}`
         : definition;
       props.setSelectedNote(newNote);
+      setLoading(false);
     } catch (error) {
       console.log("error", error);
+      props.setSelectedNote("No definition found.");
+      setLoading(false);
     }
   };
 
@@ -204,8 +211,8 @@ const Modal = (props: Props) => {
           </div>
           <div className="modal-body">
             <div className="d-flex flex-column gap-2">
-              <div className="d-flex flex-wrap gap-2">
-                <div className="d-flex gap-2 mb-2">
+              <div className="d-flex flex-wrap gap-2 mb-3">
+                <div className="d-flex gap-2">
                   <a
                     href={`https://dictionary.cambridge.org/dictionary/english/${props.selectedWord}`}
                     target="__blank"
@@ -227,13 +234,28 @@ const Modal = (props: Props) => {
                     />
                   </a>
                 </div>
-                <div>
-                  <button
-                    onClick={() => lookupWord(props.selectedWord)}
-                    className="btn btn-sm btn-outline-primary"
+                <div className="d-flex">
+                  <div className={loading ? "d-none" : "d-inline"}>
+                    <div className={props.selectedNote ? "d-none" : ""}>
+                      {" "}
+                      <button
+                        onClick={() => lookupWord(props.selectedWord)}
+                        className="btn btn-sm btn-outline-primary"
+                      >
+                        Look up and save as note
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    className={
+                      loading
+                        ? "d-flex align-items-center justify-content-center"
+                        : "d-none"
+                    }
                   >
-                    Look up and save as note
-                  </button>
+                    <InlineLoader />
+                  </div>
                 </div>
               </div>
 
@@ -264,7 +286,7 @@ const Modal = (props: Props) => {
                     <textarea
                       className="form-control text-fs-13"
                       id="word-note"
-                      rows={6}
+                      rows={7}
                       value={props.selectedNote}
                       onChange={onChangeNote}
                     />

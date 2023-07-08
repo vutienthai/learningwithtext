@@ -13732,6 +13732,10 @@ textarea.form-control-lg {
   font-size: 13px;
 }
 
+.text-fs-15 {
+  font-size: 15px;
+}
+
 .text-stroke-black {
   -webkit-text-stroke: 1px #0f0d0e;
 }
@@ -13887,11 +13891,7 @@ nav #navbar-chat-icon {
 
 #main-app .vocab-heading,
 #main-app .text-heading {
-  filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15));
-  font-weight: 500;
   font-family: "Paytone One", sans-serif;
-  width: -moz-fit-content;
-  width: fit-content;
 }
 #main-app .word {
   display: inline-block;
@@ -13968,7 +13968,7 @@ nav #navbar-chat-icon {
   position: absolute;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, rgba(237, 32, 61, 0.3) 30%, rgba(26, 144, 255, 0.3) 30% 70%, rgba(11, 169, 91, 0.3) 70% 80%, rgba(252, 186, 40, 0.3) 80%);
+  background: linear-gradient(90deg, rgba(237, 32, 61, 0.3) 20%, rgba(123, 94, 167, 0.3) 20% 40%, rgba(252, 186, 40, 0.3) 40% 60%, rgba(26, 144, 255, 0.3) 60% 80%, rgba(11, 169, 91, 0.3) 80%);
   bottom: 0;
   left: 0;
 }
@@ -13985,8 +13985,11 @@ nav #navbar-chat-icon {
   width: 50px;
   height: 40px;
 }
+.position-loader .spinner-small {
+  width: 50px;
+  height: 20px;
+}
 .position-loader .spinner > div {
-  background-color: #f8f9fa;
   height: 100%;
   width: 6px;
   display: inline-block;

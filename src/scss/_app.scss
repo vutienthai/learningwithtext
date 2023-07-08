@@ -19,10 +19,10 @@
 
   .vocab-heading,
   .text-heading {
-    filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15));
-    font-weight: 500;
+    // filter: drop-shadow(1px 1px 0px rgba(255, 255, 255, 0.15));
+    // font-weight: 300;
     font-family: "Paytone One", sans-serif;
-    width: fit-content;
+    // width: fit-content;
   }
 
   .word {
@@ -118,10 +118,11 @@
       height: 2px;
       background: linear-gradient(
         90deg,
-        rgba($red-1, 0.3) 30%,
-        rgba($blue-1, 0.3) 30% 70%,
-        rgba($green-1, 0.3) 70% 80%,
-        rgba($yellow-1, 0.3) 80%
+        rgba($red-1, 0.3) 20%,
+        rgba($purple-1, 0.3) 20% 40%,
+        rgba($yellow-1, 0.3) 40% 60%,
+        rgba($blue-1, 0.3) 60% 80%,
+        rgba($green-1, 0.3) 80%
       );
       bottom: 0;
       left: 0;

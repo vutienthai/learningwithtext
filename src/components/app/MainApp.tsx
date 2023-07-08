@@ -154,13 +154,15 @@ const MainApp = (props: Props) => {
           <div className="d-flex flex-column gap-3">
             <h3 className="text-light m-0">Your vocabulary</h3>
             <div className="d-flex flex-column gap-2 rounded-3 bg-coal-1 p-3">
-              <div className="vocab-heading text-light mb-0">Recent Words</div>
+              <div className="vocab-heading text-light mb-0 text-light-yellow w-100">
+                Recent Words
+              </div>
               <div className="text-light d-flex flex-wrap gap-2">
                 {props.savedWords.length > 0
                   ? props.savedWords
                       .filter((word) => word.level !== "ignore")
                       .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
-                      .slice(0, 15)
+                      .slice(0, 10)
                       .map((savedWord) => {
                         const word = savedWord.word;
                         const level = savedWord.level;
@@ -180,13 +182,21 @@ const MainApp = (props: Props) => {
               </div>
             </div>
             <div className="d-flex flex-column gap-2 rounded-3 bg-coal-1 p-3">
-              <div className="vocab-heading text-light mb-0">Revision</div>
+              <div className="vocab-heading text-light mb-0 text-light-yellow w-100">
+                All Words{" "}
+                <span className="badge bg-green-1 text-fs-15">
+                  {
+                    props.savedWords.filter((word) => word.level !== "ignore")
+                      .length
+                  }
+                </span>
+              </div>
               <div className="text-light d-flex flex-wrap gap-2">
                 {props.savedWords.length > 0
                   ? props.savedWords
                       .filter((word) => word.level !== "ignore")
                       .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-                      .slice(0, 10)
+                      .slice(0, 50)
                       .map((savedWord) => {
                         const word = savedWord.word;
                         const level = savedWord.level;
