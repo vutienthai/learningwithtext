@@ -4,7 +4,7 @@ import { doc, setDoc } from "firebase/firestore";
 import CambridgeDictionaryLogo from "../../assets/cambridge-dictionary-logo.png";
 import MWDictionaryLogo from "../../assets/merriam-webster-logo.png";
 import ModalWordLevel from "./ModalWordLevel";
-import { API_URL } from "../../services/dictionaryAPT";
+import { API_URL } from "../../services/dictionaryAPI";
 import { useState } from "react";
 import InlineLoader from "../shared/InlineLoader";
 
@@ -123,16 +123,49 @@ const Modal = (props: Props) => {
       const data = await result.json();
       console.log("data", data);
 
-      const pronunciation = data[0]["hwi"]["prs"]
-        ? data[0]["hwi"]["prs"]
-            .map((prs: { ipa: string }) => prs.ipa)
-            .join(" | ")
-        : "";
-      const definition = data[0]["shortdef"]
-        .map((def: string, index: number) => {
-          return `${index + 1}. ${def}`;
-        })
+      const pronunciation = data
+        .map((word: { phonetic: string }) => word.phonetic)
+        .join(" | ");
+
+      const definition = data
+        .map(
+          (word: {
+            meanings: {
+              partOfSpeech: string;
+              definitions: { definition: string }[];
+            }[];
+          }) => {
+            return word.meanings
+              .map(
+                (meaning: {
+                  partOfSpeech: string;
+                  definitions: { definition: string }[];
+                }) => {
+                  const partOfSpeech = `${meaning.partOfSpeech}`;
+                  const definitions = `${meaning.definitions
+                    .map(
+                      (def: { definition: string }, index: number) =>
+                        `${index + 1}. ${def.definition}`
+                    )
+                    .join("\n")}`;
+                  return `${partOfSpeech}\n${definitions}\n`;
+                }
+              )
+              .join("\n");
+          }
+        )
         .join("\n");
+
+      // const pronunciation = data["phonetic"]
+      //   ? data[0]["hwi"]["prs"]
+      //       .map((prs: { ipa: string }) => prs.ipa)
+      //       .join(" | ")
+      //   : "";
+      // const definition = data[0]["shortdef"]
+      //   .map((def: string, index: number) => {
+      //     return `${index + 1}. ${def}`;
+      //   })
+      //   .join("\n");
 
       const newNote = pronunciation
         ? `${pronunciation}\n---\n${definition}`
@@ -234,29 +267,6 @@ const Modal = (props: Props) => {
                     />
                   </a>
                 </div>
-                <div className="d-flex">
-                  <div className={loading ? "d-none" : "d-inline"}>
-                    <div className={props.selectedNote ? "d-none" : ""}>
-                      {" "}
-                      <button
-                        onClick={() => lookupWord(props.selectedWord)}
-                        className="btn btn-sm btn-outline-primary"
-                      >
-                        Look up and save as note
-                      </button>
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      loading
-                        ? "d-flex align-items-center justify-content-center"
-                        : "d-none"
-                    }
-                  >
-                    <InlineLoader />
-                  </div>
-                </div>
               </div>
 
               <div className="d-flex flex-column">
@@ -281,7 +291,36 @@ const Modal = (props: Props) => {
                   <></>
                 )} */}
                 <div>
-                  <h5 className="text-coal-1 opacity-25">Note</h5>
+                  <div className="d-flex align-items-center justify-content-between gap-3 mb-2">
+                    <h5 className="text-coal-1 opacity-25 m-0">Note</h5>
+                    <div className="d-flex">
+                      <div className={loading ? "d-none" : "d-inline"}>
+                        <div className={props.selectedNote ? "d-none" : ""}>
+                          <button
+                            onClick={() => lookupWord(props.selectedWord)}
+                            className="btn btn-sm btn-outline-primary text-fs-11"
+                          >
+                            <i
+                              className="fa fa-search me-1"
+                              aria-hidden="true"
+                            ></i>
+                            Look Up & Save to Note
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        className={
+                          loading
+                            ? "d-flex align-items-center justify-content-center"
+                            : "d-none"
+                        }
+                      >
+                        <InlineLoader />
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="mb-3">
                     <textarea
                       className="form-control text-fs-13"
@@ -294,7 +333,7 @@ const Modal = (props: Props) => {
                 </div>
               </div>
               <div>
-                <h5 className="text-coal-1 opacity-25">Level</h5>
+                <h5 className="text-coal-1 opacity-25 mb-2">Level</h5>
                 <div className="d-flex flex-column gap-2">
                   <div>
                     <ModalWordLevel

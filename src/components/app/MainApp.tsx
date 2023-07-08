@@ -217,7 +217,7 @@ const MainApp = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="col-12 col-lg-6 p-3 my-4 my-lg-2">
+        <div id="text" className="col-12 col-lg-6 p-3 my-4 my-lg-2">
           <div
             id="user-input-container"
             className={`d-flex flex-column gap-3 ${
