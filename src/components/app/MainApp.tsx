@@ -151,9 +151,10 @@ const MainApp = (props: Props) => {
     <section id="main-app" className="bg-dark min-vh-100">
       <div className="row p-4">
         <div className="col-12 col-lg-3 p-3 my-4 my-lg-2">
-          <div className="d-flex flex-column gap-5">
-            <div className="d-flex flex-column gap-3 rounded-3 bg-coal-1 p-3">
-              <h2 className="text-light mb-0">Recent words:</h2>
+          <div className="d-flex flex-column gap-3">
+            <h3 className="text-light m-0">Your vocabulary</h3>
+            <div className="d-flex flex-column gap-2 rounded-3 bg-coal-1 p-3">
+              <div className="vocab-heading text-light mb-0">Recent Words</div>
               <div className="text-light d-flex flex-wrap gap-2">
                 {props.savedWords.length > 0
                   ? props.savedWords
@@ -178,8 +179,8 @@ const MainApp = (props: Props) => {
                   : "No words"}
               </div>
             </div>
-            <div className="d-flex flex-column gap-3 rounded-3 bg-coal-1 p-3">
-              <h2 className="text-light mb-0">Revision:</h2>
+            <div className="d-flex flex-column gap-2 rounded-3 bg-coal-1 p-3">
+              <div className="vocab-heading text-light mb-0">Revision</div>
               <div className="text-light d-flex flex-wrap gap-2">
                 {props.savedWords.length > 0
                   ? props.savedWords
@@ -213,7 +214,7 @@ const MainApp = (props: Props) => {
               props.editMode ? "" : "d-none"
             }`}
           >
-            <h2 className="text-light m-0">Please input your text:</h2>
+            <h3 className="text-light m-0">Please input your text:</h3>
             <div className="d-flex flex-column justify-content-center align-items-center gap-2">
               <input
                 id="user-input-title"
@@ -228,14 +229,16 @@ const MainApp = (props: Props) => {
                 rows={15}
               />
             </div>
-            <button
-              id="generate-btn"
-              className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
-              onClick={generateTextHandler}
-            >
-              <GenerateIcon size={16} />
-              Generate
-            </button>
+            <div>
+              <button
+                id="generate-btn"
+                className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
+                onClick={generateTextHandler}
+              >
+                <GenerateIcon size={16} />
+                Generate
+              </button>
+            </div>
           </div>
           <div
             id="generated-text"
@@ -244,7 +247,7 @@ const MainApp = (props: Props) => {
             }`}
           >
             <div className="d-flex justify-content-between align-items-center">
-              <h2 className="text-light m-0">Your text:</h2>
+              <h3 className="text-light m-0">Your text</h3>
               <button
                 className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
                 onClick={newTextHandler}
@@ -307,21 +310,22 @@ const MainApp = (props: Props) => {
         </div>
 
         <div className="col-12 col-lg-3 p-3 my-4 my-lg-2">
-          <div className="">
+          <div className="d-flex flex-column gap-3">
+            <h3 className="text-light m-0">Your Texts</h3>
             <div className="">
-              <div className="">
+              <div className="d-flex">
                 <div
-                  className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
+                  className={`text-heading btn rounded-0 mb-0 text-light-yellow w-50 border-bottom-0 d-flex align-items-center justify-content-center ${
                     props.showSamples ? "btn-outline-yellow-1" : "btn-yellow-1"
                   }`}
                   onClick={() => {
                     props.setShowSamples(false);
                   }}
                 >
-                  Your Texts
+                  Saved Texts
                 </div>
                 <div
-                  className={`btn rounded-0 h3 mb-0 text-light-yellow w-50 border-bottom-0 ${
+                  className={`text-heading btn rounded-0 mb-0 text-light-yellow w-50 border-bottom-0 d-flex align-items-center justify-content-center ${
                     props.showSamples ? "btn-yellow-1" : "btn-outline-yellow-1"
                   }`}
                   onClick={() => {

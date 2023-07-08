@@ -3,6 +3,9 @@ import { doc, setDoc } from "firebase/firestore";
 
 import CambridgeDictionaryLogo from "../../assets/cambridge-dictionary-logo.png";
 import MWDictionaryLogo from "../../assets/merriam-webster-logo.png";
+import ModalWordLevel from "./ModalWordLevel";
+import { API_URL } from "../../services/dictionaryAPT";
+import { useState } from "react";
 
 type Props = {
   userEmail: string;
@@ -110,6 +113,32 @@ const Modal = (props: Props) => {
     setDoc(doc(db, userCollectionPath, wordID), updatedWord);
   };
 
+  const lookupWord = async (word: string) => {
+    try {
+      const result = await fetch(API_URL(word));
+      const data = await result.json();
+      console.log("data", data);
+
+      const pronunciation = data[0]["hwi"]["prs"]
+        ? data[0]["hwi"]["prs"]
+            .map((prs: { ipa: string }) => prs.ipa)
+            .join(" | ")
+        : "";
+      const definition = data[0]["shortdef"]
+        .map((def: string, index: number) => {
+          return `${index + 1}. ${def}`;
+        })
+        .join("\n");
+
+      const newNote = pronunciation
+        ? `${pronunciation}\n---\n${definition}`
+        : definition;
+      props.setSelectedNote(newNote);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   return (
     <div
       className="modal fade"
@@ -174,57 +203,68 @@ const Modal = (props: Props) => {
             />
           </div>
           <div className="modal-body">
-            <div className="d-flex flex-column gap-3">
-              <div className="d-flex gap-3 mb-2">
-                <a
-                  href={`https://dictionary.cambridge.org/dictionary/english/${props.selectedWord}`}
-                  target="__blank"
-                >
-                  <img
-                    src={CambridgeDictionaryLogo}
-                    alt="cambridge-dictionary-logo"
-                  />
-                </a>
-                <a
-                  href={`https://www.merriam-webster.com/dictionary/${props.selectedWord}`}
-                  target="__blank"
-                >
-                  <img
-                    src={MWDictionaryLogo}
-                    alt="merriam-webster-dictionary-logo"
-                  />
-                </a>
+            <div className="d-flex flex-column gap-2">
+              <div className="d-flex flex-wrap gap-2">
+                <div className="d-flex gap-2 mb-2">
+                  <a
+                    href={`https://dictionary.cambridge.org/dictionary/english/${props.selectedWord}`}
+                    target="__blank"
+                  >
+                    <img
+                      className="dict-logo"
+                      src={CambridgeDictionaryLogo}
+                      alt="cambridge-dictionary-logo"
+                    />
+                  </a>
+                  <a
+                    href={`https://www.merriam-webster.com/dictionary/${props.selectedWord}`}
+                    target="__blank"
+                  >
+                    <img
+                      className="dict-logo"
+                      src={MWDictionaryLogo}
+                      alt="merriam-webster-dictionary-logo"
+                    />
+                  </a>
+                </div>
+                <div>
+                  <button
+                    onClick={() => lookupWord(props.selectedWord)}
+                    className="btn btn-sm btn-outline-primary"
+                  >
+                    Look up and save as note
+                  </button>
+                </div>
               </div>
-              <div>
-                {props.wordDefinitions[props.selectedWord] ? (
-                  <>
+
+              <div className="d-flex flex-column">
+                {/* {props.wordDefinitions[props.selectedWord] ? (
+                  <div>
                     <h5 className="text-coal-1 opacity-25">Definition</h5>
                     <div className="mb-4">
                       {props.wordDefinitions[props.selectedWord]}
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  ""
+                  <></>
                 )}
                 {props.wordExamples[props.selectedWord] ? (
-                  <>
-                    {" "}
+                  <div>
                     <h5 className="text-coal-1 opacity-25">Example</h5>
                     <div className="mb-4">
                       {props.wordExamples[props.selectedWord]}
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  ""
-                )}
-
-                <h5 className="text-coal-1 opacity-25">Note</h5>
+                  <></>
+                )} */}
                 <div>
+                  <h5 className="text-coal-1 opacity-25">Note</h5>
                   <div className="mb-3">
                     <textarea
-                      className="form-control"
+                      className="form-control text-fs-13"
                       id="word-note"
-                      rows={3}
+                      rows={6}
                       value={props.selectedNote}
                       onChange={onChangeNote}
                     />
@@ -235,142 +275,44 @@ const Modal = (props: Props) => {
                 <h5 className="text-coal-1 opacity-25">Level</h5>
                 <div className="d-flex flex-column gap-2">
                   <div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio1"
-                        defaultValue="1"
-                        checked={props.selectedLevel === "1"}
-                        onChange={onChangeOption}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio1"
-                      >
-                        <span className="px-1 level-1 position-relative">
-                          {1}
-                        </span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio2"
-                        defaultValue="2"
-                        checked={props.selectedLevel === "2"}
-                        onChange={onChangeOption}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio2"
-                      >
-                        <span className="px-1 level-2 position-relative">
-                          {2}
-                        </span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio3"
-                        defaultValue="3"
-                        checked={props.selectedLevel === "3"}
-                        onChange={onChangeOption}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio3"
-                      >
-                        <span className="px-1 level-3 position-relative">
-                          {3}
-                        </span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio4"
-                        defaultValue="4"
-                        checked={props.selectedLevel === "4"}
-                        onChange={onChangeOption}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio4"
-                      >
-                        <span className="px-1 level-4 position-relative">
-                          {4}
-                        </span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadio5"
-                        defaultValue="5"
-                        checked={props.selectedLevel === "5"}
-                        onChange={onChangeOption}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadio5"
-                      >
-                        <span className="px-1 level-5 position-relative">
-                          {5}
-                        </span>
-                      </label>
-                    </div>
+                    <ModalWordLevel
+                      level={"1"}
+                      selectedLevel={props.selectedLevel}
+                      onChangeOption={onChangeOption}
+                    />
+                    <ModalWordLevel
+                      level={"2"}
+                      selectedLevel={props.selectedLevel}
+                      onChangeOption={onChangeOption}
+                    />
+                    <ModalWordLevel
+                      level={"3"}
+                      selectedLevel={props.selectedLevel}
+                      onChangeOption={onChangeOption}
+                    />
+                    <ModalWordLevel
+                      level={"4"}
+                      selectedLevel={props.selectedLevel}
+                      onChangeOption={onChangeOption}
+                    />
+                    <ModalWordLevel
+                      level={"5"}
+                      selectedLevel={props.selectedLevel}
+                      onChangeOption={onChangeOption}
+                    />
                   </div>
 
                   <div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadioMaster"
-                        defaultValue="master"
-                        checked={props.selectedLevel === "master"}
-                        onChange={onChangeOption}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadioMaster"
-                      >
-                        <span className="px-1 level-master position-relative">
-                          Master
-                        </span>
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptions"
-                        id="inlineRadioIgnore"
-                        defaultValue="ignore"
-                        checked={props.selectedLevel === "ignore"}
-                        onChange={onChangeOption}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="inlineRadioIgnore"
-                      >
-                        <span className="px-1 level-ignore position-relative">
-                          Ignore
-                        </span>
-                      </label>
-                    </div>
+                    <ModalWordLevel
+                      level={"master"}
+                      selectedLevel={props.selectedLevel}
+                      onChangeOption={onChangeOption}
+                    />
+                    <ModalWordLevel
+                      level={"ignore"}
+                      selectedLevel={props.selectedLevel}
+                      onChangeOption={onChangeOption}
+                    />
                   </div>
                 </div>
               </div>

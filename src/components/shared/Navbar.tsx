@@ -92,7 +92,7 @@ const Navbar = (props: Props) => {
                               {props.userEmail}
                             </span>
                           </div>
-                          <div className="text-coal-1 d-flex align-items-center gap-2">
+                          <div className="text-light-yellow opacity-50 d-flex align-items-center gap-2">
                             <ClockIcon size={13} /> Last sign in time:{" "}
                             <span className="">
                               {props.lastSignInTime.slice(0, 16)}
