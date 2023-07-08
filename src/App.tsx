@@ -204,6 +204,7 @@ function App() {
             />
             <Banner loggedIn={loggedIn} />
             <AsFeaturedIn userCount={userCount} />
+            <AppStatistics />
             <ReviewSection loggedIn={loggedIn} />
             <Footer />
           </>

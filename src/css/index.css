@@ -14029,6 +14029,9 @@ nav #navbar-chat-icon {
 .modal .dict-logo {
   height: 30px;
 }
+#app-statistics {
+  background-image: repeating-linear-gradient(to right, #231f20, #231f20 1px, transparent 1px, transparent 30px), repeating-linear-gradient(to bottom, #231f20, #231f20 1px, transparent 1px, transparent 30px);
+}
 
 html {
   box-sizing: border-box;

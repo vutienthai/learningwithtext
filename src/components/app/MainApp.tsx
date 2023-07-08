@@ -242,7 +242,7 @@ const MainApp = (props: Props) => {
             <div>
               <button
                 id="generate-btn"
-                className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
+                className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2  py-1"
                 onClick={generateTextHandler}
               >
                 <GenerateIcon size={16} />
@@ -259,7 +259,7 @@ const MainApp = (props: Props) => {
             <div className="d-flex justify-content-between align-items-center">
               <h3 className="text-light m-0">Your text</h3>
               <button
-                className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2"
+                className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2 py-1"
                 onClick={newTextHandler}
               >
                 <EditIcon size={16} />

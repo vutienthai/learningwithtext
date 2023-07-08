@@ -1,0 +1,16 @@
+#app-statistics {
+  background-image: repeating-linear-gradient(
+      to right,
+      $charcoal-1,
+      $charcoal-1 1px,
+      transparent 1px,
+      transparent 30px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      $charcoal-1,
+      $charcoal-1 1px,
+      transparent 1px,
+      transparent 30px
+    );
+}
