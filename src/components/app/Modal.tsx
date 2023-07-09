@@ -117,7 +117,7 @@ const Modal = (props: Props) => {
     setDoc(doc(db, userCollectionPath, wordID), updatedWord);
   };
 
-  const lookupWord = async (word: string) => {
+  const lookupAndSaveToNote = async (word: string) => {
     setLoading(true);
     try {
       const result = await fetch(API_URL(word));
@@ -156,7 +156,7 @@ const Modal = (props: Props) => {
               : meanings;
           }
         )
-        .join("\n-------------------\n\n");
+        .join("\n=========================\n");
 
       props.setSelectedNote(definition);
       setLoading(false);
@@ -165,6 +165,10 @@ const Modal = (props: Props) => {
       props.setSelectedNote("No definition found.");
       setLoading(false);
     }
+  };
+
+  const clearNote = () => {
+    props.setSelectedNote("");
   };
 
   return (
@@ -278,7 +282,9 @@ const Modal = (props: Props) => {
                       <div className={loading ? "d-none" : "d-inline"}>
                         <div className={props.selectedNote ? "d-none" : ""}>
                           <button
-                            onClick={() => lookupWord(props.selectedWord)}
+                            onClick={() =>
+                              lookupAndSaveToNote(props.selectedWord)
+                            }
                             className="btn btn-sm btn-outline-primary text-fs-11"
                           >
                             <i
@@ -286,6 +292,18 @@ const Modal = (props: Props) => {
                               aria-hidden="true"
                             ></i>
                             Look Up & Save to Note
+                          </button>
+                        </div>
+                        <div className={props.selectedNote ? "" : "d-none"}>
+                          <button
+                            onClick={() => clearNote()}
+                            className="btn btn-sm btn-outline-gray-1 text-fs-11"
+                          >
+                            <i
+                              className="fa fa-eraser me-1"
+                              aria-hidden="true"
+                            ></i>
+                            Clear Note
                           </button>
                         </div>
                       </div>
