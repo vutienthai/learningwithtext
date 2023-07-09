@@ -40,9 +40,11 @@ function App() {
     [key: string]: Date;
   }>({});
 
-  const [generatedText, setGeneratedText] = useState<string[][]>([]);
-  const [editMode, setEditMode] = useState<boolean>(true);
+  const [generatedText, setGeneratedText] = useState<
+    { index: string; word: string; sentence: string }[][]
+  >([]);
   const [generatedTextTitle, setGeneratedTextTitle] = useState<string>("");
+  const [editMode, setEditMode] = useState<boolean>(true);
   const [showSamples, setShowSamples] = useState(false);
 
   const [lastSignInTime, setLastSignInTime] = useState<string>("");
