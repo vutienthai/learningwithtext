@@ -13837,7 +13837,7 @@ nav #navbar-chat-icon {
 }
 
 #review-section h1, #review-section .h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 #reviews-container {
@@ -13846,7 +13846,7 @@ nav #navbar-chat-icon {
 
 #reviews .title-card {
   max-width: 500px;
-  filter: drop-shadow(7px 5px 0px rgb(0, 0, 0));
+  filter: drop-shadow(5px 3px 0px rgb(0, 0, 0));
 }
 @media (max-width: 767.98px) {
   #reviews .title-card {
@@ -13858,41 +13858,44 @@ nav #navbar-chat-icon {
     transform: scale(0.5);
   }
 }
-#reviews .intro-title {
+#reviews .review-1 {
   transition: 0.5s;
   transform: rotate(-3deg) translate(0px, 80px) scale(0.8);
 }
 @media (prefers-reduced-motion: reduce) {
-  #reviews .intro-title {
+  #reviews .review-1 {
     transition: none;
   }
 }
-#reviews .intro-title.active {
+#reviews .review-1.active {
   transform: rotate(-3deg) translate(0px, 80px) scale(1);
 }
-#reviews .data-title {
+#reviews .review-2 {
   transition: 0.5s;
   transform: rotate(3deg) scale(0.8);
 }
 @media (prefers-reduced-motion: reduce) {
-  #reviews .data-title {
+  #reviews .review-2 {
     transition: none;
   }
 }
-#reviews .data-title.active {
+#reviews .review-2.active {
   transform: rotate(3deg) scale(1);
 }
-#reviews .web-title {
+#reviews .review-3 {
   transition: 0.5s;
   transform: translate(0px, -80px) rotate(-3deg) scale(0.8);
 }
 @media (prefers-reduced-motion: reduce) {
-  #reviews .web-title {
+  #reviews .review-3 {
     transition: none;
   }
 }
-#reviews .web-title.active {
+#reviews .review-3.active {
   transform: translate(0px, -80px) rotate(-3deg) scale(1);
+}
+#reviews .user-img {
+  width: 80px;
 }
 
 #main-app .vocab-heading,

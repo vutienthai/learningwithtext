@@ -1,6 +1,6 @@
 #review-section {
   h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 }
 #reviews-container {
@@ -18,7 +18,7 @@
     @include media-breakpoint-down(md) {
       max-width: 320px;
     }
-    filter: drop-shadow(7px 5px 0px rgba(0, 0, 0, 1));
+    filter: drop-shadow(5px 3px 0px rgba(0, 0, 0, 1));
     @include media-breakpoint-down(md) {
       transform: scale(0.5);
     }
@@ -29,27 +29,34 @@
   //   transform: translate(128px, 18px);
   // }
 
-  .intro-title {
+  .review-1 {
     @include transition(0.5s);
     transform: rotate(-3deg) translate(-0px, 80px) scale(0.8);
+
     &.active {
       transform: rotate(-3deg) translate(-0px, 80px) scale(1);
     }
   }
 
-  .data-title {
+  .review-2 {
     @include transition(0.5s);
     transform: rotate(3deg) scale(0.8);
+
     &.active {
       transform: rotate(3deg) scale(1);
     }
   }
 
-  .web-title {
+  .review-3 {
     @include transition(0.5s);
     transform: translate(0px, -80px) rotate(-3deg) scale(0.8);
+
     &.active {
       transform: translate(0px, -80px) rotate(-3deg) scale(1);
     }
+  }
+
+  .user-img {
+    width: 80px;
   }
 }

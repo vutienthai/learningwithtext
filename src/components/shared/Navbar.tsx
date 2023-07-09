@@ -121,7 +121,7 @@ const Navbar = (props: Props) => {
                       <div>
                         <button className={navbarButton}>
                           <Link
-                            to={"/app"}
+                            to={"/learn"}
                             className=" d-flex gap-2 align-items-center justify-content-center"
                           >
                             Login
