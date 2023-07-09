@@ -13990,6 +13990,12 @@ nav #navbar-chat-icon {
   max-width: 200px;
   filter: drop-shadow(3px 3px 0px #f9f4da);
 }
+@media (max-width: 767.98px) {
+  #footer img {
+    max-width: 120px;
+    filter: drop-shadow(2px 2px 0px #f9f4da);
+  }
+}
 
 .position-loader .spinner {
   width: 50px;
@@ -14043,6 +14049,7 @@ nav #navbar-chat-icon {
 .modal .dict-logo {
   height: 25px;
 }
+
 #app-statistics {
   background-image: repeating-linear-gradient(to right, #231f20, #231f20 1px, transparent 1px, transparent 30px), repeating-linear-gradient(to bottom, #231f20, #231f20 1px, transparent 1px, transparent 30px);
 }

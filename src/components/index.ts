@@ -9,8 +9,8 @@ import Login from "./app/Login";
 import SavedTexts from "./app/SavedTexts";
 import AllWords from "./app/AllWords";
 import RecentWords from "./app/RecentWords";
-import AppStatistics from "./AppStatistics";
-import NotFound from "./NotFound";
+import AppStatistics from "./app/AppStatistics";
+import NotFound from "./others/NotFound";
 
 export {
   Navbar,

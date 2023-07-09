@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { LeftArrowIcon } from "../utilities/svg";
+import { LeftArrowIcon } from "../../utilities/svg";
 
 const NotFound = () => {
   return (
