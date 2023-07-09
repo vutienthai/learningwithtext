@@ -23,14 +23,12 @@ const Reviews = () => {
           }}
         >
           <div className="h4 text-uppercase text-light-yellow d-flex align-items-center gap-3 ">
-            Review 1
+            My favourite online tool
           </div>
-          <div className="text-strong">Lorem, ipsum dolor</div>
+          <div className="text-strong">Gabriel Silva - Sao Paulo, Brazil</div>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-            accusamus aperiam, iure quos non dicta doloremque assumenda tempora
-            cumque voluptatum nobis provident, odio beatae consequuntur illo
-            vero. Neque, facilis sequi!
+            "LWT is my favourite online tool for language learning. There is no
+            better way to build vocabulary and master a language."
           </p>
           <div className="d-flex align-items-center justify-content-center gap-1">
             <StarIcon />
@@ -51,14 +49,13 @@ const Reviews = () => {
           }}
         >
           <div className="h4 text-uppercase text-light-yellow d-flex align-items-center gap-3 ">
-            Review 2
+            Achieved my dream score
           </div>
-          <div className="text-strong">Lorem, ipsum dolor</div>
+          <div className="text-strong">Phuong Nguyen - Hanoi, Vietnam</div>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. At autem
-            nisi harum vel dolor ipsum fugiat adipisci, dolore cumque distinctio
-            reiciendis odio aliquid assumenda veritatis voluptate consequatur
-            aperiam obcaecati rem!
+            "I decided to sit the IELTS exam after a year of using LWT, but I
+            was not expecting so much success. I got 8.5 in the reading and 8 in
+            the listening test!"
           </p>
           <div className="d-flex align-items-center justify-content-center gap-1">
             <StarIcon />
@@ -80,14 +77,14 @@ const Reviews = () => {
           }}
         >
           <div className="h4 text-uppercase text-light-yellow d-flex align-items-center gap-3 ">
-            Review 3
+            Efficient and effective
           </div>
-          <div className="text-strong">Lorem, ipsum dolor</div>
+          <div className="text-strong">Liu - Shenzhen, China</div>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. At autem
-            nisi harum vel dolor ipsum fugiat adipisci, dolore cumque distinctio
-            reiciendis odio aliquid assumenda veritatis voluptate consequatur
-            aperiam obcaecati rem!
+            "I really want to thank LWT so much for transforming the way I learn
+            languages. The LWT system makes reading English easy, efficient and
+            effective. By highlighting words and phrases, your vocabulary and
+            grammar knowledge improves naturally as you read"
           </p>
           <div className="d-flex align-items-center justify-content-center gap-1">
             <StarIcon />

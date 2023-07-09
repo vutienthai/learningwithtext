@@ -29,7 +29,7 @@ const Navbar = (props: Props) => {
   const navbarButton =
     "btn btn-sm btn-outline-red-1 text-uppercase text-light-yellow rounded-5 border-black d-flex gap-2 align-items-center px-3";
   return (
-    <nav className="navbar navbar-dark ">
+    <nav className="navbar">
       <div className="container-fluid">
         <Link className="navbar-brand text-white" to="/">
           <div className="web-name text-yellow-1 d-inline h1">LWT</div>
@@ -54,8 +54,8 @@ const Navbar = (props: Props) => {
             1
           </div>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <div className="w-100 d-flex flex-sm-row flex-column align-items-end justify-content-between my-4 my-md-0">
+        <div className="collapse navbar-collapse " id="navbarNavDropdown">
+          <div className="w-100 d-flex flex-sm-row flex-column align-items-end justify-content-between my-4 my-md-0 ">
             <ul className="navbar-nav">
               {/* <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
@@ -68,7 +68,7 @@ const Navbar = (props: Props) => {
                 </Link>
               </li> */}
             </ul>
-            <div className="mb-3">
+            <div className="">
               <div className="d-flex flex-column gap-3 justify-content-end align-items-end">
                 {props.loggedIn ? (
                   <>

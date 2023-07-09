@@ -14,9 +14,7 @@ type Props = {
 const RecentWords = (props: Props) => {
   return (
     <div className="d-flex flex-column gap-2 ">
-      <div className="vocab-heading text-light mb-0 text-light-yellow w-100">
-        Recent Words
-      </div>
+      <div className="vocab-heading mb-0 text-light-yellow">Recent Words</div>
       <div className="text-light d-flex flex-wrap gap-2 rounded-3 bg-coal-1 p-3">
         {props.savedWords.length > 0
           ? props.savedWords

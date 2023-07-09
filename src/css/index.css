@@ -13704,7 +13704,13 @@ textarea.form-control-lg {
 
 .get-started-btn {
   font-family: "Paytone One", sans-serif;
-  filter: drop-shadow(4px 4px 0px #0f0d0e);
+  filter: drop-shadow(3px 3px 0px #0f0d0e);
+}
+
+#generate-btn,
+#new-text-btn {
+  font-family: "Paytone One", sans-serif;
+  filter: drop-shadow(3px 3px 0px #0f0d0e);
 }
 
 .bi-star-fill,
@@ -13975,6 +13981,7 @@ nav #navbar-chat-icon {
 
 #footer {
   height: 50vh;
+  background: radial-gradient(7px 7px at 50% 50%, rgba(255, 255, 255, 0.1) 50%, transparent 50%) top/35px 35px repeat;
 }
 #footer img {
   max-width: 200px;

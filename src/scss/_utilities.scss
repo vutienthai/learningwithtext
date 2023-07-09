@@ -16,7 +16,13 @@
 
 .get-started-btn {
   font-family: "Paytone One", sans-serif;
-  @include drop-shadow(4px);
+  @include drop-shadow(3px);
+}
+
+#generate-btn,
+#new-text-btn {
+  font-family: "Paytone One", sans-serif;
+  @include drop-shadow(3px);
 }
 
 .bi-star-fill,

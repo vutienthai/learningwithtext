@@ -44,7 +44,7 @@ const AllWords = (props: Props) => {
   };
   return (
     <div className="d-flex flex-column gap-2 ">
-      <div className="vocab-heading text-light mb-0 text-light-yellow w-100">
+      <div className="vocab-heading mb-0 text-light-yellow">
         All Words
         <span className="badge bg-green-1 ms-2 text-fs-15">
           {filter === "all"

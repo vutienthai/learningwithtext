@@ -13,17 +13,16 @@ const ReviewSection = (props: Props) => {
             <div className="col-12 col-xl-5 my-3 my-xl-0">
               <div className="d-flex flex-column ">
                 <h1 className="text-red-1 text-uppercase text-stroke-black">
-                  Lorem ipsum dolor sit amet consectetur.
+                  Dramatically increase your vocabulary.
                 </h1>
                 <p className="fs-2">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
-                  possimus quia non laudantium.
+                  Learning in context is exponentially more effective than
+                  drilling random words.
                 </p>
                 <p className="fs-4">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Doloremque voluptatum tempora labore dicta possimus eius
-                  suscipit earum nulla aut? Consectetur dignissimos dolores
-                  voluptas nulla minus libero sint iusto cum magni!
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo
+                  distinctio error possimus doloremque sit voluptates, sunt
+                  voluptatibus ab magnam quos!
                 </p>
                 <p className="fs-4">Lorem ipsum dolor sit amet...</p>
               </div>
@@ -49,7 +48,7 @@ const ReviewSection = (props: Props) => {
                 } text-uppercase text-light-yellow rounded-5 border border-black d-block d-sm-none my-3`}
               >
                 <Link
-                  to={"/app"}
+                  to={"/learn"}
                   className=" d-flex gap-2 align-items-center justify-content-center"
                 >
                   {props.loggedIn ? "Go to the app" : "Get started"}

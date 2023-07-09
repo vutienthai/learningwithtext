@@ -60,7 +60,7 @@ const generateID = () => {
 };
 
 const MainApp = (props: Props) => {
-  console.log("stopwords", stopwords);
+  const [emptyInputWarning, setEmptyInputWarning] = useState(false);
 
   const [selectedWord, setSelectedWord] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
@@ -89,25 +89,32 @@ const MainApp = (props: Props) => {
     const userInputTitle = document.getElementById(
       "user-input-title"
     ) as HTMLInputElement;
-    const generatedText = convertPlainTextToWords(userInput.value);
-    console.log("generatedText", generatedText);
-    const textID = generateID();
-    const timestamp = new Date();
-    const newText = {
-      id: textID,
-      title: userInputTitle.value,
-      text: userInput.value,
-      timestamp: timestamp,
-    };
-    props.setGeneratedText(generatedText);
-    props.setGeneratedTextTitle(userInputTitle.value);
-    props.setSavedTexts([newText, ...props.savedTexts]);
-    props.setEditMode(false);
-    props.setShowSamples(false);
+    if (userInput.value && userInputTitle.value) {
+      setEmptyInputWarning(false);
 
-    // Add text to Firebase
-    const userCollectionPath = `users/${props.userEmail}/textCollection`;
-    setDoc(doc(db, userCollectionPath, textID), newText);
+      const generatedText = convertPlainTextToWords(userInput.value);
+      console.log("generatedText", generatedText);
+      const textID = generateID();
+      const timestamp = new Date();
+      const newText = {
+        id: textID,
+        title: userInputTitle.value,
+        text: userInput.value,
+        timestamp: timestamp,
+      };
+      props.setGeneratedText(generatedText);
+      props.setGeneratedTextTitle(userInputTitle.value);
+      props.setSavedTexts([newText, ...props.savedTexts]);
+      props.setEditMode(false);
+      props.setShowSamples(false);
+
+      // Add text to Firebase
+      const userCollectionPath = `users/${props.userEmail}/textCollection`;
+      setDoc(doc(db, userCollectionPath, textID), newText);
+    } else {
+      console.log("empty input");
+      setEmptyInputWarning(true);
+    }
   };
 
   const newTextHandler = () => {
@@ -173,15 +180,28 @@ const MainApp = (props: Props) => {
                 rows={15}
               />
             </div>
-            <div>
-              <button
-                id="generate-btn"
-                className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2  py-1"
-                onClick={generateTextHandler}
-              >
-                <GenerateIcon size={16} />
-                Generate
-              </button>
+            <div className="d-flex justify-content-between">
+              <div>
+                <button
+                  id="generate-btn"
+                  className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2  py-1"
+                  onClick={generateTextHandler}
+                >
+                  <GenerateIcon size={16} />
+                  Generate
+                </button>
+              </div>
+              {emptyInputWarning ? (
+                <div className="alert alert-dark m-0 p-0 px-3 d-flex align-items-center justify-content-center">
+                  <i
+                    className="fa fa-exclamation-circle me-2"
+                    aria-hidden="true"
+                  ></i>
+                  Empty input!
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <div
@@ -193,6 +213,7 @@ const MainApp = (props: Props) => {
             <div className="d-flex justify-content-between align-items-center">
               <h3 className="text-light m-0">Your text</h3>
               <button
+                id="new-text-btn"
                 className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2 py-1"
                 onClick={newTextHandler}
               >
