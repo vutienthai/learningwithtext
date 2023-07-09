@@ -48,8 +48,10 @@ type Props = {
   showSamples: boolean;
   setShowSamples: (value: boolean) => void;
 
-  generatedText: string[][];
-  setGeneratedText: (text: string[][]) => void;
+  generatedText: { index: string; word: string; sentence: string }[][];
+  setGeneratedText: (
+    text: { index: string; word: string; sentence: string }[][]
+  ) => void;
 
   generatedTextTitle: string;
   setGeneratedTextTitle: (text: string) => void;
@@ -63,6 +65,7 @@ const MainApp = (props: Props) => {
   const [emptyInputWarning, setEmptyInputWarning] = useState(false);
 
   const [selectedWord, setSelectedWord] = useState("");
+  const [selectedSentence, setSelectedSentence] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
   const [selectedTimestamp, setSelectedTimestamp] = useState(new Date());
@@ -78,9 +81,31 @@ const MainApp = (props: Props) => {
     }
   );
 
-  const convertPlainTextToWords = (text: string) => {
-    const paragraphs = text.split("\n");
-    const words = paragraphs.map((paragraph) => paragraph.split(/\s+/));
+  // const convertPlainTextToWords = (text: string) => {
+  //   const paragraphs = text.split("\n");
+  //   const words = paragraphs.map((paragraph) => paragraph.split(/\s+/));
+  //   return words;
+  // };
+
+  const convertPlainTextToWordAndSentencePairs = (text: string) => {
+    const paragraphs = text
+      .split("\n")
+      .map((paragraph) => paragraph.split(/[.?!]/));
+    const words = paragraphs.map((sentenceList, pIndex) => {
+      const sentences = sentenceList.map((sentence, sIndex) => {
+        const wordsInSentence = sentence.split(/\s+/);
+        const wordsInSentenceDictionary = wordsInSentence.map((word) => {
+          return {
+            index: "p" + pIndex + "s" + sIndex,
+            word: word,
+            sentence: sentence,
+          };
+        });
+        return wordsInSentenceDictionary;
+      });
+      return sentences.flat();
+    });
+    console.log("wordsInParagraphsList", words);
     return words;
   };
 
@@ -92,7 +117,9 @@ const MainApp = (props: Props) => {
     if (userInput.value && userInputTitle.value) {
       setEmptyInputWarning(false);
 
-      const generatedText = convertPlainTextToWords(userInput.value);
+      const generatedText = convertPlainTextToWordAndSentencePairs(
+        userInput.value
+      );
       console.log("generatedText", generatedText);
       const textID = generateID();
       const timestamp = new Date();
@@ -125,7 +152,10 @@ const MainApp = (props: Props) => {
   const onClickWordHandler = (e: any) => {
     const selectedWord = e.target.innerText.toLowerCase();
     console.log("selectedWord", selectedWord);
+    const selectedSentence = e.target.getAttribute("data-bs-sentence");
+    console.log("selectedSentence", selectedSentence);
     setSelectedWord(selectedWord);
+    setSelectedSentence(selectedSentence);
 
     const selectedNote = props.savedNotes[selectedWord];
     const selectedLevel = props.savedLevels[selectedWord];
@@ -228,17 +258,17 @@ const MainApp = (props: Props) => {
                   return (
                     <div key={pIndex} className="">
                       {paragraph.map((word, wIndex) => {
-                        const transformedWord = word
+                        const transformedWord = word.word
                           .split(/[:–.?;,!"“”‘’()%$]/)
                           .join("");
 
                         const transformedWordLowerCase =
                           transformedWord.toLowerCase();
 
-                        const specialCharBefore = word
+                        const specialCharBefore = word.word
                           .split(/[–0-9a-zA-Z+]/)
                           .shift();
-                        const specialCharAfter = word
+                        const specialCharAfter = word.word
                           .split(/[–0-9a-zA-Z+]/)
                           .pop();
 
@@ -257,6 +287,7 @@ const MainApp = (props: Props) => {
                               data-bs-toggle="modal"
                               data-bs-target="#wordModal"
                               data-bs-content="???"
+                              data-bs-sentence={word.sentence}
                               onClick={onClickWordHandler}
                             >
                               {transformedWord}
@@ -307,7 +338,9 @@ const MainApp = (props: Props) => {
                     setGeneratedText={props.setGeneratedText}
                     setGeneratedTextTitle={props.setGeneratedTextTitle}
                     setEditMode={props.setEditMode}
-                    convertPlainTextToWords={convertPlainTextToWords}
+                    convertPlainTextToWordAndSentencePairs={
+                      convertPlainTextToWordAndSentencePairs
+                    }
                   />
                 ) : (
                   <SavedTexts
@@ -317,7 +350,9 @@ const MainApp = (props: Props) => {
                     setGeneratedText={props.setGeneratedText}
                     setGeneratedTextTitle={props.setGeneratedTextTitle}
                     setEditMode={props.setEditMode}
-                    convertPlainTextToWords={convertPlainTextToWords}
+                    convertPlainTextToWordAndSentencePairs={
+                      convertPlainTextToWordAndSentencePairs
+                    }
                   />
                 )}
               </div>
@@ -330,6 +365,7 @@ const MainApp = (props: Props) => {
         wordDefinitions={wordDefinitions}
         wordExamples={wordExamples}
         selectedWord={selectedWord}
+        selectedSentence={selectedSentence}
         selectedLevel={selectedLevel}
         setSelectedLevel={setSelectedLevel}
         selectedTimestamp={selectedTimestamp}

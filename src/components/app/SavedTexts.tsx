@@ -9,10 +9,14 @@ type Props = {
   setSavedTexts: (
     text: { id: string; title: string; text: string; timestamp: Date }[]
   ) => void;
-  setGeneratedText: (text: string[][]) => void;
+  setGeneratedText: (
+    text: { index: string; word: string; sentence: string }[][]
+  ) => void;
   setGeneratedTextTitle: (text: string) => void;
   setEditMode: (value: boolean) => void;
-  convertPlainTextToWords: (text: string) => string[][];
+  convertPlainTextToWordAndSentencePairs: (
+    text: string
+  ) => { index: string; word: string; sentence: string }[][];
 };
 
 const SavedTexts = (props: Props) => {
@@ -64,9 +68,8 @@ const SavedTexts = (props: Props) => {
                   href="#text"
                   onClick={() => {
                     console.log(text.text);
-                    const generatedText = props.convertPlainTextToWords(
-                      text.text
-                    );
+                    const generatedText =
+                      props.convertPlainTextToWordAndSentencePairs(text.text);
                     props.setGeneratedText(generatedText);
                     props.setGeneratedTextTitle(text.title);
                     props.setEditMode(false);

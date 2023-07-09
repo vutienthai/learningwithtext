@@ -2,10 +2,14 @@ import { textSamples } from "../../services/textSamples";
 import { TextIcon } from "../../utilities/svg";
 
 type Props = {
-  setGeneratedText: (text: string[][]) => void;
+  setGeneratedText: (
+    text: { index: string; word: string; sentence: string }[][]
+  ) => void;
   setGeneratedTextTitle: (text: string) => void;
   setEditMode: (value: boolean) => void;
-  convertPlainTextToWords: (text: string) => string[][];
+  convertPlainTextToWordAndSentencePairs: (
+    text: string
+  ) => { index: string; word: string; sentence: string }[][];
 };
 
 const Samples = (props: Props) => {
@@ -35,9 +39,8 @@ const Samples = (props: Props) => {
                 href="#text"
                 onClick={() => {
                   console.log(text.text);
-                  const generatedText = props.convertPlainTextToWords(
-                    text.text
-                  );
+                  const generatedText =
+                    props.convertPlainTextToWordAndSentencePairs(text.text);
                   props.setGeneratedText(generatedText);
                   props.setGeneratedTextTitle(text.title);
                   props.setEditMode(false);

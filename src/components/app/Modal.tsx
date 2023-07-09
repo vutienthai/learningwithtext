@@ -34,6 +34,7 @@ type Props = {
   savedTimestamps: { [key: string]: Date };
 
   selectedWord: string;
+  selectedSentence: string;
   selectedLevel: string;
   setSelectedLevel: (value: string) => void;
   selectedNote: string;
@@ -272,6 +273,16 @@ const Modal = (props: Props) => {
                     />
                   </a>
                 </div>
+              </div>
+              <div>
+                {props.selectedSentence ? (
+                  <>
+                    <h5 className="text-coal-1 opacity-25 m-0">Sentence</h5>
+                    <div>{props.selectedSentence}</div>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
 
               <div className="d-flex flex-column">
