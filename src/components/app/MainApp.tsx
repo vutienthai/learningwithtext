@@ -90,7 +90,7 @@ const MainApp = (props: Props) => {
   const convertPlainTextToWordAndSentencePairs = (text: string) => {
     const paragraphs = text
       .split("\n")
-      .map((paragraph) => paragraph.split(/[.?!]/));
+      .map((paragraph) => paragraph.split(/(?<=[.?!])/g));
     const words = paragraphs.map((sentenceList, pIndex) => {
       const sentences = sentenceList.map((sentence, sIndex) => {
         const wordsInSentence = sentence.split(/\s+/);
