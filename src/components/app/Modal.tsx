@@ -34,8 +34,8 @@ type Props = {
   savedTimestamps: { [key: string]: Date };
 
   selectedWord: string;
-  selectedAudio: string;
-  setSelectedAudio: (value: string) => void;
+  selectedAudio: string[];
+  setSelectedAudio: (value: string[]) => void;
   selectedSentence: string;
   selectedLevel: string;
   setSelectedLevel: (value: string) => void;
@@ -126,9 +126,6 @@ const Modal = (props: Props) => {
       const result = await fetch(API_URL(word));
       const data = await result.json();
       console.log("data", data);
-      const audio =
-        "ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3";
-      props.setSelectedAudio(audio);
       const definition = data
         .map(
           (word: {
@@ -210,16 +207,21 @@ const Modal = (props: Props) => {
                     ""
                   )}
                   {props.selectedWord}
-                  <div>
+                  <div className="d-flex gap-1">
                     {props.selectedAudio ? (
-                      <button
-                        className="btn"
-                        onClick={() => {
-                          new Audio(props.selectedAudio).play();
-                        }}
-                      >
-                        <i className="fa fa-volume-up" aria-hidden="true"></i>
-                      </button>
+                      props.selectedAudio.map((audio) => (
+                        <button
+                          className="btn btn-sm"
+                          onClick={() => {
+                            new Audio(audio).play();
+                          }}
+                        >
+                          <i
+                            className="fa fa-volume-up text-blue-1"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                      ))
                     ) : (
                       <></>
                     )}
@@ -296,7 +298,7 @@ const Modal = (props: Props) => {
                 {props.selectedSentence ? (
                   <div>
                     <h5 className="text-coal-1 opacity-25 mb-2">Sentence</h5>
-                    <div className="text-coal-1 opacity-75">
+                    <div className="text-coal-1 opacity-75 text-fs-15">
                       {props.selectedSentence}
                     </div>
                   </div>

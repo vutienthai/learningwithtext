@@ -13984,7 +13984,7 @@ nav #navbar-chat-icon {
 
 #footer {
   height: 50vh;
-  background: radial-gradient(7px 7px at 50% 50%, rgba(255, 255, 255, 0.1) 50%, transparent 50%) top/35px 35px repeat;
+  background-image: repeating-linear-gradient(to right, #231f20, #231f20 1px, transparent 1px, transparent 30px), repeating-linear-gradient(to bottom, #231f20, #231f20 1px, transparent 1px, transparent 30px);
 }
 #footer img {
   max-width: 200px;

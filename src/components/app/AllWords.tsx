@@ -45,14 +45,15 @@ const AllWords = (props: Props) => {
   return (
     <div className="d-flex flex-column gap-2 ">
       <div className="vocab-heading mb-0 text-light-yellow">
-        All Words
-        <span className="badge bg-green-1 ms-2 text-fs-15">
+        You have learnt
+        <span className="badge bg-green-1 mx-2 fs-5">
           {filter === "all"
             ? props.savedWords.filter((word) => word.level !== "ignore").length
             : props.savedWords.filter(
                 (word) => word.level === filter && word.level !== "ignore"
               ).length}
         </span>
+        words
       </div>
       <div className="d-flex gap-2 text-gray-1">
         <div className="">Filter:</div>

@@ -6,6 +6,7 @@ import { SavedTexts, AllWords, RecentWords } from "..";
 import Samples from "./Samples";
 import vocabulary from "../../services/vocabulary/all_vocab.json";
 import { stopwords } from "../../services/vocabulary/stopwords.ts";
+import { API_URL } from "../../services/dictionaryAPI";
 
 // Firebase
 import { db } from "../../services/firebaseConfig";
@@ -65,7 +66,7 @@ const MainApp = (props: Props) => {
   const [emptyInputWarning, setEmptyInputWarning] = useState(false);
 
   const [selectedWord, setSelectedWord] = useState("");
-  const [selectedAudio, setSelectedAudio] = useState("");
+  const [selectedAudio, setSelectedAudio] = useState([""]);
   const [selectedSentence, setSelectedSentence] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
@@ -149,15 +150,33 @@ const MainApp = (props: Props) => {
     props.setEditMode(true);
   };
 
+  const loadAudio = async (word: string) => {
+    try {
+      const result = await fetch(API_URL(word));
+      const data = await result.json();
+      console.log("data", data);
+      const audios = data.map((def: { phonetics: { audio: "" }[] }) =>
+        def.phonetics.map((phonetic) => phonetic.audio)
+      );
+      let audioSet = audios.flat().filter((audio: string) => audio);
+      audioSet = [...new Set(audioSet)];
+      console.log("audioSet", audioSet);
+      setSelectedAudio(audioSet);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onClickWordHandler = (e: any) => {
+    setSelectedAudio([]);
+
     const selectedWord = e.target.innerText.toLowerCase();
     console.log("selectedWord", selectedWord);
     const selectedSentence = e.target.getAttribute("data-bs-sentence");
     console.log("selectedSentence", selectedSentence);
     setSelectedWord(selectedWord);
     setSelectedSentence(selectedSentence);
-    setSelectedAudio("");
 
     const selectedNote = props.savedNotes[selectedWord];
     const selectedLevel = props.savedLevels[selectedWord];
@@ -167,6 +186,8 @@ const MainApp = (props: Props) => {
     selectedTimestamp
       ? setSelectedTimestamp(selectedTimestamp)
       : setSelectedTimestamp(new Date());
+
+    loadAudio(selectedWord);
   };
 
   return (
