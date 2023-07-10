@@ -276,10 +276,12 @@ const Modal = (props: Props) => {
               </div>
               <div>
                 {props.selectedSentence ? (
-                  <>
-                    <h5 className="text-coal-1 opacity-25 m-0">Sentence</h5>
-                    <div>{props.selectedSentence}</div>
-                  </>
+                  <div>
+                    <h5 className="text-coal-1 opacity-25 mb-2">Sentence</h5>
+                    <div className="text-coal-1 opacity-75">
+                      {props.selectedSentence}
+                    </div>
+                  </div>
                 ) : (
                   <></>
                 )}
@@ -287,7 +289,7 @@ const Modal = (props: Props) => {
 
               <div className="d-flex flex-column">
                 <div>
-                  <div className="d-flex align-items-center justify-content-between gap-3 mb-2">
+                  <div className="d-flex align-items-center justify-content-between mb-2">
                     <h5 className="text-coal-1 opacity-25 m-0">Note</h5>
                     <div className="d-flex">
                       <div className={loading ? "d-none" : "d-inline"}>
@@ -330,7 +332,6 @@ const Modal = (props: Props) => {
                       </div>
                     </div>
                   </div>
-
                   <div className="mb-3">
                     <textarea
                       className="form-control text-fs-13"
