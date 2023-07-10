@@ -192,218 +192,228 @@ const MainApp = (props: Props) => {
 
   return (
     <section id="main-app" className="bg-dark min-vh-100">
-      <div className="row px-4 py-3 py-md-2 py-lg-1">
-        <div className="col-12 col-lg-3 p-1 p-md-2 p-lg-3 my-3 my-md-4 my-lg-2">
-          <div className="d-flex flex-column gap-3">
-            <h3 className="text-light m-0">Your Vocabulary</h3>
-            <div className="d-flex flex-column gap-4">
-              <RecentWords
-                savedWords={props.savedWords}
-                onClickWordHandler={onClickWordHandler}
-              />
-              <AllWords
-                savedWords={props.savedWords}
-                onClickWordHandler={onClickWordHandler}
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          id="text"
-          className="col-12 col-lg-6 p-1 p-md-2 p-lg-3 my-3 my-md-4 my-lg-2"
-        >
-          <div
-            id="user-input-container"
-            className={`d-flex flex-column gap-3 ${
-              props.editMode ? "" : "d-none"
-            }`}
-          >
-            <h3 className="text-light m-0">Please input your text:</h3>
-            <div className="d-flex flex-column justify-content-center align-items-center gap-2">
-              <input
-                id="user-input-title"
-                type="text"
-                placeholder="Title"
-                className="form-control rounded-2 border-0 px-3 px-md-5"
-              />
-              <textarea
-                id="user-input"
-                placeholder="Text"
-                className="form-control rounded-2 border-0 p-3 p-md-5"
-                rows={15}
-              />
-            </div>
-            <div className="d-flex justify-content-between">
-              <div>
-                <button
-                  id="generate-btn"
-                  className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2  py-1"
-                  onClick={generateTextHandler}
-                >
-                  <GenerateIcon size={16} />
-                  Generate
-                </button>
+      <div className="container-fluid">
+        <div className="row px-4 py-3 py-md-2 py-lg-1">
+          <div className="col-12 col-lg-3 p-1 p-md-2 p-lg-3 my-3 my-md-4 my-lg-2">
+            <div className="d-flex flex-column gap-3">
+              <h3 className="text-light m-0">Your Vocabulary</h3>
+              <div className="d-flex flex-column gap-4">
+                <RecentWords
+                  savedWords={props.savedWords}
+                  onClickWordHandler={onClickWordHandler}
+                />
+                <AllWords
+                  savedWords={props.savedWords}
+                  onClickWordHandler={onClickWordHandler}
+                />
               </div>
-              {emptyInputWarning ? (
-                <div className="alert alert-dark m-0 p-0 px-3 d-flex align-items-center justify-content-center">
-                  <i
-                    className="fa fa-exclamation-circle me-2"
-                    aria-hidden="true"
-                  ></i>
-                  Empty input!
-                </div>
-              ) : (
-                <></>
-              )}
             </div>
           </div>
           <div
-            id="generated-text"
-            className={`d-flex flex-column gap-3 ${
-              props.editMode ? "d-none" : ""
-            }`}
+            id="text"
+            className="col-12 col-lg-6 p-1 p-md-2 p-lg-3 my-3 my-md-4 my-lg-2"
           >
-            <div className="d-flex justify-content-between align-items-center">
-              <h3 className="text-light m-0">Your text</h3>
-              <button
-                id="new-text-btn"
-                className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2 py-1"
-                onClick={newTextHandler}
-              >
-                <EditIcon size={16} />
-                New Text
-              </button>
-            </div>
-            <div className="">
-              <div className="rounded-3 border-0 p-3 p-md-5 bg-light">
-                <h3 className="mb-4">{props.generatedTextTitle}</h3>
-                {props.generatedText.map((paragraph, pIndex) => {
-                  return (
-                    <div key={pIndex} className="">
-                      {paragraph.map((word, wIndex) => {
-                        const transformedWord = word.word
-                          .split(/[:–.?;,!"“”‘’()%$]/)
-                          .join("");
-
-                        const transformedWordLowerCase =
-                          transformedWord.toLowerCase();
-
-                        const specialCharBefore = word.word
-                          .split(/[–0-9a-zA-Z+]/)
-                          .shift();
-                        const specialCharAfter = word.word
-                          .split(/[–0-9a-zA-Z+]/)
-                          .pop();
-
-                        return (
-                          <span key={wIndex}>
-                            <span>{specialCharBefore}</span>
-                            <span
-                              className={`word ${transformedWordLowerCase} ${
-                                props.savedLevels[transformedWordLowerCase]
-                                  ? "level-" +
-                                    props.savedLevels[transformedWordLowerCase]
-                                  : stopwords.includes(transformedWordLowerCase)
-                                  ? "level-ignore"
-                                  : "level-0"
-                              }`}
-                              data-bs-toggle="modal"
-                              data-bs-target="#wordModal"
-                              data-bs-content="???"
-                              data-bs-sentence={word.sentence}
-                              onClick={onClickWordHandler}
-                            >
-                              {transformedWord}
-                            </span>
-                            <span>{specialCharAfter}</span>{" "}
-                          </span>
-                        );
-                      })}
-                      <br />
-                    </div>
-                  );
-                })}
+            <div
+              id="user-input-container"
+              className={`d-flex flex-column gap-3 ${
+                props.editMode ? "" : "d-none"
+              }`}
+            >
+              <h3 className="text-light m-0">Please input your text:</h3>
+              <div className="d-flex flex-column justify-content-center align-items-center gap-2">
+                <input
+                  id="user-input-title"
+                  type="text"
+                  placeholder="Title"
+                  className="form-control rounded-2 border-0 px-3 px-md-5"
+                />
+                <textarea
+                  id="user-input"
+                  placeholder="Text"
+                  className="form-control rounded-2 border-0 p-3 p-md-5"
+                  rows={15}
+                />
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-12 col-lg-3 p-1 p-md-2 p-lg-3 my-3 my-md-4 my-lg-2">
-          <div className="d-flex flex-column gap-3">
-            <h3 className="text-light m-0">Your Texts</h3>
-            <div className="">
-              <div className="d-flex">
-                <div
-                  className={`text-heading btn rounded-0 mb-0 text-light-yellow w-50 border-bottom-0 d-flex align-items-center justify-content-center ${
-                    props.showSamples ? "btn-outline-yellow-1" : "btn-yellow-1"
-                  }`}
-                  onClick={() => {
-                    props.setShowSamples(false);
-                  }}
-                >
-                  Saved Texts
+              <div className="d-flex justify-content-between">
+                <div>
+                  <button
+                    id="generate-btn"
+                    className="btn btn-green-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2  py-1"
+                    onClick={generateTextHandler}
+                  >
+                    <GenerateIcon size={16} />
+                    Generate
+                  </button>
                 </div>
-                <div
-                  className={`text-heading btn rounded-0 mb-0 text-light-yellow w-50 border-bottom-0 d-flex align-items-center justify-content-center ${
-                    props.showSamples ? "btn-yellow-1" : "btn-outline-yellow-1"
-                  }`}
-                  onClick={() => {
-                    props.setShowSamples(true);
-                  }}
-                >
-                  Samples
-                </div>
-              </div>
-
-              <div className="border border-yellow-1 rounded-bottom-3 bg-light-yellow p-3">
-                {props.showSamples ? (
-                  <Samples
-                    setGeneratedText={props.setGeneratedText}
-                    setGeneratedTextTitle={props.setGeneratedTextTitle}
-                    setEditMode={props.setEditMode}
-                    convertPlainTextToWordAndSentencePairs={
-                      convertPlainTextToWordAndSentencePairs
-                    }
-                  />
+                {emptyInputWarning ? (
+                  <div className="alert alert-dark m-0 p-0 px-3 d-flex align-items-center justify-content-center">
+                    <i
+                      className="fa fa-exclamation-circle me-2"
+                      aria-hidden="true"
+                    ></i>
+                    Empty input!
+                  </div>
                 ) : (
-                  <SavedTexts
-                    userEmail={props.userEmail}
-                    savedTexts={props.savedTexts}
-                    setSavedTexts={props.setSavedTexts}
-                    setGeneratedText={props.setGeneratedText}
-                    setGeneratedTextTitle={props.setGeneratedTextTitle}
-                    setEditMode={props.setEditMode}
-                    convertPlainTextToWordAndSentencePairs={
-                      convertPlainTextToWordAndSentencePairs
-                    }
-                  />
+                  <></>
                 )}
               </div>
             </div>
+            <div
+              id="generated-text"
+              className={`d-flex flex-column gap-3 ${
+                props.editMode ? "d-none" : ""
+              }`}
+            >
+              <div className="d-flex justify-content-between align-items-center">
+                <h3 className="text-light m-0">Your text</h3>
+                <button
+                  id="new-text-btn"
+                  className="btn btn-purple-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2 py-1"
+                  onClick={newTextHandler}
+                >
+                  <EditIcon size={16} />
+                  New Text
+                </button>
+              </div>
+              <div className="">
+                <div className="rounded-3 border-0 p-3 p-md-5 bg-light">
+                  <h3 className="mb-4">{props.generatedTextTitle}</h3>
+                  {props.generatedText.map((paragraph, pIndex) => {
+                    return (
+                      <div key={pIndex} className="">
+                        {paragraph.map((word, wIndex) => {
+                          const transformedWord = word.word
+                            .split(/[:–.?;,!"“”‘’()%$]/)
+                            .join("");
+
+                          const transformedWordLowerCase =
+                            transformedWord.toLowerCase();
+
+                          const specialCharBefore = word.word
+                            .split(/[–0-9a-zA-Z+]/)
+                            .shift();
+                          const specialCharAfter = word.word
+                            .split(/[–0-9a-zA-Z+]/)
+                            .pop();
+
+                          return (
+                            <span key={wIndex}>
+                              <span>{specialCharBefore}</span>
+                              <span
+                                className={`word ${transformedWordLowerCase} ${
+                                  props.savedLevels[transformedWordLowerCase]
+                                    ? "level-" +
+                                      props.savedLevels[
+                                        transformedWordLowerCase
+                                      ]
+                                    : stopwords.includes(
+                                        transformedWordLowerCase
+                                      )
+                                    ? "level-ignore"
+                                    : "level-0"
+                                }`}
+                                data-bs-toggle="modal"
+                                data-bs-target="#wordModal"
+                                data-bs-content="???"
+                                data-bs-sentence={word.sentence}
+                                onClick={onClickWordHandler}
+                              >
+                                {transformedWord}
+                              </span>
+                              <span>{specialCharAfter}</span>{" "}
+                            </span>
+                          );
+                        })}
+                        <br />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-12 col-lg-3 p-1 p-md-2 p-lg-3 my-3 my-md-4 my-lg-2">
+            <div className="d-flex flex-column gap-3">
+              <h3 className="text-light m-0">Your Texts</h3>
+              <div className="">
+                <div className="d-flex">
+                  <div
+                    className={`text-heading btn rounded-0 mb-0 text-light-yellow w-50 border-bottom-0 d-flex align-items-center justify-content-center ${
+                      props.showSamples
+                        ? "btn-outline-yellow-1"
+                        : "btn-yellow-1"
+                    }`}
+                    onClick={() => {
+                      props.setShowSamples(false);
+                    }}
+                  >
+                    Saved Texts
+                  </div>
+                  <div
+                    className={`text-heading btn rounded-0 mb-0 text-light-yellow w-50 border-bottom-0 d-flex align-items-center justify-content-center ${
+                      props.showSamples
+                        ? "btn-yellow-1"
+                        : "btn-outline-yellow-1"
+                    }`}
+                    onClick={() => {
+                      props.setShowSamples(true);
+                    }}
+                  >
+                    Samples
+                  </div>
+                </div>
+
+                <div className="border border-yellow-1 rounded-bottom-3 bg-light-yellow p-3">
+                  {props.showSamples ? (
+                    <Samples
+                      setGeneratedText={props.setGeneratedText}
+                      setGeneratedTextTitle={props.setGeneratedTextTitle}
+                      setEditMode={props.setEditMode}
+                      convertPlainTextToWordAndSentencePairs={
+                        convertPlainTextToWordAndSentencePairs
+                      }
+                    />
+                  ) : (
+                    <SavedTexts
+                      userEmail={props.userEmail}
+                      savedTexts={props.savedTexts}
+                      setSavedTexts={props.setSavedTexts}
+                      setGeneratedText={props.setGeneratedText}
+                      setGeneratedTextTitle={props.setGeneratedTextTitle}
+                      setEditMode={props.setEditMode}
+                      convertPlainTextToWordAndSentencePairs={
+                        convertPlainTextToWordAndSentencePairs
+                      }
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <Modal
+          userEmail={props.userEmail}
+          wordDefinitions={wordDefinitions}
+          wordExamples={wordExamples}
+          selectedWord={selectedWord}
+          selectedAudio={selectedAudio}
+          setSelectedAudio={setSelectedAudio}
+          selectedSentence={selectedSentence}
+          selectedLevel={selectedLevel}
+          setSelectedLevel={setSelectedLevel}
+          selectedTimestamp={selectedTimestamp}
+          setSelectedTimestamp={setSelectedTimestamp}
+          selectedNote={selectedNote}
+          setSelectedNote={setSelectedNote}
+          savedWords={props.savedWords}
+          setSavedWords={props.setSavedWords}
+          stopwords={stopwords}
+          currentTimestamp={currentTimestamp}
+          setCurrentTimestamp={setCurrentTimestamp}
+          savedTimestamps={props.savedTimestamps}
+        />
       </div>
-      <Modal
-        userEmail={props.userEmail}
-        wordDefinitions={wordDefinitions}
-        wordExamples={wordExamples}
-        selectedWord={selectedWord}
-        selectedAudio={selectedAudio}
-        setSelectedAudio={setSelectedAudio}
-        selectedSentence={selectedSentence}
-        selectedLevel={selectedLevel}
-        setSelectedLevel={setSelectedLevel}
-        selectedTimestamp={selectedTimestamp}
-        setSelectedTimestamp={setSelectedTimestamp}
-        selectedNote={selectedNote}
-        setSelectedNote={setSelectedNote}
-        savedWords={props.savedWords}
-        setSavedWords={props.setSavedWords}
-        stopwords={stopwords}
-        currentTimestamp={currentTimestamp}
-        setCurrentTimestamp={setCurrentTimestamp}
-        savedTimestamps={props.savedTimestamps}
-      />
     </section>
   );
 };

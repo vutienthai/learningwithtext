@@ -20,7 +20,7 @@ const Samples = (props: Props) => {
           {textSamples.map((text, index) => (
             <div
               key={index}
-              className="border-0 border-bottom border-gray-1 pb-3"
+              className="border-0 border-bottom border-gray-1 border-opacity-50 pb-3"
             >
               <div className="d-flex justify-content-between align-items-top">
                 <div className="text-uppercase text-strong d-flex gap-3 align-items-center ">

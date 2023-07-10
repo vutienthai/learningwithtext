@@ -9,6 +9,7 @@ import {
   Footer,
   NotFound,
   AppStatistics,
+  Flashcard,
 } from "./components";
 import { useEffect, useState } from "react";
 import MainApp from "./components/app/MainApp";
@@ -259,6 +260,40 @@ function App() {
     );
   };
 
+  const FlashcardPage = () => {
+    return (
+      <>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Navbar
+              auth={auth}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              userName={userName}
+              userEmail={userEmail}
+              userPhoto={userPhoto}
+              lastSignInTime={lastSignInTime}
+            />
+            <Flashcard
+              userName={userName}
+              userEmail={userEmail}
+              savedTexts={savedTexts}
+              setSavedTexts={setSavedTexts}
+              savedWords={savedWords}
+              setSavedWords={setSavedWords}
+              savedNotes={savedNotes}
+              savedLevels={savedLevels}
+              savedTimestamps={savedTimestamps}
+            />
+            <Footer />
+          </>
+        )}
+      </>
+    );
+  };
+
   const NotFoundPage = () => {
     return (
       <>
@@ -332,6 +367,7 @@ function App() {
         path="/learn"
         element={loggedIn ? <MainAppPage /> : <LoginPage />}
       />
+      <Route path="/flashcard" element={<FlashcardPage />} />
       <Route path="/statistics" element={<AppStatisticsPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

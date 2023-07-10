@@ -10,6 +10,7 @@ import SavedTexts from "./app/SavedTexts";
 import AllWords from "./app/AllWords";
 import RecentWords from "./app/RecentWords";
 import AppStatistics from "./app/AppStatistics";
+import Flashcard from "./app/Flashcard";
 import NotFound from "./others/NotFound";
 
 export {
@@ -25,4 +26,5 @@ export {
   Loader,
   NotFound,
   AppStatistics,
+  Flashcard,
 };

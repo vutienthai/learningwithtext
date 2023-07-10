@@ -13898,24 +13898,28 @@ nav #navbar-chat-icon {
   width: 80px;
 }
 
-#main-app .vocab-heading,
-#main-app .text-heading {
+.vocab-heading,
+.text-heading {
   font-family: "Paytone One", sans-serif;
 }
-#main-app .word {
+
+.word {
   display: inline-block;
   position: relative;
 }
-#main-app .small {
+
+.small {
   font-size: 1em;
 }
-#main-app .level-ignore {
+
+.level-ignore {
   border-bottom: 1px dashed rgba(63, 63, 63, 0.3);
 }
-#main-app .level-1 {
+
+.level-1 {
   background-color: rgba(237, 32, 61, 0.1);
 }
-#main-app .level-1:after {
+.level-1:after {
   content: "";
   position: absolute;
   width: 100%;
@@ -13924,10 +13928,11 @@ nav #navbar-chat-icon {
   bottom: 0;
   left: 0;
 }
-#main-app .level-2 {
+
+.level-2 {
   background-color: rgba(123, 94, 167, 0.1);
 }
-#main-app .level-2:after {
+.level-2:after {
   content: "";
   position: absolute;
   width: 100%;
@@ -13936,10 +13941,11 @@ nav #navbar-chat-icon {
   bottom: 0;
   left: 0;
 }
-#main-app .level-3 {
+
+.level-3 {
   background-color: rgba(252, 186, 40, 0.1);
 }
-#main-app .level-3:after {
+.level-3:after {
   content: "";
   position: absolute;
   width: 100%;
@@ -13948,10 +13954,11 @@ nav #navbar-chat-icon {
   bottom: 0;
   left: 0;
 }
-#main-app .level-4 {
+
+.level-4 {
   background-color: rgba(26, 144, 255, 0.1);
 }
-#main-app .level-4:after {
+.level-4:after {
   content: "";
   position: absolute;
   width: 100%;
@@ -13960,10 +13967,11 @@ nav #navbar-chat-icon {
   bottom: 0;
   left: 0;
 }
-#main-app .level-5 {
+
+.level-5 {
   background-color: rgba(11, 169, 91, 0.1);
 }
-#main-app .level-5:after {
+.level-5:after {
   content: "";
   position: absolute;
   width: 100%;
@@ -13972,7 +13980,8 @@ nav #navbar-chat-icon {
   bottom: 0;
   left: 0;
 }
-#main-app .level-master:after {
+
+.level-master:after {
   content: "";
   position: absolute;
   width: 100%;
