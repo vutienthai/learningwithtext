@@ -126,7 +126,8 @@ const Modal = (props: Props) => {
       const result = await fetch(API_URL(word));
       const data = await result.json();
       console.log("data", data);
-      const audio = "https://www.w3schools.com/jsref/horse.ogg";
+      const audio =
+        "ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3";
       props.setSelectedAudio(audio);
       const definition = data
         .map(
