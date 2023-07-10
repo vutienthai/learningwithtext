@@ -65,6 +65,7 @@ const MainApp = (props: Props) => {
   const [emptyInputWarning, setEmptyInputWarning] = useState(false);
 
   const [selectedWord, setSelectedWord] = useState("");
+  const [selectedAudio, setSelectedAudio] = useState("");
   const [selectedSentence, setSelectedSentence] = useState("");
   const [selectedNote, setSelectedNote] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("");
@@ -156,6 +157,7 @@ const MainApp = (props: Props) => {
     console.log("selectedSentence", selectedSentence);
     setSelectedWord(selectedWord);
     setSelectedSentence(selectedSentence);
+    setSelectedAudio("");
 
     const selectedNote = props.savedNotes[selectedWord];
     const selectedLevel = props.savedLevels[selectedWord];
@@ -365,6 +367,8 @@ const MainApp = (props: Props) => {
         wordDefinitions={wordDefinitions}
         wordExamples={wordExamples}
         selectedWord={selectedWord}
+        selectedAudio={selectedAudio}
+        setSelectedAudio={setSelectedAudio}
         selectedSentence={selectedSentence}
         selectedLevel={selectedLevel}
         setSelectedLevel={setSelectedLevel}

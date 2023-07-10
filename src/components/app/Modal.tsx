@@ -34,6 +34,8 @@ type Props = {
   savedTimestamps: { [key: string]: Date };
 
   selectedWord: string;
+  selectedAudio: string;
+  setSelectedAudio: (value: string) => void;
   selectedSentence: string;
   selectedLevel: string;
   setSelectedLevel: (value: string) => void;
@@ -124,7 +126,8 @@ const Modal = (props: Props) => {
       const result = await fetch(API_URL(word));
       const data = await result.json();
       console.log("data", data);
-
+      const audio = "https://www.w3schools.com/jsref/horse.ogg";
+      props.setSelectedAudio(audio);
       const definition = data
         .map(
           (word: {
@@ -206,6 +209,20 @@ const Modal = (props: Props) => {
                     ""
                   )}
                   {props.selectedWord}
+                  <div>
+                    {props.selectedAudio ? (
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          new Audio(props.selectedAudio).play();
+                        }}
+                      >
+                        <i className="fa fa-volume-up" aria-hidden="true"></i>
+                      </button>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </div>
                 <div className="text-coal-1 text-fs-13">
                   {props.savedTimestamps[props.selectedWord] ? (
