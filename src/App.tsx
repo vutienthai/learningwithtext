@@ -308,9 +308,6 @@ function App() {
               setSavedTexts={setSavedTexts}
               savedWords={savedWords}
               setSavedWords={setSavedWords}
-              savedNotes={savedNotes}
-              savedLevels={savedLevels}
-              savedTimestamps={savedTimestamps}
             />
             <Footer />
           </>

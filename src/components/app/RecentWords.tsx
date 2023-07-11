@@ -26,6 +26,7 @@ const RecentWords = (props: Props) => {
                 const level = savedWord.level;
                 return (
                   <span
+                    key={word}
                     className={`${word} level-${level} rounded-2 px-2 position-relative`}
                     data-bs-toggle="modal"
                     data-bs-target="#wordModal"

@@ -211,6 +211,7 @@ const Modal = (props: Props) => {
                     {props.selectedAudio ? (
                       props.selectedAudio.map((audio) => (
                         <button
+                          key={audio}
                           className="btn btn-sm"
                           onClick={() => {
                             new Audio(audio).play();

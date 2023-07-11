@@ -37,7 +37,7 @@ const LevelFilterOption = (props: ModalProps) => {
   );
 };
 
-const AllWords = (props: Props) => {
+const AllWordsFlashcard = (props: Props) => {
   const [filter, setFilter] = useState("all");
 
   const onChangeFilterOption = (e: any) => {
@@ -116,7 +116,6 @@ const AllWords = (props: Props) => {
                   }
                 })
                 .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-                .slice(0, 15)
                 .map((savedWord) => {
                   const word = savedWord.word;
                   const level = savedWord.level;
@@ -124,8 +123,6 @@ const AllWords = (props: Props) => {
                     <span
                       key={word}
                       className={`${word} level-${level} rounded-2 px-2 position-relative`}
-                      data-bs-toggle="modal"
-                      data-bs-target="#wordModal"
                       data-bs-content={word}
                       onClick={props.onClickWordHandler}
                     >
@@ -133,11 +130,10 @@ const AllWords = (props: Props) => {
                     </span>
                   );
                 })}
-              ...
             </div>
             <div>
-              <Link to={"/flashcard"} className="btn text-gray-1">
-                See all
+              <Link to={"/learn"} className="btn text-gray-1">
+                Learn more
               </Link>
             </div>
           </div>
@@ -149,4 +145,4 @@ const AllWords = (props: Props) => {
   );
 };
 
-export default AllWords;
+export default AllWordsFlashcard;
