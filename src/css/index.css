@@ -14079,6 +14079,11 @@ nav #navbar-chat-icon {
   transform: rotateY(180deg);
 }
 
+#flashcard-front,
+#flashcard-back {
+  height: 320px;
+}
+
 .flipped {
   transform: rotateY(180deg);
 }

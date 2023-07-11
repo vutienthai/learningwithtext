@@ -74,9 +74,12 @@ const Flashcard = (props: Props) => {
             </div>
             <div className="col-12 col-lg-8 my-3">
               <h2 className="text-center text-light">Revision</h2>
-              <div className="rounded-3 border-0 p-3 p-lg-5 bg-light">
+              <div className="rounded-3 border-0 p-3 p-lg-5">
                 <div className="d-flex flex-column gap-3 justify-content-between align-items-center">
-                  <button onClick={onClickNextHandler} className="btn">
+                  <button
+                    onClick={onClickNextHandler}
+                    className="btn btn-yellow-1"
+                  >
                     Next
                   </button>
                   <div
@@ -85,7 +88,7 @@ const Flashcard = (props: Props) => {
                   >
                     <div
                       id="flashcard-front"
-                      className="card border p-5 bg-blue-1 w-100"
+                      className="d-flex align-items-center justify-content-center card p-3 p-lg-5 bg-blue-1 w-100"
                       onClick={() => {
                         document
                           .getElementById("flashcard")
@@ -106,7 +109,7 @@ const Flashcard = (props: Props) => {
                     </div>
                     <div
                       id="flashcard-back"
-                      className="card border p-5 bg-blue-1 w-100 d-none flipped"
+                      className="d-flex align-items-center justify-content-center card p-3 p-lg-5 bg-blue-1 w-100 d-none flipped"
                       onClick={() => {
                         document
                           .getElementById("flashcard")

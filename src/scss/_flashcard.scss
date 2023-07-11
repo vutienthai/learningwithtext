@@ -25,6 +25,11 @@
 //   transform: rotateY(180deg);
 // }
 
+#flashcard-front,
+#flashcard-back {
+  height: 320px;
+}
+
 .flipped {
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
