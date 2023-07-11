@@ -39,7 +39,7 @@ const Flashcard = (props: Props) => {
     return;
   };
   return (
-    <section id="flashcard" className="bg-dark min-vh-100">
+    <section id="section-flashcard" className="bg-dark min-vh-100">
       <div className="container-fluid">
         <div className="d-flex flex-column align-items-center py-5">
           <h1 className="mb-3 text-light">
@@ -65,8 +65,34 @@ const Flashcard = (props: Props) => {
               <div className="rounded-3 border-0 p-3 p-md-5 bg-light">
                 <div className="d-flex gap-5 justify-content-between align-items-center">
                   <button>Back</button>
-                  <div className="card w-100 d-flex justify-content-center align-items-center">
-                    Hello
+                  <div
+                    id="flashcard"
+                    className="flashcard w-100 d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      className="font border p-5"
+                      onClick={(e) => {
+                        console.log(
+                          document
+                            .getElementById("flashcard")
+                            ?.classList.toggle("flipped")
+                        );
+                      }}
+                    >
+                      Front
+                    </div>
+                    <div
+                      className="back border p-5"
+                      onClick={(e) => {
+                        console.log(
+                          document
+                            .getElementById("flashcard")
+                            ?.classList.toggle("flipped")
+                        );
+                      }}
+                    >
+                      Back
+                    </div>
                   </div>
                   <button>Next</button>
                 </div>

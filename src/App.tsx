@@ -185,6 +185,30 @@ function App() {
     setSavedTimestamps(tempSavedTimestamps);
   }, [savedWords]);
 
+  const PageLayout = (children: any) => {
+    return (
+      <>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Navbar
+              auth={auth}
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              userName={userName}
+              userEmail={userEmail}
+              userPhoto={userPhoto}
+              lastSignInTime={lastSignInTime}
+            />
+            {children}
+            <Footer />
+          </>
+        )}
+      </>
+    );
+  };
+
   const HomePage = () => {
     return (
       <>
@@ -211,6 +235,7 @@ function App() {
       </>
     );
   };
+
   const LoginPage = () => {
     return (
       <>

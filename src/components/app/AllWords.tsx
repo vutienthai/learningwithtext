@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
   savedWords: {
@@ -96,40 +97,52 @@ const AllWords = (props: Props) => {
         </div>
       </div>
 
-      <div className="text-light d-flex flex-wrap gap-2 rounded-3 bg-coal-1 p-3">
+      <div className="rounded-3 bg-coal-1 p-3">
         {props.savedWords.filter((word) => {
           if (filter === "all") {
             return word.level !== "ignore";
           } else {
             return word.level === filter && word.level !== "ignore";
           }
-        }).length > 0
-          ? props.savedWords
-              .filter((word) => {
-                if (filter === "all") {
-                  return word.level !== "ignore";
-                } else {
-                  return word.level === filter && word.level !== "ignore";
-                }
-              })
-              .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-              .slice(0, 50)
-              .map((savedWord) => {
-                const word = savedWord.word;
-                const level = savedWord.level;
-                return (
-                  <span
-                    className={`${word} level-${level} rounded-2 px-2 position-relative`}
-                    data-bs-toggle="modal"
-                    data-bs-target="#wordModal"
-                    data-bs-content="???"
-                    onClick={props.onClickWordHandler}
-                  >
-                    {word}
-                  </span>
-                );
-              })
-          : "No words"}
+        }).length > 0 ? (
+          <div className="d-flex flex-column gap-3">
+            <div className="text-light d-flex flex-wrap gap-2">
+              {props.savedWords
+                .filter((word) => {
+                  if (filter === "all") {
+                    return word.level !== "ignore";
+                  } else {
+                    return word.level === filter && word.level !== "ignore";
+                  }
+                })
+                .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
+                .slice(0, 15)
+                .map((savedWord) => {
+                  const word = savedWord.word;
+                  const level = savedWord.level;
+                  return (
+                    <span
+                      className={`${word} level-${level} rounded-2 px-2 position-relative`}
+                      data-bs-toggle="modal"
+                      data-bs-target="#wordModal"
+                      data-bs-content="???"
+                      onClick={props.onClickWordHandler}
+                    >
+                      {word}
+                    </span>
+                  );
+                })}
+              ...
+            </div>
+            <div>
+              <Link to={"/flashcard"} className="btn text-gray-1">
+                See all
+              </Link>
+            </div>
+          </div>
+        ) : (
+          "No words"
+        )}
       </div>
     </div>
   );
