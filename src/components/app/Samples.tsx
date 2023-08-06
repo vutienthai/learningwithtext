@@ -38,7 +38,7 @@ const Samples = (props: Props) => {
                 className="text-coal-1"
                 href="#text"
                 onClick={() => {
-                  console.log(text.text);
+                  // console.log(text.text);
                   const generatedText =
                     props.convertPlainTextToWordAndSentencePairs(text.text);
                   props.setGeneratedText(generatedText);

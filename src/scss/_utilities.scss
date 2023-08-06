@@ -1,5 +1,5 @@
 @mixin drop-shadow($pixel) {
-  filter: drop-shadow($pixel $pixel 0px $black);
+  filter: drop-shadow($pixel $pixel 0px rgba($black, 0.8));
 }
 
 .web-name {
@@ -14,13 +14,11 @@
   // }
 }
 
-.get-started-btn {
-  font-family: "Paytone One", sans-serif;
-  @include drop-shadow(3px);
-}
-
+.get-started-btn,
 #generate-btn,
-#new-text-btn {
+#new-text-btn,
+#learn-with-flashcard-btn,
+#next-btn {
   font-family: "Paytone One", sans-serif;
   @include drop-shadow(3px);
 }

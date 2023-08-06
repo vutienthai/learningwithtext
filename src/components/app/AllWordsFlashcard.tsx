@@ -43,6 +43,7 @@ const AllWordsFlashcard = (props: Props) => {
   const onChangeFilterOption = (e: any) => {
     setFilter(e.target.value);
   };
+
   return (
     <div className="d-flex flex-column gap-2 ">
       <div className="vocab-heading mb-0 text-light-yellow">

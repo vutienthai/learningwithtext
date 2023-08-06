@@ -103,7 +103,7 @@ const Navbar = (props: Props) => {
                             onClick={() => {
                               props.auth.signOut();
                               props.setLoggedIn(false);
-                              console.log("auth.signOut");
+                              // console.log("auth.signOut");
                             }}
                           >
                             <LogoutIcon size={16} /> Logout

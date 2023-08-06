@@ -46,12 +46,12 @@ function App() {
   >([]);
   const [generatedTextTitle, setGeneratedTextTitle] = useState<string>("");
   const [editMode, setEditMode] = useState<boolean>(true);
-  const [showSamples, setShowSamples] = useState(false);
+  const [showSamples, setShowSamples] = useState(true);
 
   const [lastSignInTime, setLastSignInTime] = useState<string>("");
 
   const getUserCount = async () => {
-    console.log("Getting user count...");
+    // console.log("Getting user count...");
     let count = 0;
     const q = query(collection(db, "users/"));
     const querySnapshot = await getDocs(q);
@@ -63,7 +63,7 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (authResult: any) => {
-      console.log("authResult", authResult);
+      // console.log("authResult", authResult);
 
       if (authResult) {
         setLoggedIn(true);
@@ -83,7 +83,7 @@ function App() {
   }, []);
 
   const getSavedTexts = async () => {
-    console.log("Getting texts...");
+    // console.log("Getting texts...");
     const path = `users/${userEmail}/textCollection`;
     const q = query(collection(db, path));
     const querySnapshot = await getDocs(q);
@@ -94,7 +94,7 @@ function App() {
       timestamp: Date;
     }[] = [];
     if (querySnapshot.empty) {
-      console.log("querySnapshot.empty", querySnapshot.empty);
+      // console.log("querySnapshot.empty", querySnapshot.empty);
       setDoc(doc(db, "users", userEmail), {});
     } else {
       querySnapshot.forEach((doc) => {
@@ -110,13 +110,13 @@ function App() {
 
     tempSavedTexts.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
 
-    console.log("tempSavedTexts", tempSavedTexts);
+    // console.log("tempSavedTexts", tempSavedTexts);
     setSavedTexts(tempSavedTexts.slice(0, 5));
     setLoadingSavedTexts(false);
   };
 
   const getSavedWords = async () => {
-    console.log("Getting words...");
+    // console.log("Getting words...");
     const path = `users/${userEmail}/wordCollection`;
     const q = query(collection(db, path));
     const querySnapshot = await getDocs(q);
@@ -129,7 +129,7 @@ function App() {
     }[] = [];
 
     if (querySnapshot.empty) {
-      console.log("querySnapshot.empty", querySnapshot.empty);
+      // console.log("querySnapshot.empty", querySnapshot.empty);
       setDoc(doc(db, "users", userEmail), {});
     } else {
       querySnapshot.forEach((doc) => {
@@ -146,7 +146,7 @@ function App() {
 
     tempSavedWords.sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1));
 
-    console.log("tempSavedWords", tempSavedWords);
+    // console.log("tempSavedWords", tempSavedWords);
     setSavedWords(tempSavedWords);
     setLoadingSavedWords(false);
   };

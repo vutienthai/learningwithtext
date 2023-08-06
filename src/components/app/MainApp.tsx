@@ -107,7 +107,7 @@ const MainApp = (props: Props) => {
       });
       return sentences.flat();
     });
-    console.log("wordsInParagraphsList", words);
+    // console.log("wordsInParagraphsList", words);
     return words;
   };
 
@@ -122,7 +122,7 @@ const MainApp = (props: Props) => {
       const generatedText = convertPlainTextToWordAndSentencePairs(
         userInput.value
       );
-      console.log("generatedText", generatedText);
+      // console.log("generatedText", generatedText);
       const textID = generateID();
       const timestamp = new Date();
       const newText = {
@@ -141,7 +141,7 @@ const MainApp = (props: Props) => {
       const userCollectionPath = `users/${props.userEmail}/textCollection`;
       setDoc(doc(db, userCollectionPath, textID), newText);
     } else {
-      console.log("empty input");
+      // console.log("empty input");
       setEmptyInputWarning(true);
     }
   };
@@ -154,16 +154,16 @@ const MainApp = (props: Props) => {
     try {
       const result = await fetch(API_URL(word));
       const data = await result.json();
-      console.log("data", data);
+      // console.log("data", data);
       const audios = data.map((def: { phonetics: { audio: "" }[] }) =>
         def.phonetics.map((phonetic) => phonetic.audio)
       );
       let audioSet = audios.flat().filter((audio: string) => audio);
       audioSet = [...new Set(audioSet)];
-      console.log("audioSet", audioSet);
+      // console.log("audioSet", audioSet);
       setSelectedAudio(audioSet);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -172,9 +172,9 @@ const MainApp = (props: Props) => {
     setSelectedAudio([]);
 
     const selectedWord = e.target.innerText.toLowerCase();
-    console.log("selectedWord", selectedWord);
+    // console.log("selectedWord", selectedWord);
     const selectedSentence = e.target.getAttribute("data-bs-sentence");
-    console.log("selectedSentence", selectedSentence);
+    // console.log("selectedSentence", selectedSentence);
     setSelectedWord(selectedWord);
     setSelectedSentence(selectedSentence);
 
@@ -191,7 +191,7 @@ const MainApp = (props: Props) => {
   };
 
   return (
-    <section id="main-app" className="bg-dark min-vh-100">
+    <section id="main-app" className="rounded-5 my-2 bg-dark min-vh-100">
       <div className="container-fluid">
         <div className="row px-4 py-3 py-md-2 py-lg-1">
           <div className="col-12 col-lg-3 p-1 p-md-2 p-lg-3 my-3 my-md-4 my-lg-2">

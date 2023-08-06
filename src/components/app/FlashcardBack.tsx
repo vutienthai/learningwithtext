@@ -41,9 +41,9 @@ const FlashcardBack = (props: Props) => {
                   </div>
                   <div className="mb-3">
                     <textarea
-                      className="form-control text-fs-13 bg-light-yellow"
-                      id="word-note"
-                      rows={7}
+                      className="form-control text-fs-15 bg-light"
+                      rows={15}
+                      disabled={true}
                       value={props.selectedNote}
                       onChange={() => {
                         return null;

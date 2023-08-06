@@ -2,7 +2,7 @@ import React from "react";
 
 const AppStatistics = () => {
   return (
-    <section id="app-statistics">
+    <section id="app-statistics" className="">
       <div className="min-vh-100 d-flex flex-column justify-content-center align-items-center py-5">
         <h1 className="mb-3 text-light">
           <i className="fa fa-area-chart me-2" aria-hidden="true"></i> App

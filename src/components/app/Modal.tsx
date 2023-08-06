@@ -73,19 +73,19 @@ const Modal = (props: Props) => {
     ) as HTMLInputElement;
     const updatedNote = noteElement.value;
     const updatedLevel = levelElement ? levelElement.value : "";
-    console.log("updatedLevel", updatedLevel);
-    console.log("updatedNote", updatedNote);
-    console.log("savedWords", props.savedWords);
+    // console.log("updatedLevel", updatedLevel);
+    // console.log("updatedNote", updatedNote);
+    // console.log("savedWords", props.savedWords);
     const tempSavedWords = [...props.savedWords];
     const wordIndex = tempSavedWords.findIndex(
       (word) => word.word === props.selectedWord
     );
-    console.log("wordIndex", wordIndex);
+    // console.log("wordIndex", wordIndex);
 
     let updatedWord;
     let wordID;
     const timestamp = new Date();
-    console.log("timestamp", timestamp);
+    // console.log("timestamp", timestamp);
     props.setSelectedTimestamp(timestamp);
     props.setCurrentTimestamp(timestamp);
 
@@ -125,7 +125,7 @@ const Modal = (props: Props) => {
     try {
       const result = await fetch(API_URL(word));
       const data = await result.json();
-      console.log("data", data);
+      // console.log("data", data);
       const definition = data
         .map(
           (word: {
@@ -163,7 +163,7 @@ const Modal = (props: Props) => {
       props.setSelectedNote(definition);
       setLoading(false);
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       props.setSelectedNote("No definition found.");
       setLoading(false);
     }

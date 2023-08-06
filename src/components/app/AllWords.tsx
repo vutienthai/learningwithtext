@@ -44,7 +44,7 @@ const AllWords = (props: Props) => {
     setFilter(e.target.value);
   };
   return (
-    <div className="d-flex flex-column gap-2 ">
+    <div className="d-flex flex-column gap-3">
       <div className="vocab-heading mb-0 text-light-yellow">
         You have learnt
         <span className="badge bg-green-1 mx-2 fs-5">
@@ -56,8 +56,8 @@ const AllWords = (props: Props) => {
         </span>
         words
       </div>
-      <div className="d-flex gap-2 text-gray-1">
-        <div className="">Filter:</div>
+      <div className="d-flex gap-3 text-gray-1">
+        <div className="">Level</div>
         <div className="">
           <LevelFilterOption
             level={"1"}
@@ -97,7 +97,7 @@ const AllWords = (props: Props) => {
         </div>
       </div>
 
-      <div className="rounded-3 bg-coal-1 p-3">
+      <div className="">
         {props.savedWords.filter((word) => {
           if (filter === "all") {
             return word.level !== "ignore";
@@ -105,7 +105,7 @@ const AllWords = (props: Props) => {
             return word.level === filter && word.level !== "ignore";
           }
         }).length > 0 ? (
-          <div className="d-flex flex-column gap-3">
+          <div className="d-flex flex-column gap-5">
             <div className="text-light d-flex flex-wrap gap-2">
               {props.savedWords
                 .filter((word) => {
@@ -116,7 +116,6 @@ const AllWords = (props: Props) => {
                   }
                 })
                 .sort((a, b) => (a.timestamp > b.timestamp ? 1 : -1))
-                .slice(0, 15)
                 .map((savedWord) => {
                   const word = savedWord.word;
                   const level = savedWord.level;
@@ -133,16 +132,20 @@ const AllWords = (props: Props) => {
                     </span>
                   );
                 })}
-              ...
             </div>
             <div>
-              <Link to={"/flashcard"} className="btn text-gray-1">
-                See all
+              <Link
+                to={"/flashcard"}
+                id="learn-with-flashcard-btn"
+                className="btn btn-outline-yellow-1 text-light-yellow rounded-5 d-flex justify-content-center align-items-center gap-2 py-1"
+              >
+                <i className="fa fa-leanpub me-1" aria-hidden="true"></i> Learn
+                with Flashcard
               </Link>
             </div>
           </div>
         ) : (
-          "No words"
+          <div className="text-light">No words</div>
         )}
       </div>
     </div>

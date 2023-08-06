@@ -23,7 +23,7 @@ const SavedTexts = (props: Props) => {
   const deleteSavedText = (e: any) => {
     const textID = e.target.parentNode.getAttribute("data-text-id");
 
-    console.log("textID", textID);
+    // console.log("textID", textID);
     const userCollectionPath = `users/${props.userEmail}/textCollection`;
     deleteDoc(doc(db, userCollectionPath, textID));
 
@@ -67,7 +67,7 @@ const SavedTexts = (props: Props) => {
                   className="text-coal-1"
                   href="#text"
                   onClick={() => {
-                    console.log(text.text);
+                    // console.log(text.text);
                     const generatedText =
                       props.convertPlainTextToWordAndSentencePairs(text.text);
                     props.setGeneratedText(generatedText);
